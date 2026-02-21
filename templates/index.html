@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosody Intelligence — RRI</title>
+    <style>
+        /* ── Reset & Base ── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            background: #0D0D0D;
+            color: #E0E0E0;
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        header {
+            background: linear-gradient(135deg, #1A0A0A 0%, #0D0D0D 100%);
+            border-bottom: 1px solid #E8594F33;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo h1 {
+            font-size: 20px;
+            color: #E8594F;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .logo span {
+            font-size: 11px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        /* ── Tabs ── */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            padding: 0 40px;
+            background: #111;
+            border-bottom: 1px solid #222;
+        }
+        .tab {
+            padding: 14px 28px;
+            cursor: pointer;
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab:hover { color: #BBB; }
+        .tab.active {
+            color: #E8594F;
+            border-bottom-color: #E8594F;
+        }
+
+        /* ── Main Content ── */
+        main { padding: 30px 40px; max-width: 1400px; margin: 0 auto; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ── Upload Zone ── */
+        .upload-zone {
+            border: 2px dashed #333;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 24px;
+        }
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: #E8594F;
+            background: #E8594F08;
+        }
+        .upload-zone h3 {
+            color: #888;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .upload-zone p {
+            color: #555;
+            font-size: 11px;
+        }
+        .upload-zone input[type="file"] { display: none; }
+
+        /* ── Controls ── */
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #E8594F;
+            color: white;
+        }
+        .btn-primary:hover { background: #D04840; }
+        .btn-primary:disabled {
+            background: #444;
+            color: #777;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #222;
+            color: #AAA;
+            border: 1px solid #333;
+        }
+        .btn-secondary:hover { background: #2A2A2A; border-color: #555; }
+        .btn-ghost {
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+        }
+
+        select {
+            background: #1A1A1A;
+            color: #CCC;
+            border: 1px solid #333;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        .checkbox-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+            font-size: 12px;
+        }
+        .checkbox-wrap input { accent-color: #E8594F; }
+
+        /* ── Text Input ── */
+        textarea {
+            width: 100%;
+            background: #1A1A1A;
+            color: #DDD;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: inherit;
+            font-size: 13px;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 200px;
+            margin-bottom: 16px;
+        }
+        textarea:focus { outline: none; border-color: #E8594F55; }
+
+        /* ── Results ── */
+        .results { margin-top: 24px; }
+
+        .result-card {
+            background: #151515;
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .result-card h3 {
+            color: #E8594F;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .result-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        /* ── Segment List ── */
+        .segment {
+            background: #1A1A1A;
+            border-left: 3px solid #E8594F;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border-radius: 0 6px 6px 0;
+        }
+        .segment.speaker-low { border-left-color: #4A90D9; }
+        .segment .text {
+            color: #DDD;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .segment .meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .segment .meta span {
+            font-size: 10px;
+            color: #888;
+            background: #222;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .segment .meta .highlight {
+            color: #E8594F;
+            background: #E8594F15;
+        }
+
+        /* ── Emotion Map ── */
+        .emotion-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-bottom: 1px solid #1A1A1A;
+        }
+        .emotion-tag {
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            min-width: 80px;
+            text-align: center;
+        }
+        .emotion-tag.sarcastic { background: #8B5CF620; color: #A78BFA; }
+        .emotion-tag.comedic { background: #F59E0B20; color: #FBBF24; }
+        .emotion-tag.confident { background: #10B98120; color: #34D399; }
+        .emotion-tag.dramatic { background: #EC489920; color: #F472B6; }
+        .emotion-tag.analytical { background: #3B82F620; color: #60A5FA; }
+        .emotion-tag.urgent { background: #EF444420; color: #F87171; }
+        .emotion-tag.angry { background: #DC262620; color: #FCA5A5; }
+        .emotion-tag.resigned { background: #6B728020; color: #9CA3AF; }
+        .emotion-tag.hesitant { background: #6B728020; color: #9CA3AF; }
+        .emotion-tag.tender { background: #EC489920; color: #F9A8D4; }
+        .emotion-tag.excited { background: #F59E0B20; color: #FDE68A; }
+        .emotion-tag.neutral { background: #37415120; color: #9CA3AF; }
+        .emotion-text {
+            color: #CCC;
+            font-size: 12px;
+            flex: 1;
+        }
+        .emotion-params {
+            font-size: 10px;
+            color: #666;
+        }
+
+        /* ── Analysis ── */
+        .analysis-text {
+            color: #CCC;
+            font-size: 13px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        /* ── Proof Test ── */
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .proof-col h4 {
+            color: #888;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+        }
+        .proof-col.pass-b h4 { color: #E8594F; }
+
+        /* ── Audio Player ── */
+        audio {
+            width: 100%;
+            margin-top: 12px;
+            border-radius: 8px;
+        }
+
+        /* ── Loading ── */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .loader.active { display: block; }
+        .loader-text {
+            color: #E8594F;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #333;
+            border-top-color: #E8594F;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .step-indicator {
+            color: #555;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        /* ── Status Bar ── */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #111;
+            border-top: 1px solid #222;
+            padding: 8px 40px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #555;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .proof-grid { grid-template-columns: 1fr; }
+            main { padding: 20px; }
+            header { padding: 16px 20px; }
+            .tabs { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h1>PROSODY INTELLIGENCE</h1>
+        <span>Rabid Raccoon Intelligence, LLC</span>
+    </div>
+</header>
+
+<div class="tabs">
+    <div class="tab active" data-panel="forward">ANALYZE AUDIO</div>
+    <div class="tab" data-panel="proof">PROOF TEST</div>
+    <div class="tab" data-panel="reverse">REVERSE PIPELINE</div>
+</div>
+
+<main>
+
+    <!-- ═══════ FORWARD PIPELINE ═══════ -->
+    <div class="panel active" id="panel-forward">
+        <div class="upload-zone" id="forward-upload">
+            <h3>Drop audio file here or click to upload</h3>
+            <p>.m4a .mp3 .wav .ogg .webm</p>
+            <input type="file" id="forward-file" accept="audio/*">
+        </div>
+        <div class="controls">
+            <button class="btn btn-primary" id="btn-analyze" disabled>ANALYZE</button>
+            <label class="checkbox-wrap">
+                <input type="checkbox" id="chk-skip-llm">
+                Skip LLM (extraction only)
+            </label>
+            <span id="forward-filename" style="color:#555; font-size:11px;"></span>
+        </div>
+        <div class="loader" id="forward-loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Processing audio...</div>
+            <div class="step-indicator" id="forward-step">Transcribing with Whisper...</div>
+        </div>
+        <div class="results" id="forward-results"></div>
+    </div>
+
+    <!-- ═══════ PROOF TEST ═══════ -->
+    <div class="panel" id="panel-proof">
+        <div class="upload-zone" id="proof-upload">
+            <h3>Drop audio for A/B proof test</h3>
+            <p>Runs LLM analysis twice: text-only vs text+prosody</p>
+            <input type="file" id="proof-file" accept="audio/*">
+        </div>
+        <div class="controls">
+            <button class="btn btn-primary" id="btn-proof" disabled>RUN PROOF TEST</button>
+            <span id="proof-filename" style="color:#555; font-size:11px;"></span>
+        </div>
+        <div class="loader" id="proof-loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Running A/B comparison...</div>
+            <div class="step-indicator" id="proof-step">This takes ~30s (two LLM passes)</div>
+        </div>
+        <div class="results" id="proof-results"></div>
+    </div>
+
+    <!-- ═══════ REVERSE PIPELINE ═══════ -->
+    <div class="panel" id="panel-reverse">
+        <textarea id="reverse-text" placeholder="Paste text here for emotion detection and TTS generation...
+
+Example:
+CLAUDE: The council will come to order.
+GROK: You're welcome. That chaos had a thesis statement.
+KYRA: Ship something or I'm revoking snack privileges."></textarea>
+        <div class="controls">
+            <select id="reverse-voice">
+                {% for key, voice in voices.items() %}
+                <option value="{{ key }}">{{ voice.name }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" id="btn-emotion-map">DETECT EMOTIONS</button>
+            <button class="btn btn-secondary" id="btn-generate-tts" disabled>GENERATE AUDIO</button>
+        </div>
+        <div class="loader" id="reverse-loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Processing...</div>
+            <div class="step-indicator" id="reverse-step"></div>
+        </div>
+        <div class="results" id="reverse-results"></div>
+    </div>
+
+</main>
+
+<div class="status-bar">
+    <span>Prosody Intelligence v1.0</span>
+    <span>Forward: Whisper + Parselmouth + LLM &nbsp;|&nbsp; Reverse: LLM + ElevenLabs</span>
+</div>
+
+<script>
+// ── Tab Switching ──
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+    });
+});
+
+// ── Upload Zone Behavior ──
+function setupUpload(zoneId, fileId, filenameId, btnId) {
+    const zone = document.getElementById(zoneId);
+    const input = document.getElementById(fileId);
+    const btn = document.getElementById(btnId);
+
+    zone.addEventListener('click', () => input.click());
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+    zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        input.files = e.dataTransfer.files;
+        input.dispatchEvent(new Event('change'));
+    });
+    input.addEventListener('change', () => {
+        if (input.files.length) {
+            document.getElementById(filenameId).textContent = input.files[0].name;
+            btn.disabled = false;
+        }
+    });
+}
+setupUpload('forward-upload', 'forward-file', 'forward-filename', 'btn-analyze');
+setupUpload('proof-upload', 'proof-file', 'proof-filename', 'btn-proof');
+
+// ── Forward Pipeline ──
+document.getElementById('btn-analyze').addEventListener('click', async () => {
+    const file = document.getElementById('forward-file').files[0];
+    if (!file) return;
+
+    const loader = document.getElementById('forward-loader');
+    const results = document.getElementById('forward-results');
+    const btn = document.getElementById('btn-analyze');
+    const skipLlm = document.getElementById('chk-skip-llm').checked;
+
+    btn.disabled = true;
+    loader.classList.add('active');
+    results.innerHTML = '';
+
+    const formData = new FormData();
+    formData.append('audio', file);
+    if (skipLlm) formData.append('skip_llm', 'true');
+
+    try {
+        const resp = await fetch('/api/analyze', { method: 'POST', body: formData });
+        const data = await resp.json();
+
+        if (data.error) {
+            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            return;
+        }
+
+        let html = '';
+
+        // Visualization
+        if (data.visualization) {
+            html += `<div class="result-card">
+                <h3>Prosody Visualization</h3>
+                <img src="${data.visualization}" alt="Prosody visualization">
+                <p style="color:#666; font-size:11px;">${data.segment_count} segments &bull; ${data.duration.toFixed(1)}s duration</p>
+            </div>`;
+        }
+
+        // Annotated Segments
+        html += `<div class="result-card"><h3>Annotated Transcript</h3>`;
+        data.segments.forEach(seg => {
+            const p = seg.prosody;
+            const isLow = p.avg_pitch < 170;
+            const pauseHighlight = p.pause_before > 1.0 ? 'highlight' : '';
+            html += `<div class="segment ${isLow ? 'speaker-low' : ''}">
+                <div class="text">${seg.text}</div>
+                <div class="meta">
+                    <span>pitch: ${p.avg_pitch}Hz ${p.pitch_direction}</span>
+                    <span>variance: ${p.pitch_variance}</span>
+                    <span>energy: ${p.energy}</span>
+                    <span>rate: ${p.speaking_rate} syl/s</span>
+                    <span class="${pauseHighlight}">pause: ${p.pause_before}s</span>
+                </div>
+            </div>`;
+        });
+        html += `</div>`;
+
+        // LLM Analysis
+        if (data.analysis) {
+            html += `<div class="result-card">
+                <h3>Prosody Analysis</h3>
+                <div class="analysis-text">${data.analysis}</div>
+            </div>`;
+        }
+
+        // Timing
+        if (data.timing) {
+            const steps = Object.entries(data.timing).map(([k,v]) => `${k}: ${v}s`).join(' &bull; ');
+            html += `<p style="color:#444; font-size:10px; margin-top:8px;">Pipeline timing: ${steps}</p>`;
+        }
+
+        results.innerHTML = html;
+    } catch (err) {
+        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+    } finally {
+        loader.classList.remove('active');
+        btn.disabled = false;
+    }
+});
+
+// ── Proof Test ──
+document.getElementById('btn-proof').addEventListener('click', async () => {
+    const file = document.getElementById('proof-file').files[0];
+    if (!file) return;
+
+    const loader = document.getElementById('proof-loader');
+    const results = document.getElementById('proof-results');
+    const btn = document.getElementById('btn-proof');
+
+    btn.disabled = true;
+    loader.classList.add('active');
+    results.innerHTML = '';
+
+    const formData = new FormData();
+    formData.append('audio', file);
+
+    try {
+        const resp = await fetch('/api/proof-test', { method: 'POST', body: formData });
+        const data = await resp.json();
+
+        if (data.error) {
+            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            return;
+        }
+
+        let html = '';
+
+        // Visualization
+        if (data.visualization) {
+            html += `<div class="result-card">
+                <h3>Prosody Visualization</h3>
+                <img src="${data.visualization}" alt="Prosody visualization">
+            </div>`;
+        }
+
+        // Side-by-side comparison
+        html += `<div class="result-card"><h3>A/B Comparison — The Delta</h3>
+            <div class="proof-grid">
+                <div class="proof-col pass-a">
+                    <h4>Pass A: Text Only</h4>
+                    <div class="analysis-text">${data.text_analysis}</div>
+                </div>
+                <div class="proof-col pass-b">
+                    <h4>Pass B: Text + Prosody</h4>
+                    <div class="analysis-text">${data.prosody_analysis}</div>
+                </div>
+            </div>
+        </div>`;
+
+        results.innerHTML = html;
+    } catch (err) {
+        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+    } finally {
+        loader.classList.remove('active');
+        btn.disabled = false;
+    }
+});
+
+// ── Reverse Pipeline ──
+let currentEmotionMap = null;
+
+document.getElementById('btn-emotion-map').addEventListener('click', async () => {
+    const text = document.getElementById('reverse-text').value.trim();
+    if (!text) return;
+
+    const loader = document.getElementById('reverse-loader');
+    const results = document.getElementById('reverse-results');
+    const btnMap = document.getElementById('btn-emotion-map');
+    const btnTts = document.getElementById('btn-generate-tts');
+
+    btnMap.disabled = true;
+    loader.classList.add('active');
+    document.getElementById('reverse-step').textContent = 'Detecting emotions...';
+    results.innerHTML = '';
+
+    try {
+        const resp = await fetch('/api/reverse', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, voice: document.getElementById('reverse-voice').value }),
+        });
+        const data = await resp.json();
+
+        if (data.error) {
+            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            return;
+        }
+
+        currentEmotionMap = data.emotion_map;
+        btnTts.disabled = false;
+
+        let html = `<div class="result-card"><h3>Emotion Map</h3>`;
+        data.emotion_map.forEach(item => {
+            const p = item.tts_params;
+            html += `<div class="emotion-row">
+                <span class="emotion-tag ${item.emotion}">${item.emotion}</span>
+                <span class="emotion-text">${item.text}</span>
+                <span class="emotion-params">S:${p.stability} St:${p.style} Sp:${p.speed}</span>
+            </div>`;
+        });
+        html += `</div>`;
+
+        results.innerHTML = html;
+    } catch (err) {
+        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+    } finally {
+        loader.classList.remove('active');
+        btnMap.disabled = false;
+    }
+});
+
+document.getElementById('btn-generate-tts').addEventListener('click', async () => {
+    const text = document.getElementById('reverse-text').value.trim();
+    if (!text) return;
+
+    const loader = document.getElementById('reverse-loader');
+    const results = document.getElementById('reverse-results');
+    const btn = document.getElementById('btn-generate-tts');
+    const voice = document.getElementById('reverse-voice').value;
+
+    btn.disabled = true;
+    loader.classList.add('active');
+    document.getElementById('reverse-step').textContent = 'Generating audio with ElevenLabs...';
+
+    try {
+        const resp = await fetch('/api/reverse', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, voice, generate_audio: true }),
+        });
+        const data = await resp.json();
+
+        if (data.error) {
+            results.innerHTML += `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            return;
+        }
+
+        if (data.audio_url) {
+            results.innerHTML += `<div class="result-card">
+                <h3>Generated Audio</h3>
+                <audio controls src="${data.audio_url}"></audio>
+                <p style="color:#666; font-size:11px; margin-top:8px;">Voice: ${voice} &bull; ${data.emotion_map.length} segments</p>
+            </div>`;
+        }
+    } catch (err) {
+        results.innerHTML += `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+    } finally {
+        loader.classList.remove('active');
+        btn.disabled = false;
+    }
+});
+</script>
+
+</body>
+</html>
