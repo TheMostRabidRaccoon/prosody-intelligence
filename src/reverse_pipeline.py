@@ -112,6 +112,18 @@ EMOTION_PARAMS = {
         "speed": 1.25,
         "description": "Pressured, clipped — speed drives the urgency",
     },
+    "contempt": {
+        "stability": 0.7,
+        "style": 0.85,
+        "speed": 0.8,
+        "description": "Cold superiority — stable, slow, dripping with disdain",
+    },
+    "disgusted": {
+        "stability": 0.4,
+        "style": 0.9,
+        "speed": 0.85,
+        "description": "Visceral revulsion — unstable delivery, like the words taste bad",
+    },
     # ── MID ENERGY: Balanced delivery ──
     "confident": {
         "stability": 0.6,
@@ -159,7 +171,7 @@ EMOTION_PARAMS = {
 
 EMOTION_DETECTION_PROMPT = """You are an emotion tagger for a text-to-speech system. For each line of text, identify the emotional register that should drive the vocal performance.
 
-Available emotions: sarcastic, urgent, confident, comedic, dramatic, analytical, hesitant, angry, tender, resigned, excited, neutral
+Available emotions: sarcastic, urgent, confident, comedic, dramatic, analytical, hesitant, angry, tender, resigned, excited, neutral, contempt, disgusted
 
 Rules:
 1. Tag EVERY line with exactly ONE emotion from the list above.
