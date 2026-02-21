@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+venv/
+.env
+
+# Output artifacts (regeneratable)
+output/*.mp3
+output/*.wav
+output/*_converted.wav
+output/*.png
+output/*.json
+output/*.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Audio test files (may be large/sensitive)
+test_audio/*.m4a
+test_audio/*.mp3
+test_audio/*.wav
