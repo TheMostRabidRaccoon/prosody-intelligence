@@ -21,6 +21,9 @@ import tempfile
 import time
 from pathlib import Path
 
+import matplotlib
+matplotlib.use("Agg")  # Non-interactive backend — required for Flask/threads
+
 import numpy as np
 import parselmouth
 from parselmouth.praat import call
