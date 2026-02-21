@@ -430,15 +430,34 @@ def visualize_prosody(annotated_segments: list, prosody_data: dict, audio_name: 
         int_vals.append(e if e and not np.isnan(e) else np.nan)
     int_vals = np.array(int_vals)
 
-    # --- Color palette ---
-    # Alternating segment colors — warm vs cool to distinguish speakers
+    # --- Adaptive Speaker Separation ---
+    # Instead of hard-coding 170Hz, cluster by median pitch of all
+    # voiced segments. This handles two male speakers, two female
+    # speakers, or any combo where pitches overlap.
+    voiced_pitches = [
+        (i, seg["prosody"]["avg_pitch"])
+        for i, seg in enumerate(annotated_segments)
+        if seg["prosody"]["avg_pitch"] > 0
+        and seg["prosody"]["pitch_direction"] != "unknown"
+        and seg["prosody"]["speaking_rate"] < 50  # filter phantom segments
+    ]
+
+    if voiced_pitches:
+        all_pitches = [p for _, p in voiced_pitches]
+        median_pitch = float(np.median(all_pitches))
+        # Use median as adaptive threshold
+        pitch_threshold = median_pitch
+        print(f"[Viz] Adaptive speaker split: median pitch = {median_pitch:.1f}Hz")
+    else:
+        pitch_threshold = 170.0  # fallback
+
     seg_colors = []
     for i, seg in enumerate(annotated_segments):
         p = seg["prosody"]["avg_pitch"]
-        if p > 170:  # likely higher-pitched speaker
-            seg_colors.append("#E8594F")  # RRI red
+        if p > pitch_threshold:
+            seg_colors.append("#E8594F")  # RRI red — higher-pitched speaker
         else:
-            seg_colors.append("#4A90D9")  # cool blue
+            seg_colors.append("#4A90D9")  # cool blue — lower-pitched speaker
     silence_color = "#2D2D2D"
 
     # --- Figure setup ---
@@ -556,10 +575,12 @@ def visualize_prosody(annotated_segments: list, prosody_data: dict, audio_name: 
     ax3.set_yticks([0.15, 0.6])
     ax3.set_yticklabels(["Rate\n(syl/s)", "Energy\n(0-1)"], fontsize=7, color="#AAAAAA")
 
-    # Legend
+    # Legend — show the adaptive threshold so the user knows the split point
     legend_elements = [
-        mpatches.Patch(facecolor="#E8594F", alpha=0.6, label="Speaker 1 (higher pitch)"),
-        mpatches.Patch(facecolor="#4A90D9", alpha=0.6, label="Speaker 2 (lower pitch)"),
+        mpatches.Patch(facecolor="#E8594F", alpha=0.6,
+                       label=f"Speaker A (>{pitch_threshold:.0f}Hz)"),
+        mpatches.Patch(facecolor="#4A90D9", alpha=0.6,
+                       label=f"Speaker B (<{pitch_threshold:.0f}Hz)"),
         mpatches.Patch(facecolor=silence_color, alpha=0.7, label="Silence (>1s)"),
     ]
     ax1.legend(handles=legend_elements, loc="upper right",

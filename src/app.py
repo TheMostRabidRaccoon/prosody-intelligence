@@ -20,6 +20,8 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 
 # Import our pipelines
+import numpy as np
+
 from prosody_pipeline import (
     transcribe_audio,
     extract_prosody,
@@ -43,6 +45,18 @@ CORS(app)
 
 UPLOAD_DIR = OUTPUT_DIR.parent / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
+
+
+def _compute_speaker_threshold(annotated: list) -> float:
+    """Compute adaptive speaker split threshold from annotated segments."""
+    voiced = [
+        seg["prosody"]["avg_pitch"]
+        for seg in annotated
+        if seg["prosody"]["avg_pitch"] > 0
+        and seg["prosody"]["pitch_direction"] != "unknown"
+        and seg["prosody"]["speaking_rate"] < 50
+    ]
+    return float(np.median(voiced)) if voiced else 170.0
 
 
 # ──────────────────────────────────────────────────────────────
@@ -114,6 +128,8 @@ def api_analyze():
             analysis = analyze_with_llm(annotated, text_only=False)
             steps["llm_analysis"] = round(time.time() - t0, 1)
 
+        speaker_threshold = _compute_speaker_threshold(annotated)
+
         return jsonify({
             "success": True,
             "transcript": transcript["text"],
@@ -122,6 +138,7 @@ def api_analyze():
             "analysis": analysis,
             "duration": prosody_data["duration"],
             "segment_count": len(annotated),
+            "speaker_threshold": speaker_threshold,
             "timing": steps,
         })
 
@@ -158,6 +175,8 @@ def api_proof_test():
         # Pass B: Text + Prosody
         prosody_analysis = analyze_with_llm(annotated, text_only=False)
 
+        speaker_threshold = _compute_speaker_threshold(annotated)
+
         return jsonify({
             "success": True,
             "transcript": transcript["text"],
@@ -167,6 +186,7 @@ def api_proof_test():
             "prosody_analysis": prosody_analysis,
             "duration": prosody_data["duration"],
             "segment_count": len(annotated),
+            "speaker_threshold": speaker_threshold,
         })
 
     except Exception as e:
@@ -186,6 +206,8 @@ def api_reverse():
     text = data["text"]
     voice = data.get("voice", "claude")
     generate_tts = data.get("generate_audio", False)
+    multi_voice = data.get("multi_voice", False)
+    crossfade_ms = data.get("crossfade_ms", 100)
 
     try:
         # Step 1: Emotion detection
@@ -202,7 +224,13 @@ def api_reverse():
         # Step 3: TTS (if requested)
         if generate_tts:
             output_name = f"reverse_{voice}_{int(time.time())}"
-            paths = generate_audio(mapped, voice_key=voice, output_name=output_name)
+            paths = generate_audio(
+                mapped,
+                voice_key=voice,
+                output_name=output_name,
+                multi_voice=multi_voice,
+                crossfade_ms=crossfade_ms,
+            )
             if paths:
                 result["audio_url"] = f"/output/{Path(paths[0]).name}"
 

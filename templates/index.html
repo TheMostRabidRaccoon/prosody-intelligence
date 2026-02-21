@@ -421,6 +421,15 @@ KYRA: Ship something or I'm revoking snack privileges."></textarea>
                 <option value="{{ key }}">{{ voice.name }}</option>
                 {% endfor %}
             </select>
+            <label class="checkbox-wrap">
+                <input type="checkbox" id="chk-multi-voice">
+                Multi-voice (detect speaker tags)
+            </label>
+            <label class="checkbox-wrap" style="gap:4px;">
+                Crossfade:
+                <input type="range" id="crossfade-slider" min="0" max="300" value="100" style="width:80px; accent-color:#E8594F;">
+                <span id="crossfade-val" style="min-width:35px;">100ms</span>
+            </label>
             <button class="btn btn-primary" id="btn-emotion-map">DETECT EMOTIONS</button>
             <button class="btn btn-secondary" id="btn-generate-tts" disabled>GENERATE AUDIO</button>
         </div>
@@ -513,11 +522,13 @@ document.getElementById('btn-analyze').addEventListener('click', async () => {
             </div>`;
         }
 
-        // Annotated Segments
-        html += `<div class="result-card"><h3>Annotated Transcript</h3>`;
+        // Annotated Segments — use adaptive speaker threshold from backend
+        const threshold = data.speaker_threshold || 170;
+        html += `<div class="result-card"><h3>Annotated Transcript</h3>
+            <p style="color:#666; font-size:10px; margin-bottom:12px;">Speaker split threshold: ${threshold.toFixed(1)}Hz (adaptive median)</p>`;
         data.segments.forEach(seg => {
             const p = seg.prosody;
-            const isLow = p.avg_pitch < 170;
+            const isLow = p.avg_pitch < threshold;
             const pauseHighlight = p.pause_before > 1.0 ? 'highlight' : '';
             html += `<div class="segment ${isLow ? 'speaker-low' : ''}">
                 <div class="text">${seg.text}</div>
@@ -613,6 +624,11 @@ document.getElementById('btn-proof').addEventListener('click', async () => {
     }
 });
 
+// ── Crossfade slider label ──
+document.getElementById('crossfade-slider').addEventListener('input', e => {
+    document.getElementById('crossfade-val').textContent = e.target.value + 'ms';
+});
+
 // ── Reverse Pipeline ──
 let currentEmotionMap = null;
 
@@ -680,10 +696,17 @@ document.getElementById('btn-generate-tts').addEventListener('click', async () =
     document.getElementById('reverse-step').textContent = 'Generating audio with ElevenLabs...';
 
     try {
+        const multiVoice = document.getElementById('chk-multi-voice').checked;
+        const crossfadeMs = parseInt(document.getElementById('crossfade-slider').value);
         const resp = await fetch('/api/reverse', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text, voice, generate_audio: true }),
+            body: JSON.stringify({
+                text, voice,
+                generate_audio: true,
+                multi_voice: multiVoice,
+                crossfade_ms: crossfadeMs,
+            }),
         });
         const data = await resp.json();
 
