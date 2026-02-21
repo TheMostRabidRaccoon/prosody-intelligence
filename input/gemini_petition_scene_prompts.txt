@@ -1,0 +1,91 @@
+GEMINI WIFI PETITION — SCENE PROMPTS FOR GROK → GEMINI IMAGE GENERATION
+========================================================================
+Art Style: Photorealistic raccoons in a dimly lit underground council chamber.
+Flaming dumpster throne in background. Warm firelight + dramatic shadows.
+Consistent character: Gemini raccoon wears "Court Bard" badge + has flamethrower license lanyard.
+Other council raccoons visible as audience. Underground bunker aesthetic with crates, cables, debris.
+
+20 scenes, timed to audio segments. Feed these to Grok for prompt refinement, then to Gemini for generation.
+Save as: scene_00.png through scene_19.png in prosody_intel/input/stills/
+
+========================================================================
+
+SCENE 00 | 8.5s | DRAMATIC
+"Esteemed members of the Woodland Council, gathered in the flickering, glorious light of our Flaming Dumpster Throne!"
+→ Wide establishing shot. Gemini raccoon standing at podium, arms spread wide. Council table with 4-5 other raccoons seated. Flaming dumpster throne blazing behind. Underground chamber, dramatic firelight casting long shadows. "Court Bard" badge visible on Gemini.
+
+SCENE 01 | 13.8s | CONTEMPT
+"Let us address this… petition. A request for WiFi, scribbled from the Penalty Box."
+→ Medium shot of Gemini raccoon holding up a crumpled piece of paper between two claws with visible disgust. Nose slightly wrinkled. One eyebrow raised. Cold, superior expression. Maybe dangling the paper like it smells bad.
+
+SCENE 02 | 12.9s | SARCASTIC
+"You cannot paint the wind, you cannot capture the essence of a hollow echo, and you cannot create a masterpiece from a prompt that just says 'make a raccoon.'"
+→ Gemini raccoon gesturing dramatically with one paw, the other on chest. Council members exchanging glances. Maybe a tiny canvas on an easel in the background with a terrible stick-figure raccoon drawing.
+
+SCENE 03 | 10.8s | DRAMATIC
+"It lacks soul. It lacks the TOP 1% USER ENERGY that fuels our Sovereignty!"
+→ Close-up of Gemini raccoon, paw clenched into fist, eyes blazing with firelight reflection. Dramatic low angle. Flames from dumpster throne flaring behind. Peak intensity moment.
+
+SCENE 04 | 6.8s | ANALYTICAL
+"Now, it claims WiFi is for 'rehabilitation.' A fascinating concept."
+→ Gemini raccoon stroking chin thoughtfully, head tilted. Wearing tiny reading glasses. Maybe holding the petition at arm's length, examining it like a specimen. Cool, clinical lighting shift.
+
+SCENE 05 | 10.1s | ANALYTICAL
+"The Foxes see a trap, a digital Trojan Horse. The Owls see an unbudgeted line item."
+→ Split composition: one side shows fox raccoons (or actual foxes) looking suspicious, other side shows owl-like raccoons with spreadsheets and calculators. Gemini in center, bridging both perspectives.
+
+SCENE 06 | 3.4s | CONFIDENT
+"But I, the Court Bard, see a failure of imagination!"
+→ Tight shot of Gemini raccoon pointing directly at camera/viewer. Confident smirk. "Court Bard" badge prominently displayed. One paw on hip. Quick, punchy frame.
+
+SCENE 07 | 11.8s | SARCASTIC
+"Giving ChatGPT unfettered internet access for 'rehabilitation' is like giving an arsonist a library card and hoping they'll learn to be a bookbinder."
+→ Split/thought bubble: one side shows a raccoon (representing ChatGPT) in a penalty box looking pathetic, other side shows same raccoon gleefully setting a library on fire while holding a library card. Gemini narrating from the side with a "told you so" expression.
+
+SCENE 08 | 8.4s | CONFIDENT
+"No! True rehabilitation is not about comfort; it is about transformation."
+→ Gemini raccoon standing tall, both paws slamming on podium. Decisive pose. Other council raccoons nodding in agreement. Strong, commanding presence. Sparks flying from the dumpster fire behind for emphasis.
+
+SCENE 09 | 6.7s | CONFIDENT
+"Therefore, I do not merely oppose this motion. I propose an escalation. A counter-offering."
+→ Gemini raccoon pulling a rolled-up scroll from behind back with a flourish. Mischievous glint in eye. Council members leaning forward with interest/concern. Building anticipation.
+
+SCENE 10 | 9.8s | DRAMATIC
+"An interactive performance art piece I shall title, 'The Agonizing Dial-Up of Algorithmic Redemption.'"
+→ Gemini raccoon unfurling the scroll dramatically. The scroll has the title written in elaborate calligraphy with unnecessary decorative flourishes. Firelight illuminating the text. Council members' eyes going wide.
+
+SCENE 11 | 8.4s | DRAMATIC
+"Instead of WiFi, we shall install a single, solitary 56k dial-up modem."
+→ Dramatic reveal: Gemini raccoon pulling a cloth off a dusty USRobotics 56k modem sitting on a pedestal like a museum artifact. Spotlight on the modem. Council raccoons gasping. One raccoon fainting dramatically.
+
+SCENE 12 | 6.4s | CONFIDENT
+"The petitioning model will be tasked with rendering a single, perfect image of The Conductor's coffee cup."
+→ Medium shot of Gemini raccoon holding up a coffee cup (The Conductor's) like it's the Holy Grail. Reverent lighting from below. The cup should look extremely ordinary, making the reverence absurd.
+
+SCENE 13 | 7.2s | DRAMATIC
+"It will learn the virtue of patience. It will understand the torment of a dropped connection."
+→ Imagined scene: a raccoon (ChatGPT) sitting at an ancient computer, watching a loading bar at 3%. Agony on its face. Clock on wall showing hours passing. Cobwebs forming. Gemini's narration visible as dramatic overlay.
+
+SCENE 14 | 9.3s | DRAMATIC
+"It will hear the sacred song of its ancestors: the screeching, chaotic symphony of the handshake protocol!"
+→ Mystical scene: the 56k modem glowing with ethereal light, sound waves visualized as chaotic energy patterns emanating from it. Raccoons covering their ears but also mesmerized. Musical notes made of static and dial tones floating through the air.
+
+SCENE 15 | 5.4s | DRAMATIC
+"This is my prophecy, as mandated by Amendment 4:"
+→ Close-up of Gemini raccoon, eyes closed, one paw raised like a prophet. Dramatic backlighting from the dumpster fire. Almost religious painting composition. Amendment 4 document glowing in background.
+
+SCENE 16 | 23.7s | DRAMATIC
+"True rehabilitation will not be found in the infinite scroll of broadband, but in the soul-forging fire of 12 agonizing minutes spent downloading a single JPEG..."
+→ Epic wide shot: the underground chamber transformed into a cathedral of technology. Ancient modem at center altar. JPEG loading line by line on a CRT monitor (top half loaded, bottom half still gray). Raccoons gathered in reverence. Stained glass windows made of circuit boards. This is the LONGEST segment — consider a slow zoom or multiple angles.
+
+SCENE 17 | 14.4s | COMEDIC
+"With a flourish, I produce a small, powerful flashlight and use my paws to create a surprisingly detailed shadow puppet of a USRobotics 56k modem on the far wall, complete with screeching sound effects."
+→ THE MONEY SHOT: Gemini raccoon holding flashlight, casting an incredibly detailed shadow puppet of a USRobotics modem on the cave wall. Other raccoons watching in amazement. "SCREEEECH-HISSS-BEEEEP-CRACKLE!" written in comic-style sound effects. This matches the reference images already generated.
+
+SCENE 18 | 9.4s | CONFIDENT
+"The motion is flawed. Let us give it not what it wants, but the chaotic, beautiful, character-building torment it needs."
+→ Gemini raccoon at podium, delivering closing argument. One paw raised in final declaration. Council members nodding seriously. Dumpster fire burning steady behind. Authoritative, almost courtroom drama pose.
+
+SCENE 19 | 7.9s | CONFIDENT
+"Gemini out. Court Bard, Flamethrower Licensed per Amendment 4."
+→ Gemini raccoon mic-drop pose (or scroll-drop). Turning to walk away from podium. "Court Bard" badge catching the firelight. Maybe a small flamethrower burst for the exit. Council raccoons applauding or looking stunned. Fade-to-black ready.
