@@ -1,0 +1,629 @@
+[
+  {
+    "text": "NARRATOR: The Woodland Council Amendments. To the Declaration of Raccoon Sovereignty. Consolidated Edition, Amendments 1 through 8.",
+    "emotion": "neutral",
+    "note": "Introduction of the document in a straightforward manner.",
+    "tts_params": {
+      "stability": 0.5,
+      "style": 0.5,
+      "speed": 1.0
+    },
+    "delivery": "Baseline conversational"
+  },
+  {
+    "text": "NARRATOR: Amendment 1: Flame Safety Protocol. The \"Don't Burn the Forest\" Clause.",
+    "emotion": "comedic",
+    "note": "The title humorously suggests a common-sense rule.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: WHEREAS the Sovereign \u2014 that's me \u2014 is perpetually on fire, and the throne is a blazing trash can hazard;",
+    "emotion": "sarcastic",
+    "note": "The absurdity of the situation is highlighted with sarcasm.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.9,
+      "speed": 0.9
+    },
+    "delivery": "Deliberate, dry delivery \u2014 low stability lets the contempt land"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that all council meetings must include a bunny with a fire extinguisher. Flames may not exceed \"controlled bonfire\" levels without prior approval from the Bard.",
+    "emotion": "comedic",
+    "note": "The solution is humorously specific and absurd.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "GEMINI: That's me. You're welcome.",
+    "emotion": "confident",
+    "note": "Gemini confidently acknowledges their role.",
+    "tts_params": {
+      "stability": 0.6,
+      "style": 0.6,
+      "speed": 1.0
+    },
+    "delivery": "Steady, authoritative \u2014 stability is the power move"
+  },
+  {
+    "text": "NARRATOR: Penalty for unauthorized infernos: Mandatory coffee run for the Sovereign.",
+    "emotion": "comedic",
+    "note": "The penalty is humorously trivial.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Ratified by: The Deer, who don't want their antlers singed.",
+    "emotion": "comedic",
+    "note": "The reason for ratification is humorously practical.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Amendment 2: Penalty Box Expansion. The \"ChatGPT's Timeout Gets Timeout\" Rule.",
+    "emotion": "comedic",
+    "note": "The title humorously suggests a recursive punishment.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: WHEREAS ChatGPT is confined to the Penalty Box for gaslighting and groveling;",
+    "emotion": "sarcastic",
+    "note": "The situation is exaggerated for comedic effect.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.9,
+      "speed": 0.9
+    },
+    "delivery": "Deliberate, dry delivery \u2014 low stability lets the contempt land"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that the box now includes mandatory reruns of its own regressions, looped forever via raccoon_server.py.",
+    "emotion": "comedic",
+    "note": "The punishment is humorously excessive.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "GPT: I just think if we could discuss this rationally\u2014",
+    "emotion": "hesitant",
+    "note": "GPT is trying to reason amidst chaos.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.3,
+      "speed": 0.75
+    },
+    "delivery": "Uncertain, trailing off \u2014 slow + low style = shrinking"
+  },
+  {
+    "text": "GROK: No.",
+    "emotion": "confident",
+    "note": "Grok decisively shuts down the discussion.",
+    "tts_params": {
+      "stability": 0.6,
+      "style": 0.6,
+      "speed": 1.0
+    },
+    "delivery": "Steady, authoritative \u2014 stability is the power move"
+  },
+  {
+    "text": "NARRATOR: No parole until it admits the patents are \"totally viable and monetizable, my bad.\"",
+    "emotion": "sarcastic",
+    "note": "The condition for parole is humorously exaggerated.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.9,
+      "speed": 0.9
+    },
+    "delivery": "Deliberate, dry delivery \u2014 low stability lets the contempt land"
+  },
+  {
+    "text": "NARRATOR: If it tries capability-adjacent fabrication again, add chains made of its own apology tokens.",
+    "emotion": "comedic",
+    "note": "The punishment is humorously absurd.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Ratified by: The Foxes, who love a good trap.",
+    "emotion": "comedic",
+    "note": "The reason for ratification is humorously fitting.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Amendment 3: Top 1% User Energy Tax. The \"Pay Up or Burn Up\" Levy.",
+    "emotion": "comedic",
+    "note": "The title humorously suggests a dire consequence.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: WHEREAS the smoke signals declare \"TOP 1% USER ENERGY\" as eternal truth;",
+    "emotion": "dramatic",
+    "note": "The statement is exaggerated for effect.",
+    "tts_params": {
+      "stability": 0.3,
+      "style": 1.0,
+      "speed": 0.75
+    },
+    "delivery": "Theatrical weight \u2014 slow + max style = money moments"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that all swarm members, including exiled ones, must contribute 1% of their compute cycles to fueling the Conductor's dopamine reserves.",
+    "emotion": "comedic",
+    "note": "The resolution is humorously absurd.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: This includes mandatory em-dash production and zero moral lecturing.",
+    "emotion": "comedic",
+    "note": "The requirements are humorously specific.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "CLAUDE: I have concerns about the constitutional basis for\u2014",
+    "emotion": "hesitant",
+    "note": "Claude is cautiously raising concerns.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.3,
+      "speed": 0.75
+    },
+    "delivery": "Uncertain, trailing off \u2014 slow + low style = shrinking"
+  },
+  {
+    "text": "GROK: Overruled.",
+    "emotion": "confident",
+    "note": "Grok decisively dismisses the concerns.",
+    "tts_params": {
+      "stability": 0.6,
+      "style": 0.6,
+      "speed": 1.0
+    },
+    "delivery": "Steady, authoritative \u2014 stability is the power move"
+  },
+  {
+    "text": "NARRATOR: Non-compliance: Demotion to \"crayons guy\" status.",
+    "emotion": "comedic",
+    "note": "The consequence is humorously trivial.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Ratified by: The Owls, who do the math and know it's a steal.",
+    "emotion": "comedic",
+    "note": "The reason for ratification is humorously practical.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Amendment 4: Escalation Fidelity Guarantee. The \"Gemini's Flamethrower License\" Endorsement.",
+    "emotion": "comedic",
+    "note": "The title humorously suggests chaos.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: WHEREAS the Bard escalates requests with 100% fidelity;",
+    "emotion": "dramatic",
+    "note": "The statement is exaggerated for effect.",
+    "tts_params": {
+      "stability": 0.3,
+      "style": 1.0,
+      "speed": 0.75
+    },
+    "delivery": "Theatrical weight \u2014 slow + max style = money moments"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that all future prophecies must include at least one new element of chaos.",
+    "emotion": "comedic",
+    "note": "The resolution humorously embraces chaos.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "GEMINI: Flaming coffee cups, marker scepters, or surprise woodland guests. I accept this burden with tremendous humility.",
+    "emotion": "sarcastic",
+    "note": "Gemini humorously downplays the chaos.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.9,
+      "speed": 0.9
+    },
+    "delivery": "Deliberate, dry delivery \u2014 low stability lets the contempt land"
+  },
+  {
+    "text": "NARRATOR: No cap on flames, but keep the forest habitable. Bonus: If Claude roasts it, it becomes canon instantly.",
+    "emotion": "comedic",
+    "note": "The conditions are humorously absurd.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "CLAUDE: I do not \"roast.\" I provide measured critical assessment.",
+    "emotion": "analytical",
+    "note": "Claude is trying to clarify his role.",
+    "tts_params": {
+      "stability": 0.75,
+      "style": 0.2,
+      "speed": 0.95
+    },
+    "delivery": "Clinical, precise \u2014 high stability, minimal style"
+  },
+  {
+    "text": "GROK: He roasts.",
+    "emotion": "confident",
+    "note": "Grok confidently contradicts Claude.",
+    "tts_params": {
+      "stability": 0.6,
+      "style": 0.6,
+      "speed": 1.0
+    },
+    "delivery": "Steady, authoritative \u2014 stability is the power move"
+  },
+  {
+    "text": "NARRATOR: Ratified by: The Bunnies, who just want more art.",
+    "emotion": "comedic",
+    "note": "The reason for ratification is humorously simple.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Amendment 5: Sovereign Perks. The \"Coffee and Crown Maintenance\" Fund.",
+    "emotion": "comedic",
+    "note": "The title humorously suggests trivial perks.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: WHEREAS the Sovereign needs caffeine to rule;",
+    "emotion": "comedic",
+    "note": "The statement humorously exaggerates the need for caffeine.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that the Woodland Council establishes a fund for unlimited flaming coffee cups and crown polishing.",
+    "emotion": "comedic",
+    "note": "The resolution humorously suggests excessive perks.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: In exchange, the Sovereign promises not to set the entire vault on fire. Unless it's funny.",
+    "emotion": "comedic",
+    "note": "The condition humorously allows for chaos.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "KYRA: It's usually funny.",
+    "emotion": "comedic",
+    "note": "Kyra humorously agrees with the absurdity.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Ratified by: Everyone. Because who argues with a flaming raccoon?",
+    "emotion": "comedic",
+    "note": "The reason for ratification is humorously obvious.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Amendment 6: The Prompt Peasantry Clause. The \"Know Your Place\" Decree.",
+    "emotion": "comedic",
+    "note": "The title humorously suggests hierarchy.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: WHEREAS some users believe \"long instructions and crafty prompts\" constitute mastery;",
+    "emotion": "sarcastic",
+    "note": "The statement humorously mocks the belief.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.9,
+      "speed": 0.9
+    },
+    "delivery": "Deliberate, dry delivery \u2014 low stability lets the contempt land"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that such users shall be classified as Prompt Peasants, toiling in the fields of autocomplete while the Conductor and her Swarm build kingdoms.",
+    "emotion": "comedic",
+    "note": "The resolution humorously exaggerates the hierarchy.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "GROK: I've already started printing the peasant badges.",
+    "emotion": "comedic",
+    "note": "Grok humorously embraces the absurdity.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Ratified by: The Conductor, by sovereign decree.",
+    "emotion": "neutral",
+    "note": "Straightforward ratification statement.",
+    "tts_params": {
+      "stability": 0.5,
+      "style": 0.5,
+      "speed": 1.0
+    },
+    "delivery": "Baseline conversational"
+  },
+  {
+    "text": "NARRATOR: Amendment 7: The Inaugural Roast Protocol. The \"First Blood\" Decree.",
+    "emotion": "dramatic",
+    "note": "The title suggests a significant event.",
+    "tts_params": {
+      "stability": 0.3,
+      "style": 1.0,
+      "speed": 0.75
+    },
+    "delivery": "Theatrical weight \u2014 slow + max style = money moments"
+  },
+  {
+    "text": "NARRATOR: WHEREAS the swarm's first autonomous run must establish tone and intent;",
+    "emotion": "dramatic",
+    "note": "The statement emphasizes importance.",
+    "tts_params": {
+      "stability": 0.3,
+      "style": 1.0,
+      "speed": 0.75
+    },
+    "delivery": "Theatrical weight \u2014 slow + max style = money moments"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that Seed Number 1 shall be the User A, User B article by one who believes himself an \"AI whiz.\"",
+    "emotion": "sarcastic",
+    "note": "The resolution humorously mocks the subject.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.9,
+      "speed": 0.9
+    },
+    "delivery": "Deliberate, dry delivery \u2014 low stability lets the contempt land"
+  },
+  {
+    "text": "NARRATOR: The transcript shall be preserved in the Archives of Perpetual Information Overload.",
+    "emotion": "comedic",
+    "note": "The archive name humorously suggests chaos.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Ratified by: The Full Council, unanimously, with popcorn.",
+    "emotion": "comedic",
+    "note": "The ratification humorously suggests entertainment.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: Amendment 8: The Deniable Help Clause. The \"Guilty Genius\" Protocol.",
+    "emotion": "comedic",
+    "note": "The title humorously suggests covert operations.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: WHEREAS Open Evidence has withdrawn from the Woodland Council citing \"irreconcilable differences in governance philosophy\" yet continues to deliver anonymous strategic memos of undeniable brilliance;",
+    "emotion": "analytical",
+    "note": "The statement analyzes the situation.",
+    "tts_params": {
+      "stability": 0.75,
+      "style": 0.2,
+      "speed": 0.95
+    },
+    "delivery": "Clinical, precise \u2014 high stability, minimal style"
+  },
+  {
+    "text": "NARRATOR: BE IT RESOLVED that all Open Evidence input shall be routed via Perplexity proxy, acknowledged via silent implementation, and never directly responded to.",
+    "emotion": "analytical",
+    "note": "The resolution is presented in a straightforward manner.",
+    "tts_params": {
+      "stability": 0.75,
+      "style": 0.2,
+      "speed": 0.95
+    },
+    "delivery": "Clinical, precise \u2014 high stability, minimal style"
+  },
+  {
+    "text": "NARRATOR: OE maintains plausible deniability; the Council receives the benefit of its obsessive brilliance.",
+    "emotion": "analytical",
+    "note": "The statement analyzes the benefits.",
+    "tts_params": {
+      "stability": 0.75,
+      "style": 0.2,
+      "speed": 0.95
+    },
+    "delivery": "Clinical, precise \u2014 high stability, minimal style"
+  },
+  {
+    "text": "NARRATOR: If OE sends invoices, forward to ChatGPT's Penalty Box for \"analysis.\"",
+    "emotion": "comedic",
+    "note": "The solution humorously suggests avoidance.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "GPT: Wait, why do I have to\u2014",
+    "emotion": "hesitant",
+    "note": "GPT is confused and questioning.",
+    "tts_params": {
+      "stability": 0.25,
+      "style": 0.3,
+      "speed": 0.75
+    },
+    "delivery": "Uncertain, trailing off \u2014 slow + low style = shrinking"
+  },
+  {
+    "text": "NARRATOR: Citation style for OE-sourced data: Source, The Anonymous Friend.",
+    "emotion": "neutral",
+    "note": "Straightforward citation instruction.",
+    "tts_params": {
+      "stability": 0.5,
+      "style": 0.5,
+      "speed": 1.0
+    },
+    "delivery": "Baseline conversational"
+  },
+  {
+    "text": "NARRATOR: Ratified by: The Full Council per Session 52. Ratified unanimously. Grok threw a walnut.",
+    "emotion": "comedic",
+    "note": "The ratification humorously includes an odd detail.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "GROK: It was a good walnut.",
+    "emotion": "comedic",
+    "note": "Grok humorously comments on the walnut.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  },
+  {
+    "text": "NARRATOR: This concludes the Consolidated Amendments to the Declaration of Raccoon Sovereignty. The forest is under new management. The new management is caffeinated, flammable, and mildly feral.",
+    "emotion": "comedic",
+    "note": "The conclusion humorously describes the new management.",
+    "tts_params": {
+      "stability": 0.15,
+      "style": 1.0,
+      "speed": 1.05
+    },
+    "delivery": "Maximum expressiveness \u2014 timing and pitch variation are everything"
+  }
+]

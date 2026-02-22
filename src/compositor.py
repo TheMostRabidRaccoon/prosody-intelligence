@@ -448,37 +448,40 @@ def composite_animated_short(
                 break
 
         if not loaded:
-            # Generate placeholder still
-            print(f"  Scene {i:2d}: [PLACEHOLDER] — no image found")
-            emotion = emotion_map[i]["emotion"]
-            color_hex = EMOTION_VISUALS.get(emotion, DEFAULT_VISUAL)[0]
-            r = int(color_hex[1:3], 16)
-            g = int(color_hex[3:5], 16)
-            b = int(color_hex[5:7], 16)
+            # Reuse the most recent still if available (for fewer stills than scenes)
+            if stills:
+                stills.append(stills[-1])
+                print(f"  Scene {i:2d}: [REUSE scene_{i-1:02d}] — no new image, holding previous")
+            else:
+                # Generate placeholder still as last resort
+                print(f"  Scene {i:2d}: [PLACEHOLDER] — no image found")
+                emotion = emotion_map[i]["emotion"]
+                color_hex = EMOTION_VISUALS.get(emotion, DEFAULT_VISUAL)[0]
+                r = int(color_hex[1:3], 16)
+                g = int(color_hex[3:5], 16)
+                b = int(color_hex[5:7], 16)
 
-            # Create colored placeholder with scene info
-            placeholder = Image.new("RGB",
-                                    (int(target_w * 1.3), int(target_h * 1.3)),
-                                    (r // 4, g // 4, b // 4))
-            pd = ImageDraw.Draw(placeholder)
+                placeholder = Image.new("RGB",
+                                        (int(target_w * 1.3), int(target_h * 1.3)),
+                                        (r // 4, g // 4, b // 4))
+                pd = ImageDraw.Draw(placeholder)
 
-            # Try to get a font for placeholder text
-            pfont = None
-            for fp in ["/System/Library/Fonts/Helvetica.ttc",
-                       "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]:
-                if os.path.exists(fp):
-                    try:
-                        pfont = ImageFont.truetype(fp, 48)
-                        break
-                    except Exception:
-                        continue
-            if pfont is None:
-                pfont = ImageFont.load_default()
+                pfont = None
+                for fp in ["/System/Library/Fonts/Helvetica.ttc",
+                           "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]:
+                    if os.path.exists(fp):
+                        try:
+                            pfont = ImageFont.truetype(fp, 48)
+                            break
+                        except Exception:
+                            continue
+                if pfont is None:
+                    pfont = ImageFont.load_default()
 
-            pd.text((target_w * 0.3, target_h * 0.5),
-                    f"SCENE {i:02d}\n{emotion.upper()}",
-                    font=pfont, fill=(r, g, b))
-            stills.append(np.array(placeholder))
+                pd.text((target_w * 0.3, target_h * 0.5),
+                        f"SCENE {i:02d}\n{emotion.upper()}",
+                        font=pfont, fill=(r, g, b))
+                stills.append(np.array(placeholder))
 
     print(f"\n[L6] Loaded {len(stills)} stills")
 
