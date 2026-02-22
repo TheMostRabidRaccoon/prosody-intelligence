@@ -68,6 +68,11 @@ VOICE_MAP = {
         "name": "Kyra",
         "description": "The raccoon pulling the strings",
     },
+    "narrator": {
+        "voice_id": "Aqqzjc8no56A9UgQcOnP",  # Narrator — observant, fourth-wall
+        "name": "The Narrator",
+        "description": "Observant stage directions, holds the fourth wall",
+    },
 }
 
 # ──────────────────────────────────────────────────────────────
@@ -275,7 +280,7 @@ def _detect_speaker(text: str) -> str | None:
     Detect speaker tag at start of line (e.g., 'CLAUDE:', 'GPT:', 'Grok:').
     Returns lowercase voice key if found, None otherwise.
     """
-    match = re.match(r"^(CLAUDE|GPT|GROK|GEMINI|KYRA)\s*:", text, re.IGNORECASE)
+    match = re.match(r"^(CLAUDE|GPT|GROK|GEMINI|KYRA|NARRATOR)\s*:", text, re.IGNORECASE)
     if match:
         return match.group(1).lower()
     return None
@@ -283,7 +288,7 @@ def _detect_speaker(text: str) -> str | None:
 
 def _strip_speaker_tag(text: str) -> str:
     """Remove speaker tag prefix from text for cleaner TTS."""
-    return re.sub(r"^(CLAUDE|GPT|GROK|GEMINI|KYRA)\s*:\s*", "", text, flags=re.IGNORECASE).strip()
+    return re.sub(r"^(CLAUDE|GPT|GROK|GEMINI|KYRA|NARRATOR)\s*:\s*", "", text, flags=re.IGNORECASE).strip()
 
 
 def generate_audio(mapped_lines: list, voice_key: str = "claude",
