@@ -428,6 +428,12 @@ def run_reverse_pipeline(text_path: str, voice: str = "claude",
     text = text_path.read_text()
     output_name = text_path.stem
 
+    # Auto-save input transcript for future editing
+    saved_input = OUTPUT_DIR / f"{output_name}_input.txt"
+    if not saved_input.exists():
+        saved_input.write_text(text)
+        print(f"[Reverse] Input transcript saved: {saved_input}")
+
     mode = "MULTI-VOICE" if multi_voice else f"SINGLE ({VOICE_MAP.get(voice, {}).get('name', voice)})"
     print("=" * 60)
     print("PROSODY INTELLIGENCE — Reverse Pipeline")

@@ -54,7 +54,7 @@ EMOTION_VISUALS = {
     "sarcastic":  ("#FBBF24", "slight_zoom_out", 180),  # Gold — dry
     "comedic":    ("#34D399", "quick_zoom_in",   160),  # Green — playful
     "confident":  ("#60A5FA", "hold_steady",     180),  # Blue — authoritative
-    "analytical": ("#94A3B8", "slow_pan_left",   160),  # Steel — clinical
+    "analytical": ("#94A3B8", "slow_pan_right",  160),  # Steel — clinical (L→R scan)
     "angry":      ("#EF4444", "shake",           220),  # Red hot
     "tender":     ("#F9A8D4", "slow_zoom_in",    140),  # Pink — gentle
     "resigned":   ("#6B7280", "slow_zoom_out",   140),  # Gray — fading
@@ -557,8 +557,10 @@ def composite_animated_short(
         codec="libx264",
         audio_codec="aac",
         bitrate="8000k",
+        audio_bitrate="192k",
         preset="medium",
         logger="bar",
+        ffmpeg_params=["-strict", "experimental", "-movflags", "+faststart"],
     )
 
     # Filesize
