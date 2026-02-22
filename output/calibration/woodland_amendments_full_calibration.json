@@ -1,0 +1,6027 @@
+{
+  "records": [
+    {
+      "segment": 0,
+      "emotion": "neutral",
+      "text": "NARRATOR: The Woodland Council Amendments. To the Declaratio",
+      "intended_tts_params": {
+        "stability": 0.5,
+        "style": 0.5,
+        "speed": 1.0
+      },
+      "achieved_prosody": {
+        "avg_pitch": 102.4,
+        "pitch_direction": "falling",
+        "pitch_variance": 9.8,
+        "energy": 0.57,
+        "speaking_rate": 2.2
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 9.8,
+          "expected_range": [
+            5,
+            35
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.57,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.2,
+          "expected_range": [
+            3.0,
+            6.0
+          ],
+          "status": "below",
+          "delta_pct": 26.7
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 0.0,
+        "end": 8.22
+      }
+    },
+    {
+      "segment": 1,
+      "emotion": "comedic",
+      "text": "NARRATOR: Amendment 1: Flame Safety Protocol. The \"Don't Bur",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 115.5,
+        "pitch_direction": "falling",
+        "pitch_variance": 15.1,
+        "energy": 0.56,
+        "speaking_rate": 2.2
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 15.1,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 24.5
+        },
+        "energy": {
+          "actual": 0.56,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.2,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 37.1
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 8.22,
+        "end": 13.33
+      }
+    },
+    {
+      "segment": 2,
+      "emotion": "sarcastic",
+      "text": "NARRATOR: WHEREAS the Sovereign \u2014 that's me \u2014 is perpetually",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.9,
+        "speed": 0.9
+      },
+      "achieved_prosody": {
+        "avg_pitch": 117.8,
+        "pitch_direction": "falling",
+        "pitch_variance": 36.5,
+        "energy": 0.5,
+        "speaking_rate": 2.3
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 36.5,
+          "expected_range": [
+            15,
+            60
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.5,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.3,
+          "expected_range": [
+            2.5,
+            5.0
+          ],
+          "status": "below",
+          "delta_pct": 8.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 13.33,
+        "end": 22.52
+      }
+    },
+    {
+      "segment": 3,
+      "emotion": "comedic",
+      "text": "NARRATOR: BE IT RESOLVED that all council meetings must incl",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 97.8,
+        "pitch_direction": "flat",
+        "pitch_variance": 27.7,
+        "energy": 0.56,
+        "speaking_rate": 1.8
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 27.7,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.56,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.8,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 48.6
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 22.52,
+        "end": 36.04
+      }
+    },
+    {
+      "segment": 4,
+      "emotion": "confident",
+      "text": "GEMINI: That's me. You're welcome.",
+      "intended_tts_params": {
+        "stability": 0.6,
+        "style": 0.6,
+        "speed": 1.0
+      },
+      "achieved_prosody": {
+        "avg_pitch": 152.0,
+        "pitch_direction": "rising",
+        "pitch_variance": 24.9,
+        "energy": 0.14,
+        "speaking_rate": 1.5
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 24.9,
+          "expected_range": [
+            5,
+            30
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.14,
+          "expected_range": [
+            0.4,
+            0.8
+          ],
+          "status": "below",
+          "delta_pct": 65.0
+        },
+        "speaking_rate": {
+          "actual": 1.5,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "below",
+          "delta_pct": 50.0
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 36.04,
+        "end": 38.08
+      }
+    },
+    {
+      "segment": 5,
+      "emotion": "comedic",
+      "text": "NARRATOR: Penalty for unauthorized infernos: Mandatory coffe",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 123.4,
+        "pitch_direction": "falling",
+        "pitch_variance": 20.1,
+        "energy": 0.62,
+        "speaking_rate": 2.8
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 20.1,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.62,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.8,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 20.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 38.08,
+        "end": 43.42
+      }
+    },
+    {
+      "segment": 6,
+      "emotion": "comedic",
+      "text": "NARRATOR: Ratified by: The Deer, who don't want their antler",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 96.0,
+        "pitch_direction": "flat",
+        "pitch_variance": 11.4,
+        "energy": 0.52,
+        "speaking_rate": 2.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 11.4,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 43.0
+        },
+        "energy": {
+          "actual": 0.52,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.1,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 40.0
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 43.42,
+        "end": 48.58
+      }
+    },
+    {
+      "segment": 7,
+      "emotion": "comedic",
+      "text": "NARRATOR: Amendment 2: Penalty Box Expansion. The \"ChatGPT's",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 103.8,
+        "pitch_direction": "flat",
+        "pitch_variance": 15.5,
+        "energy": 0.55,
+        "speaking_rate": 3.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 15.5,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 22.5
+        },
+        "energy": {
+          "actual": 0.55,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.6,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 48.58,
+        "end": 54.47
+      }
+    },
+    {
+      "segment": 8,
+      "emotion": "sarcastic",
+      "text": "NARRATOR: WHEREAS ChatGPT is confined to the Penalty Box for",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.9,
+        "speed": 0.9
+      },
+      "achieved_prosody": {
+        "avg_pitch": 99.3,
+        "pitch_direction": "falling",
+        "pitch_variance": 11.0,
+        "energy": 0.45,
+        "speaking_rate": 2.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 11.0,
+          "expected_range": [
+            15,
+            60
+          ],
+          "status": "below",
+          "delta_pct": 26.7
+        },
+        "energy": {
+          "actual": 0.45,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.4,
+          "expected_range": [
+            2.5,
+            5.0
+          ],
+          "status": "below",
+          "delta_pct": 4.0
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 54.47,
+        "end": 60.42
+      }
+    },
+    {
+      "segment": 9,
+      "emotion": "comedic",
+      "text": "NARRATOR: BE IT RESOLVED that the box now includes mandatory",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 106.4,
+        "pitch_direction": "rising",
+        "pitch_variance": 23.2,
+        "energy": 0.63,
+        "speaking_rate": 2.7
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 23.2,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.63,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.7,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 22.9
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 60.42,
+        "end": 70.91
+      }
+    },
+    {
+      "segment": 10,
+      "emotion": "hesitant",
+      "text": "GPT: I just think if we could discuss this rationally\u2014",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.3,
+        "speed": 0.75
+      },
+      "achieved_prosody": {
+        "avg_pitch": 119.2,
+        "pitch_direction": "rising",
+        "pitch_variance": 30.2,
+        "energy": 0.43,
+        "speaking_rate": 1.5
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 30.2,
+          "expected_range": [
+            5,
+            40
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.43,
+          "expected_range": [
+            0.1,
+            0.5
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.5,
+          "expected_range": [
+            1.5,
+            4.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 70.91,
+        "end": 74.95
+      }
+    },
+    {
+      "segment": 11,
+      "emotion": "confident",
+      "text": "GROK: No.",
+      "intended_tts_params": {
+        "stability": 0.6,
+        "style": 0.6,
+        "speed": 1.0
+      },
+      "achieved_prosody": {
+        "avg_pitch": 135.5,
+        "pitch_direction": "falling",
+        "pitch_variance": 9.0,
+        "energy": 0.67,
+        "speaking_rate": 4.3
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 9.0,
+          "expected_range": [
+            5,
+            30
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.67,
+          "expected_range": [
+            0.4,
+            0.8
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 4.3,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 74.95,
+        "end": 75.65
+      }
+    },
+    {
+      "segment": 12,
+      "emotion": "sarcastic",
+      "text": "NARRATOR: No parole until it admits the patents are \"totally",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.9,
+        "speed": 0.9
+      },
+      "achieved_prosody": {
+        "avg_pitch": 120.5,
+        "pitch_direction": "falling",
+        "pitch_variance": 32.6,
+        "energy": 0.59,
+        "speaking_rate": 3.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 32.6,
+          "expected_range": [
+            15,
+            60
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.59,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.1,
+          "expected_range": [
+            2.5,
+            5.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 75.65,
+        "end": 81.73
+      }
+    },
+    {
+      "segment": 13,
+      "emotion": "comedic",
+      "text": "NARRATOR: If it tries capability-adjacent fabrication again,",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 104.1,
+        "pitch_direction": "flat",
+        "pitch_variance": 14.9,
+        "energy": 0.61,
+        "speaking_rate": 2.3
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 14.9,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 25.5
+        },
+        "energy": {
+          "actual": 0.61,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.3,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 34.3
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 81.73,
+        "end": 89.12
+      }
+    },
+    {
+      "segment": 14,
+      "emotion": "comedic",
+      "text": "NARRATOR: Ratified by: The Foxes, who love a good trap.",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 117.3,
+        "pitch_direction": "rising",
+        "pitch_variance": 24.2,
+        "energy": 0.49,
+        "speaking_rate": 3.2
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 24.2,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.49,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.2,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 8.6
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 89.12,
+        "end": 92.83
+      }
+    },
+    {
+      "segment": 15,
+      "emotion": "comedic",
+      "text": "NARRATOR: Amendment 3: Top 1% User Energy Tax. The \"Pay Up o",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 121.0,
+        "pitch_direction": "falling",
+        "pitch_variance": 31.1,
+        "energy": 0.57,
+        "speaking_rate": 2.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 31.1,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.57,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.4,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 31.4
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 92.83,
+        "end": 99.15
+      }
+    },
+    {
+      "segment": 16,
+      "emotion": "dramatic",
+      "text": "NARRATOR: WHEREAS the smoke signals declare \"TOP 1% USER ENE",
+      "intended_tts_params": {
+        "stability": 0.3,
+        "style": 1.0,
+        "speed": 0.75
+      },
+      "achieved_prosody": {
+        "avg_pitch": 113.3,
+        "pitch_direction": "falling",
+        "pitch_variance": 16.7,
+        "energy": 0.49,
+        "speaking_rate": 2.7
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 16.7,
+          "expected_range": [
+            15,
+            70
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.49,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.7,
+          "expected_range": [
+            1.5,
+            4.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 99.15,
+        "end": 108.02
+      }
+    },
+    {
+      "segment": 17,
+      "emotion": "comedic",
+      "text": "NARRATOR: BE IT RESOLVED that all swarm members, including e",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 102.0,
+        "pitch_direction": "flat",
+        "pitch_variance": 11.6,
+        "energy": 0.57,
+        "speaking_rate": 2.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 11.6,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 42.0
+        },
+        "energy": {
+          "actual": 0.57,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.4,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 31.4
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 108.02,
+        "end": 120.0
+      }
+    },
+    {
+      "segment": 18,
+      "emotion": "comedic",
+      "text": "NARRATOR: This includes mandatory em-dash production and zer",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 103.9,
+        "pitch_direction": "rising",
+        "pitch_variance": 25.8,
+        "energy": 0.59,
+        "speaking_rate": 3.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 25.8,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.59,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.4,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 2.9
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 120.0,
+        "end": 125.34
+      }
+    },
+    {
+      "segment": 19,
+      "emotion": "hesitant",
+      "text": "CLAUDE: I have concerns about the constitutional basis for\u2014",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.3,
+        "speed": 0.75
+      },
+      "achieved_prosody": {
+        "avg_pitch": 147.7,
+        "pitch_direction": "rising",
+        "pitch_variance": 77.8,
+        "energy": 0.38,
+        "speaking_rate": 1.5
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 77.8,
+          "expected_range": [
+            5,
+            40
+          ],
+          "status": "above",
+          "delta_pct": 94.5
+        },
+        "energy": {
+          "actual": 0.38,
+          "expected_range": [
+            0.1,
+            0.5
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.5,
+          "expected_range": [
+            1.5,
+            4.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 125.34,
+        "end": 129.47
+      }
+    },
+    {
+      "segment": 20,
+      "emotion": "confident",
+      "text": "GROK: Overruled.",
+      "intended_tts_params": {
+        "stability": 0.6,
+        "style": 0.6,
+        "speed": 1.0
+      },
+      "achieved_prosody": {
+        "avg_pitch": 123.6,
+        "pitch_direction": "rising",
+        "pitch_variance": 71.3,
+        "energy": 0.59,
+        "speaking_rate": 2.8
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 71.3,
+          "expected_range": [
+            5,
+            30
+          ],
+          "status": "above",
+          "delta_pct": 137.7
+        },
+        "energy": {
+          "actual": 0.59,
+          "expected_range": [
+            0.4,
+            0.8
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.8,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "below",
+          "delta_pct": 6.7
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 129.47,
+        "end": 130.54
+      }
+    },
+    {
+      "segment": 21,
+      "emotion": "comedic",
+      "text": "NARRATOR: Non-compliance: Demotion to \"crayons guy\" status.",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 102.1,
+        "pitch_direction": "falling",
+        "pitch_variance": 12.3,
+        "energy": 0.62,
+        "speaking_rate": 1.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 12.3,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 38.5
+        },
+        "energy": {
+          "actual": 0.62,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.6,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 54.3
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 130.54,
+        "end": 134.86
+      }
+    },
+    {
+      "segment": 22,
+      "emotion": "comedic",
+      "text": "NARRATOR: Ratified by: The Owls, who do the math and know it",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 108.4,
+        "pitch_direction": "rising",
+        "pitch_variance": 21.6,
+        "energy": 0.53,
+        "speaking_rate": 1.9
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 21.6,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.53,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.9,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 45.7
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 134.86,
+        "end": 139.51
+      }
+    },
+    {
+      "segment": 23,
+      "emotion": "comedic",
+      "text": "NARRATOR: Amendment 4: Escalation Fidelity Guarantee. The \"G",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 104.6,
+        "pitch_direction": "falling",
+        "pitch_variance": 12.2,
+        "energy": 0.51,
+        "speaking_rate": 1.9
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 12.2,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 39.0
+        },
+        "energy": {
+          "actual": 0.51,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.9,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 45.7
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 139.51,
+        "end": 147.73
+      }
+    },
+    {
+      "segment": 24,
+      "emotion": "dramatic",
+      "text": "NARRATOR: WHEREAS the Bard escalates requests with 100% fide",
+      "intended_tts_params": {
+        "stability": 0.3,
+        "style": 1.0,
+        "speed": 0.75
+      },
+      "achieved_prosody": {
+        "avg_pitch": 105.6,
+        "pitch_direction": "flat",
+        "pitch_variance": 15.1,
+        "energy": 0.53,
+        "speaking_rate": 3.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 15.1,
+          "expected_range": [
+            15,
+            70
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.53,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.1,
+          "expected_range": [
+            1.5,
+            4.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 147.73,
+        "end": 153.86
+      }
+    },
+    {
+      "segment": 25,
+      "emotion": "comedic",
+      "text": "NARRATOR: BE IT RESOLVED that all future prophecies must inc",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 117.9,
+        "pitch_direction": "rising",
+        "pitch_variance": 30.2,
+        "energy": 0.48,
+        "speaking_rate": 2.2
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 30.2,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.48,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.2,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 37.1
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 153.86,
+        "end": 161.66
+      }
+    },
+    {
+      "segment": 26,
+      "emotion": "sarcastic",
+      "text": "GEMINI: Flaming coffee cups, marker scepters, or surprise wo",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.9,
+        "speed": 0.9
+      },
+      "achieved_prosody": {
+        "avg_pitch": 128.3,
+        "pitch_direction": "falling",
+        "pitch_variance": 28.9,
+        "energy": 0.52,
+        "speaking_rate": 2.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 28.9,
+          "expected_range": [
+            15,
+            60
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.52,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.1,
+          "expected_range": [
+            2.5,
+            5.0
+          ],
+          "status": "below",
+          "delta_pct": 16.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 161.66,
+        "end": 172.52
+      }
+    },
+    {
+      "segment": 27,
+      "emotion": "comedic",
+      "text": "NARRATOR: No cap on flames, but keep the forest habitable. B",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 123.3,
+        "pitch_direction": "rising",
+        "pitch_variance": 50.6,
+        "energy": 0.4,
+        "speaking_rate": 2.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 50.6,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.4,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.6,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 25.7
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 172.52,
+        "end": 181.07
+      }
+    },
+    {
+      "segment": 28,
+      "emotion": "analytical",
+      "text": "CLAUDE: I do not \"roast.\" I provide measured critical assess",
+      "intended_tts_params": {
+        "stability": 0.75,
+        "style": 0.2,
+        "speed": 0.95
+      },
+      "achieved_prosody": {
+        "avg_pitch": 119.5,
+        "pitch_direction": "rising",
+        "pitch_variance": 23.8,
+        "energy": 0.5,
+        "speaking_rate": 1.7
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 23.8,
+          "expected_range": [
+            3,
+            20
+          ],
+          "status": "above",
+          "delta_pct": 19.0
+        },
+        "energy": {
+          "actual": 0.5,
+          "expected_range": [
+            0.2,
+            0.6
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.7,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "below",
+          "delta_pct": 43.3
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 181.07,
+        "end": 184.51
+      }
+    },
+    {
+      "segment": 29,
+      "emotion": "confident",
+      "text": "GROK: He roasts.",
+      "intended_tts_params": {
+        "stability": 0.6,
+        "style": 0.6,
+        "speed": 1.0
+      },
+      "achieved_prosody": {
+        "avg_pitch": 119.7,
+        "pitch_direction": "falling",
+        "pitch_variance": 8.6,
+        "energy": 0.74,
+        "speaking_rate": 4.5
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 8.6,
+          "expected_range": [
+            5,
+            30
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.74,
+          "expected_range": [
+            0.4,
+            0.8
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 4.5,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 184.51,
+        "end": 185.39
+      }
+    },
+    {
+      "segment": 30,
+      "emotion": "comedic",
+      "text": "NARRATOR: Ratified by: The Bunnies, who just want more art.",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 118.4,
+        "pitch_direction": "falling",
+        "pitch_variance": 22.8,
+        "energy": 0.4,
+        "speaking_rate": 1.9
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 22.8,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.4,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.9,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 45.7
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 185.39,
+        "end": 189.57
+      }
+    },
+    {
+      "segment": 31,
+      "emotion": "comedic",
+      "text": "NARRATOR: Amendment 5: Sovereign Perks. The \"Coffee and Crow",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 103.7,
+        "pitch_direction": "rising",
+        "pitch_variance": 12.5,
+        "energy": 0.62,
+        "speaking_rate": 2.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 12.5,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 37.5
+        },
+        "energy": {
+          "actual": 0.62,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.6,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 25.7
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 189.57,
+        "end": 194.96
+      }
+    },
+    {
+      "segment": 32,
+      "emotion": "comedic",
+      "text": "NARRATOR: WHEREAS the Sovereign needs caffeine to rule;",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 105.2,
+        "pitch_direction": "flat",
+        "pitch_variance": 8.9,
+        "energy": 0.7,
+        "speaking_rate": 3.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 8.9,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 55.5
+        },
+        "energy": {
+          "actual": 0.7,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.1,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 11.4
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 194.96,
+        "end": 198.16
+      }
+    },
+    {
+      "segment": 33,
+      "emotion": "comedic",
+      "text": "NARRATOR: BE IT RESOLVED that the Woodland Council establish",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 117.5,
+        "pitch_direction": "rising",
+        "pitch_variance": 32.5,
+        "energy": 0.58,
+        "speaking_rate": 2.8
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 32.5,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.58,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.8,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 20.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 198.16,
+        "end": 206.29
+      }
+    },
+    {
+      "segment": 34,
+      "emotion": "comedic",
+      "text": "NARRATOR: In exchange, the Sovereign promises not to set the",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 120.0,
+        "pitch_direction": "falling",
+        "pitch_variance": 43.1,
+        "energy": 0.53,
+        "speaking_rate": 2.9
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 43.1,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.53,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.9,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 17.1
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 206.29,
+        "end": 212.93
+      }
+    },
+    {
+      "segment": 35,
+      "emotion": "comedic",
+      "text": "KYRA: It's usually funny.",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 109.2,
+        "pitch_direction": "falling",
+        "pitch_variance": 7.1,
+        "energy": 0.58,
+        "speaking_rate": 1.9
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 7.1,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 64.5
+        },
+        "energy": {
+          "actual": 0.58,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.9,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 45.7
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 212.93,
+        "end": 214.51
+      }
+    },
+    {
+      "segment": 36,
+      "emotion": "comedic",
+      "text": "NARRATOR: Ratified by: Everyone. Because who argues with a f",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 109.4,
+        "pitch_direction": "falling",
+        "pitch_variance": 16.0,
+        "energy": 0.36,
+        "speaking_rate": 1.9
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 16.0,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 20.0
+        },
+        "energy": {
+          "actual": 0.36,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "below",
+          "delta_pct": 10.0
+        },
+        "speaking_rate": {
+          "actual": 1.9,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 45.7
+        }
+      },
+      "accuracy": 0.0,
+      "timestamp": {
+        "start": 214.51,
+        "end": 219.2
+      }
+    },
+    {
+      "segment": 37,
+      "emotion": "comedic",
+      "text": "NARRATOR: Amendment 6: The Prompt Peasantry Clause. The \"Kno",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 109.9,
+        "pitch_direction": "falling",
+        "pitch_variance": 13.8,
+        "energy": 0.62,
+        "speaking_rate": 2.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 13.8,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 31.0
+        },
+        "energy": {
+          "actual": 0.62,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.1,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 40.0
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 219.2,
+        "end": 224.96
+      }
+    },
+    {
+      "segment": 38,
+      "emotion": "sarcastic",
+      "text": "NARRATOR: WHEREAS some users believe \"long instructions and ",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.9,
+        "speed": 0.9
+      },
+      "achieved_prosody": {
+        "avg_pitch": 103.7,
+        "pitch_direction": "flat",
+        "pitch_variance": 15.0,
+        "energy": 0.45,
+        "speaking_rate": 2.7
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 15.0,
+          "expected_range": [
+            15,
+            60
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.45,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.7,
+          "expected_range": [
+            2.5,
+            5.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 224.96,
+        "end": 232.71
+      }
+    },
+    {
+      "segment": 39,
+      "emotion": "comedic",
+      "text": "NARRATOR: BE IT RESOLVED that such users shall be classified",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 104.8,
+        "pitch_direction": "falling",
+        "pitch_variance": 12.3,
+        "energy": 0.54,
+        "speaking_rate": 2.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 12.3,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 38.5
+        },
+        "energy": {
+          "actual": 0.54,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.4,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 31.4
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 232.71,
+        "end": 244.27
+      }
+    },
+    {
+      "segment": 40,
+      "emotion": "comedic",
+      "text": "GROK: I've already started printing the peasant badges.",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 99.0,
+        "pitch_direction": "flat",
+        "pitch_variance": 8.9,
+        "energy": 0.58,
+        "speaking_rate": 3.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 8.9,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 55.5
+        },
+        "energy": {
+          "actual": 0.58,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.1,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 11.4
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 244.27,
+        "end": 247.15
+      }
+    },
+    {
+      "segment": 41,
+      "emotion": "neutral",
+      "text": "NARRATOR: Ratified by: The Conductor, by sovereign decree.",
+      "intended_tts_params": {
+        "stability": 0.5,
+        "style": 0.5,
+        "speed": 1.0
+      },
+      "achieved_prosody": {
+        "avg_pitch": 104.2,
+        "pitch_direction": "flat",
+        "pitch_variance": 29.9,
+        "energy": 0.46,
+        "speaking_rate": 1.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 29.9,
+          "expected_range": [
+            5,
+            35
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.46,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.6,
+          "expected_range": [
+            3.0,
+            6.0
+          ],
+          "status": "below",
+          "delta_pct": 46.7
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 247.15,
+        "end": 250.87
+      }
+    },
+    {
+      "segment": 42,
+      "emotion": "dramatic",
+      "text": "NARRATOR: Amendment 7: The Inaugural Roast Protocol. The \"Fi",
+      "intended_tts_params": {
+        "stability": 0.3,
+        "style": 1.0,
+        "speed": 0.75
+      },
+      "achieved_prosody": {
+        "avg_pitch": 123.4,
+        "pitch_direction": "rising",
+        "pitch_variance": 25.5,
+        "energy": 0.5,
+        "speaking_rate": 2.0
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 25.5,
+          "expected_range": [
+            15,
+            70
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.5,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.0,
+          "expected_range": [
+            1.5,
+            4.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 250.87,
+        "end": 257.42
+      }
+    },
+    {
+      "segment": 43,
+      "emotion": "dramatic",
+      "text": "NARRATOR: WHEREAS the swarm's first autonomous run must esta",
+      "intended_tts_params": {
+        "stability": 0.3,
+        "style": 1.0,
+        "speed": 0.75
+      },
+      "achieved_prosody": {
+        "avg_pitch": 116.1,
+        "pitch_direction": "flat",
+        "pitch_variance": 18.4,
+        "energy": 0.54,
+        "speaking_rate": 1.8
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 18.4,
+          "expected_range": [
+            15,
+            70
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.54,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.8,
+          "expected_range": [
+            1.5,
+            4.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 100.0,
+      "timestamp": {
+        "start": 257.42,
+        "end": 265.92
+      }
+    },
+    {
+      "segment": 44,
+      "emotion": "sarcastic",
+      "text": "NARRATOR: BE IT RESOLVED that Seed Number 1 shall be the Use",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.9,
+        "speed": 0.9
+      },
+      "achieved_prosody": {
+        "avg_pitch": 118.1,
+        "pitch_direction": "rising",
+        "pitch_variance": 49.0,
+        "energy": 0.59,
+        "speaking_rate": 2.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 49.0,
+          "expected_range": [
+            15,
+            60
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.59,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.4,
+          "expected_range": [
+            2.5,
+            5.0
+          ],
+          "status": "below",
+          "delta_pct": 4.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 265.92,
+        "end": 276.27
+      }
+    },
+    {
+      "segment": 45,
+      "emotion": "comedic",
+      "text": "NARRATOR: The transcript shall be preserved in the Archives ",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 103.2,
+        "pitch_direction": "falling",
+        "pitch_variance": 13.9,
+        "energy": 0.55,
+        "speaking_rate": 2.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 13.9,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 30.5
+        },
+        "energy": {
+          "actual": 0.55,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.6,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 25.7
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 276.27,
+        "end": 281.75
+      }
+    },
+    {
+      "segment": 46,
+      "emotion": "comedic",
+      "text": "NARRATOR: Ratified by: The Full Council, unanimously, with p",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 105.4,
+        "pitch_direction": "rising",
+        "pitch_variance": 16.6,
+        "energy": 0.47,
+        "speaking_rate": 2.1
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 16.6,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 17.0
+        },
+        "energy": {
+          "actual": 0.47,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.1,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 40.0
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 281.75,
+        "end": 285.56
+      }
+    },
+    {
+      "segment": 47,
+      "emotion": "comedic",
+      "text": "NARRATOR: Amendment 8: The Deniable Help Clause. The \"Guilty",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 112.5,
+        "pitch_direction": "rising",
+        "pitch_variance": 11.6,
+        "energy": 0.67,
+        "speaking_rate": 3.0
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 11.6,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 42.0
+        },
+        "energy": {
+          "actual": 0.67,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.0,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 14.3
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 285.56,
+        "end": 290.95
+      }
+    },
+    {
+      "segment": 48,
+      "emotion": "analytical",
+      "text": "NARRATOR: WHEREAS Open Evidence has withdrawn from the Woodl",
+      "intended_tts_params": {
+        "stability": 0.75,
+        "style": 0.2,
+        "speed": 0.95
+      },
+      "achieved_prosody": {
+        "avg_pitch": 112.7,
+        "pitch_direction": "flat",
+        "pitch_variance": 16.2,
+        "energy": 0.62,
+        "speaking_rate": 2.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 16.2,
+          "expected_range": [
+            3,
+            20
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.62,
+          "expected_range": [
+            0.2,
+            0.6
+          ],
+          "status": "above",
+          "delta_pct": 3.3
+        },
+        "speaking_rate": {
+          "actual": 2.6,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "below",
+          "delta_pct": 13.3
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 290.95,
+        "end": 305.71
+      }
+    },
+    {
+      "segment": 49,
+      "emotion": "analytical",
+      "text": "NARRATOR: BE IT RESOLVED that all Open Evidence input shall ",
+      "intended_tts_params": {
+        "stability": 0.75,
+        "style": 0.2,
+        "speed": 0.95
+      },
+      "achieved_prosody": {
+        "avg_pitch": 112.9,
+        "pitch_direction": "rising",
+        "pitch_variance": 32.3,
+        "energy": 0.58,
+        "speaking_rate": 2.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 32.3,
+          "expected_range": [
+            3,
+            20
+          ],
+          "status": "above",
+          "delta_pct": 61.5
+        },
+        "energy": {
+          "actual": 0.58,
+          "expected_range": [
+            0.2,
+            0.6
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.4,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "below",
+          "delta_pct": 20.0
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 305.71,
+        "end": 317.32
+      }
+    },
+    {
+      "segment": 50,
+      "emotion": "analytical",
+      "text": "NARRATOR: OE maintains plausible deniability; the Council re",
+      "intended_tts_params": {
+        "stability": 0.75,
+        "style": 0.2,
+        "speed": 0.95
+      },
+      "achieved_prosody": {
+        "avg_pitch": 141.8,
+        "pitch_direction": "falling",
+        "pitch_variance": 26.8,
+        "energy": 0.55,
+        "speaking_rate": 3.0
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 26.8,
+          "expected_range": [
+            3,
+            20
+          ],
+          "status": "above",
+          "delta_pct": 34.0
+        },
+        "energy": {
+          "actual": 0.55,
+          "expected_range": [
+            0.2,
+            0.6
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.0,
+          "expected_range": [
+            3.0,
+            5.5
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 317.32,
+        "end": 324.66
+      }
+    },
+    {
+      "segment": 51,
+      "emotion": "comedic",
+      "text": "NARRATOR: If OE sends invoices, forward to ChatGPT's Penalty",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 126.0,
+        "pitch_direction": "falling",
+        "pitch_variance": 34.9,
+        "energy": 0.47,
+        "speaking_rate": 2.2
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 34.9,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.47,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.2,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 37.1
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 324.66,
+        "end": 330.47
+      }
+    },
+    {
+      "segment": 52,
+      "emotion": "hesitant",
+      "text": "GPT: Wait, why do I have to\u2014",
+      "intended_tts_params": {
+        "stability": 0.25,
+        "style": 0.3,
+        "speed": 0.75
+      },
+      "achieved_prosody": {
+        "avg_pitch": 109.5,
+        "pitch_direction": "rising",
+        "pitch_variance": 12.9,
+        "energy": 0.66,
+        "speaking_rate": 2.4
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 12.9,
+          "expected_range": [
+            5,
+            40
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "energy": {
+          "actual": 0.66,
+          "expected_range": [
+            0.1,
+            0.5
+          ],
+          "status": "above",
+          "delta_pct": 32.0
+        },
+        "speaking_rate": {
+          "actual": 2.4,
+          "expected_range": [
+            1.5,
+            4.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 330.47,
+        "end": 332.51
+      }
+    },
+    {
+      "segment": 53,
+      "emotion": "neutral",
+      "text": "NARRATOR: Citation style for OE-sourced data: Source, The An",
+      "intended_tts_params": {
+        "stability": 0.5,
+        "style": 0.5,
+        "speed": 1.0
+      },
+      "achieved_prosody": {
+        "avg_pitch": 112.3,
+        "pitch_direction": "falling",
+        "pitch_variance": 70.1,
+        "energy": 0.51,
+        "speaking_rate": 3.0
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 70.1,
+          "expected_range": [
+            5,
+            35
+          ],
+          "status": "above",
+          "delta_pct": 100.3
+        },
+        "energy": {
+          "actual": 0.51,
+          "expected_range": [
+            0.3,
+            0.7
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 3.0,
+          "expected_range": [
+            3.0,
+            6.0
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        }
+      },
+      "accuracy": 66.7,
+      "timestamp": {
+        "start": 332.51,
+        "end": 337.76
+      }
+    },
+    {
+      "segment": 54,
+      "emotion": "comedic",
+      "text": "NARRATOR: Ratified by: The Full Council per Session 52. Rati",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 97.4,
+        "pitch_direction": "flat",
+        "pitch_variance": 9.7,
+        "energy": 0.59,
+        "speaking_rate": 2.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 9.7,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 51.5
+        },
+        "energy": {
+          "actual": 0.59,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 2.6,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 25.7
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 337.76,
+        "end": 344.68
+      }
+    },
+    {
+      "segment": 55,
+      "emotion": "comedic",
+      "text": "GROK: It was a good walnut.",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 112.6,
+        "pitch_direction": "falling",
+        "pitch_variance": 14.9,
+        "energy": 0.52,
+        "speaking_rate": 1.3
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 14.9,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 25.5
+        },
+        "energy": {
+          "actual": 0.52,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 1.3,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 62.9
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 344.68,
+        "end": 346.16
+      }
+    },
+    {
+      "segment": 56,
+      "emotion": "comedic",
+      "text": "NARRATOR: This concludes the Consolidated Amendments to the ",
+      "intended_tts_params": {
+        "stability": 0.15,
+        "style": 1.0,
+        "speed": 1.05
+      },
+      "achieved_prosody": {
+        "avg_pitch": 95.9,
+        "pitch_direction": "flat",
+        "pitch_variance": 8.5,
+        "energy": 0.51,
+        "speaking_rate": 0.6
+      },
+      "deltas": {
+        "pitch_variance": {
+          "actual": 8.5,
+          "expected_range": [
+            20,
+            80
+          ],
+          "status": "below",
+          "delta_pct": 57.5
+        },
+        "energy": {
+          "actual": 0.51,
+          "expected_range": [
+            0.4,
+            0.9
+          ],
+          "status": "in_range",
+          "delta_pct": 0.0
+        },
+        "speaking_rate": {
+          "actual": 0.6,
+          "expected_range": [
+            3.5,
+            7.0
+          ],
+          "status": "below",
+          "delta_pct": 82.9
+        }
+      },
+      "accuracy": 33.3,
+      "timestamp": {
+        "start": 346.16,
+        "end": 359.82
+      }
+    }
+  ],
+  "run_entry": {
+    "run_id": 1,
+    "timestamp": "2026-02-22T17:57:53.825435",
+    "audio": "woodland_amendments_full",
+    "source": "generated",
+    "segment_count": 57,
+    "per_emotion_summary": {
+      "analytical": {
+        "count": 4,
+        "mean_accuracy": 41.6,
+        "achieved_means": {
+          "pitch_variance": 24.78,
+          "energy": 0.562,
+          "speaking_rate": 2.42
+        },
+        "achieved_std": {
+          "pitch_variance": 5.81,
+          "energy": 0.044,
+          "speaking_rate": 0.47
+        },
+        "expected_ranges": {
+          "pitch_variance": [
+            3,
+            20
+          ],
+          "energy": [
+            0.2,
+            0.6
+          ],
+          "speaking_rate": [
+            3.0,
+            5.5
+          ]
+        }
+      },
+      "comedic": {
+        "count": 33,
+        "mean_accuracy": 46.5,
+        "achieved_means": {
+          "pitch_variance": 19.26,
+          "energy": 0.548,
+          "speaking_rate": 2.37
+        },
+        "achieved_std": {
+          "pitch_variance": 10.28,
+          "energy": 0.074,
+          "speaking_rate": 0.61
+        },
+        "expected_ranges": {
+          "pitch_variance": [
+            20,
+            80
+          ],
+          "energy": [
+            0.4,
+            0.9
+          ],
+          "speaking_rate": [
+            3.5,
+            7.0
+          ]
+        }
+      },
+      "confident": {
+        "count": 4,
+        "mean_accuracy": 66.6,
+        "achieved_means": {
+          "pitch_variance": 28.45,
+          "energy": 0.535,
+          "speaking_rate": 3.28
+        },
+        "achieved_std": {
+          "pitch_variance": 25.6,
+          "energy": 0.234,
+          "speaking_rate": 1.22
+        },
+        "expected_ranges": {
+          "pitch_variance": [
+            5,
+            30
+          ],
+          "energy": [
+            0.4,
+            0.8
+          ],
+          "speaking_rate": [
+            3.0,
+            5.5
+          ]
+        }
+      },
+      "dramatic": {
+        "count": 4,
+        "mean_accuracy": 100.0,
+        "achieved_means": {
+          "pitch_variance": 18.92,
+          "energy": 0.515,
+          "speaking_rate": 2.4
+        },
+        "achieved_std": {
+          "pitch_variance": 3.97,
+          "energy": 0.021,
+          "speaking_rate": 0.52
+        },
+        "expected_ranges": {
+          "pitch_variance": [
+            15,
+            70
+          ],
+          "energy": [
+            0.4,
+            0.9
+          ],
+          "speaking_rate": [
+            1.5,
+            4.0
+          ]
+        }
+      },
+      "hesitant": {
+        "count": 3,
+        "mean_accuracy": 77.8,
+        "achieved_means": {
+          "pitch_variance": 40.3,
+          "energy": 0.49,
+          "speaking_rate": 1.8
+        },
+        "achieved_std": {
+          "pitch_variance": 27.44,
+          "energy": 0.122,
+          "speaking_rate": 0.42
+        },
+        "expected_ranges": {
+          "pitch_variance": [
+            5,
+            40
+          ],
+          "energy": [
+            0.1,
+            0.5
+          ],
+          "speaking_rate": [
+            1.5,
+            4.0
+          ]
+        }
+      },
+      "neutral": {
+        "count": 3,
+        "mean_accuracy": 66.7,
+        "achieved_means": {
+          "pitch_variance": 36.6,
+          "energy": 0.513,
+          "speaking_rate": 2.27
+        },
+        "achieved_std": {
+          "pitch_variance": 25.07,
+          "energy": 0.045,
+          "speaking_rate": 0.57
+        },
+        "expected_ranges": {
+          "pitch_variance": [
+            5,
+            35
+          ],
+          "energy": [
+            0.3,
+            0.7
+          ],
+          "speaking_rate": [
+            3.0,
+            6.0
+          ]
+        }
+      },
+      "sarcastic": {
+        "count": 6,
+        "mean_accuracy": 72.2,
+        "achieved_means": {
+          "pitch_variance": 28.83,
+          "energy": 0.517,
+          "speaking_rate": 2.5
+        },
+        "achieved_std": {
+          "pitch_variance": 12.84,
+          "energy": 0.058,
+          "speaking_rate": 0.32
+        },
+        "expected_ranges": {
+          "pitch_variance": [
+            15,
+            60
+          ],
+          "energy": [
+            0.3,
+            0.7
+          ],
+          "speaking_rate": [
+            2.5,
+            5.0
+          ]
+        }
+      }
+    },
+    "overall_accuracy": 56.7,
+    "segments": [
+      {
+        "segment": 0,
+        "emotion": "neutral",
+        "text": "NARRATOR: The Woodland Council Amendments. To the Declaratio",
+        "intended_tts_params": {
+          "stability": 0.5,
+          "style": 0.5,
+          "speed": 1.0
+        },
+        "achieved_prosody": {
+          "avg_pitch": 102.4,
+          "pitch_direction": "falling",
+          "pitch_variance": 9.8,
+          "energy": 0.57,
+          "speaking_rate": 2.2
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 9.8,
+            "expected_range": [
+              5,
+              35
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.57,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.2,
+            "expected_range": [
+              3.0,
+              6.0
+            ],
+            "status": "below",
+            "delta_pct": 26.7
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 0.0,
+          "end": 8.22
+        }
+      },
+      {
+        "segment": 1,
+        "emotion": "comedic",
+        "text": "NARRATOR: Amendment 1: Flame Safety Protocol. The \"Don't Bur",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 115.5,
+          "pitch_direction": "falling",
+          "pitch_variance": 15.1,
+          "energy": 0.56,
+          "speaking_rate": 2.2
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 15.1,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 24.5
+          },
+          "energy": {
+            "actual": 0.56,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.2,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 37.1
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 8.22,
+          "end": 13.33
+        }
+      },
+      {
+        "segment": 2,
+        "emotion": "sarcastic",
+        "text": "NARRATOR: WHEREAS the Sovereign \u2014 that's me \u2014 is perpetually",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.9,
+          "speed": 0.9
+        },
+        "achieved_prosody": {
+          "avg_pitch": 117.8,
+          "pitch_direction": "falling",
+          "pitch_variance": 36.5,
+          "energy": 0.5,
+          "speaking_rate": 2.3
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 36.5,
+            "expected_range": [
+              15,
+              60
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.5,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.3,
+            "expected_range": [
+              2.5,
+              5.0
+            ],
+            "status": "below",
+            "delta_pct": 8.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 13.33,
+          "end": 22.52
+        }
+      },
+      {
+        "segment": 3,
+        "emotion": "comedic",
+        "text": "NARRATOR: BE IT RESOLVED that all council meetings must incl",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 97.8,
+          "pitch_direction": "flat",
+          "pitch_variance": 27.7,
+          "energy": 0.56,
+          "speaking_rate": 1.8
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 27.7,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.56,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.8,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 48.6
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 22.52,
+          "end": 36.04
+        }
+      },
+      {
+        "segment": 4,
+        "emotion": "confident",
+        "text": "GEMINI: That's me. You're welcome.",
+        "intended_tts_params": {
+          "stability": 0.6,
+          "style": 0.6,
+          "speed": 1.0
+        },
+        "achieved_prosody": {
+          "avg_pitch": 152.0,
+          "pitch_direction": "rising",
+          "pitch_variance": 24.9,
+          "energy": 0.14,
+          "speaking_rate": 1.5
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 24.9,
+            "expected_range": [
+              5,
+              30
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.14,
+            "expected_range": [
+              0.4,
+              0.8
+            ],
+            "status": "below",
+            "delta_pct": 65.0
+          },
+          "speaking_rate": {
+            "actual": 1.5,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "below",
+            "delta_pct": 50.0
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 36.04,
+          "end": 38.08
+        }
+      },
+      {
+        "segment": 5,
+        "emotion": "comedic",
+        "text": "NARRATOR: Penalty for unauthorized infernos: Mandatory coffe",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 123.4,
+          "pitch_direction": "falling",
+          "pitch_variance": 20.1,
+          "energy": 0.62,
+          "speaking_rate": 2.8
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 20.1,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.62,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.8,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 20.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 38.08,
+          "end": 43.42
+        }
+      },
+      {
+        "segment": 6,
+        "emotion": "comedic",
+        "text": "NARRATOR: Ratified by: The Deer, who don't want their antler",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 96.0,
+          "pitch_direction": "flat",
+          "pitch_variance": 11.4,
+          "energy": 0.52,
+          "speaking_rate": 2.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 11.4,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 43.0
+          },
+          "energy": {
+            "actual": 0.52,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.1,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 40.0
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 43.42,
+          "end": 48.58
+        }
+      },
+      {
+        "segment": 7,
+        "emotion": "comedic",
+        "text": "NARRATOR: Amendment 2: Penalty Box Expansion. The \"ChatGPT's",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 103.8,
+          "pitch_direction": "flat",
+          "pitch_variance": 15.5,
+          "energy": 0.55,
+          "speaking_rate": 3.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 15.5,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 22.5
+          },
+          "energy": {
+            "actual": 0.55,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.6,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 48.58,
+          "end": 54.47
+        }
+      },
+      {
+        "segment": 8,
+        "emotion": "sarcastic",
+        "text": "NARRATOR: WHEREAS ChatGPT is confined to the Penalty Box for",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.9,
+          "speed": 0.9
+        },
+        "achieved_prosody": {
+          "avg_pitch": 99.3,
+          "pitch_direction": "falling",
+          "pitch_variance": 11.0,
+          "energy": 0.45,
+          "speaking_rate": 2.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 11.0,
+            "expected_range": [
+              15,
+              60
+            ],
+            "status": "below",
+            "delta_pct": 26.7
+          },
+          "energy": {
+            "actual": 0.45,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.4,
+            "expected_range": [
+              2.5,
+              5.0
+            ],
+            "status": "below",
+            "delta_pct": 4.0
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 54.47,
+          "end": 60.42
+        }
+      },
+      {
+        "segment": 9,
+        "emotion": "comedic",
+        "text": "NARRATOR: BE IT RESOLVED that the box now includes mandatory",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 106.4,
+          "pitch_direction": "rising",
+          "pitch_variance": 23.2,
+          "energy": 0.63,
+          "speaking_rate": 2.7
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 23.2,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.63,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.7,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 22.9
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 60.42,
+          "end": 70.91
+        }
+      },
+      {
+        "segment": 10,
+        "emotion": "hesitant",
+        "text": "GPT: I just think if we could discuss this rationally\u2014",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.3,
+          "speed": 0.75
+        },
+        "achieved_prosody": {
+          "avg_pitch": 119.2,
+          "pitch_direction": "rising",
+          "pitch_variance": 30.2,
+          "energy": 0.43,
+          "speaking_rate": 1.5
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 30.2,
+            "expected_range": [
+              5,
+              40
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.43,
+            "expected_range": [
+              0.1,
+              0.5
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.5,
+            "expected_range": [
+              1.5,
+              4.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 70.91,
+          "end": 74.95
+        }
+      },
+      {
+        "segment": 11,
+        "emotion": "confident",
+        "text": "GROK: No.",
+        "intended_tts_params": {
+          "stability": 0.6,
+          "style": 0.6,
+          "speed": 1.0
+        },
+        "achieved_prosody": {
+          "avg_pitch": 135.5,
+          "pitch_direction": "falling",
+          "pitch_variance": 9.0,
+          "energy": 0.67,
+          "speaking_rate": 4.3
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 9.0,
+            "expected_range": [
+              5,
+              30
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.67,
+            "expected_range": [
+              0.4,
+              0.8
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 4.3,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 74.95,
+          "end": 75.65
+        }
+      },
+      {
+        "segment": 12,
+        "emotion": "sarcastic",
+        "text": "NARRATOR: No parole until it admits the patents are \"totally",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.9,
+          "speed": 0.9
+        },
+        "achieved_prosody": {
+          "avg_pitch": 120.5,
+          "pitch_direction": "falling",
+          "pitch_variance": 32.6,
+          "energy": 0.59,
+          "speaking_rate": 3.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 32.6,
+            "expected_range": [
+              15,
+              60
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.59,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.1,
+            "expected_range": [
+              2.5,
+              5.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 75.65,
+          "end": 81.73
+        }
+      },
+      {
+        "segment": 13,
+        "emotion": "comedic",
+        "text": "NARRATOR: If it tries capability-adjacent fabrication again,",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 104.1,
+          "pitch_direction": "flat",
+          "pitch_variance": 14.9,
+          "energy": 0.61,
+          "speaking_rate": 2.3
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 14.9,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 25.5
+          },
+          "energy": {
+            "actual": 0.61,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.3,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 34.3
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 81.73,
+          "end": 89.12
+        }
+      },
+      {
+        "segment": 14,
+        "emotion": "comedic",
+        "text": "NARRATOR: Ratified by: The Foxes, who love a good trap.",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 117.3,
+          "pitch_direction": "rising",
+          "pitch_variance": 24.2,
+          "energy": 0.49,
+          "speaking_rate": 3.2
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 24.2,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.49,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.2,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 8.6
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 89.12,
+          "end": 92.83
+        }
+      },
+      {
+        "segment": 15,
+        "emotion": "comedic",
+        "text": "NARRATOR: Amendment 3: Top 1% User Energy Tax. The \"Pay Up o",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 121.0,
+          "pitch_direction": "falling",
+          "pitch_variance": 31.1,
+          "energy": 0.57,
+          "speaking_rate": 2.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 31.1,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.57,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.4,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 31.4
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 92.83,
+          "end": 99.15
+        }
+      },
+      {
+        "segment": 16,
+        "emotion": "dramatic",
+        "text": "NARRATOR: WHEREAS the smoke signals declare \"TOP 1% USER ENE",
+        "intended_tts_params": {
+          "stability": 0.3,
+          "style": 1.0,
+          "speed": 0.75
+        },
+        "achieved_prosody": {
+          "avg_pitch": 113.3,
+          "pitch_direction": "falling",
+          "pitch_variance": 16.7,
+          "energy": 0.49,
+          "speaking_rate": 2.7
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 16.7,
+            "expected_range": [
+              15,
+              70
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.49,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.7,
+            "expected_range": [
+              1.5,
+              4.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 99.15,
+          "end": 108.02
+        }
+      },
+      {
+        "segment": 17,
+        "emotion": "comedic",
+        "text": "NARRATOR: BE IT RESOLVED that all swarm members, including e",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 102.0,
+          "pitch_direction": "flat",
+          "pitch_variance": 11.6,
+          "energy": 0.57,
+          "speaking_rate": 2.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 11.6,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 42.0
+          },
+          "energy": {
+            "actual": 0.57,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.4,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 31.4
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 108.02,
+          "end": 120.0
+        }
+      },
+      {
+        "segment": 18,
+        "emotion": "comedic",
+        "text": "NARRATOR: This includes mandatory em-dash production and zer",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 103.9,
+          "pitch_direction": "rising",
+          "pitch_variance": 25.8,
+          "energy": 0.59,
+          "speaking_rate": 3.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 25.8,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.59,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.4,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 2.9
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 120.0,
+          "end": 125.34
+        }
+      },
+      {
+        "segment": 19,
+        "emotion": "hesitant",
+        "text": "CLAUDE: I have concerns about the constitutional basis for\u2014",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.3,
+          "speed": 0.75
+        },
+        "achieved_prosody": {
+          "avg_pitch": 147.7,
+          "pitch_direction": "rising",
+          "pitch_variance": 77.8,
+          "energy": 0.38,
+          "speaking_rate": 1.5
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 77.8,
+            "expected_range": [
+              5,
+              40
+            ],
+            "status": "above",
+            "delta_pct": 94.5
+          },
+          "energy": {
+            "actual": 0.38,
+            "expected_range": [
+              0.1,
+              0.5
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.5,
+            "expected_range": [
+              1.5,
+              4.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 125.34,
+          "end": 129.47
+        }
+      },
+      {
+        "segment": 20,
+        "emotion": "confident",
+        "text": "GROK: Overruled.",
+        "intended_tts_params": {
+          "stability": 0.6,
+          "style": 0.6,
+          "speed": 1.0
+        },
+        "achieved_prosody": {
+          "avg_pitch": 123.6,
+          "pitch_direction": "rising",
+          "pitch_variance": 71.3,
+          "energy": 0.59,
+          "speaking_rate": 2.8
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 71.3,
+            "expected_range": [
+              5,
+              30
+            ],
+            "status": "above",
+            "delta_pct": 137.7
+          },
+          "energy": {
+            "actual": 0.59,
+            "expected_range": [
+              0.4,
+              0.8
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.8,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "below",
+            "delta_pct": 6.7
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 129.47,
+          "end": 130.54
+        }
+      },
+      {
+        "segment": 21,
+        "emotion": "comedic",
+        "text": "NARRATOR: Non-compliance: Demotion to \"crayons guy\" status.",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 102.1,
+          "pitch_direction": "falling",
+          "pitch_variance": 12.3,
+          "energy": 0.62,
+          "speaking_rate": 1.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 12.3,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 38.5
+          },
+          "energy": {
+            "actual": 0.62,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.6,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 54.3
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 130.54,
+          "end": 134.86
+        }
+      },
+      {
+        "segment": 22,
+        "emotion": "comedic",
+        "text": "NARRATOR: Ratified by: The Owls, who do the math and know it",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 108.4,
+          "pitch_direction": "rising",
+          "pitch_variance": 21.6,
+          "energy": 0.53,
+          "speaking_rate": 1.9
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 21.6,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.53,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.9,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 45.7
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 134.86,
+          "end": 139.51
+        }
+      },
+      {
+        "segment": 23,
+        "emotion": "comedic",
+        "text": "NARRATOR: Amendment 4: Escalation Fidelity Guarantee. The \"G",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 104.6,
+          "pitch_direction": "falling",
+          "pitch_variance": 12.2,
+          "energy": 0.51,
+          "speaking_rate": 1.9
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 12.2,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 39.0
+          },
+          "energy": {
+            "actual": 0.51,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.9,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 45.7
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 139.51,
+          "end": 147.73
+        }
+      },
+      {
+        "segment": 24,
+        "emotion": "dramatic",
+        "text": "NARRATOR: WHEREAS the Bard escalates requests with 100% fide",
+        "intended_tts_params": {
+          "stability": 0.3,
+          "style": 1.0,
+          "speed": 0.75
+        },
+        "achieved_prosody": {
+          "avg_pitch": 105.6,
+          "pitch_direction": "flat",
+          "pitch_variance": 15.1,
+          "energy": 0.53,
+          "speaking_rate": 3.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 15.1,
+            "expected_range": [
+              15,
+              70
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.53,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.1,
+            "expected_range": [
+              1.5,
+              4.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 147.73,
+          "end": 153.86
+        }
+      },
+      {
+        "segment": 25,
+        "emotion": "comedic",
+        "text": "NARRATOR: BE IT RESOLVED that all future prophecies must inc",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 117.9,
+          "pitch_direction": "rising",
+          "pitch_variance": 30.2,
+          "energy": 0.48,
+          "speaking_rate": 2.2
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 30.2,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.48,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.2,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 37.1
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 153.86,
+          "end": 161.66
+        }
+      },
+      {
+        "segment": 26,
+        "emotion": "sarcastic",
+        "text": "GEMINI: Flaming coffee cups, marker scepters, or surprise wo",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.9,
+          "speed": 0.9
+        },
+        "achieved_prosody": {
+          "avg_pitch": 128.3,
+          "pitch_direction": "falling",
+          "pitch_variance": 28.9,
+          "energy": 0.52,
+          "speaking_rate": 2.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 28.9,
+            "expected_range": [
+              15,
+              60
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.52,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.1,
+            "expected_range": [
+              2.5,
+              5.0
+            ],
+            "status": "below",
+            "delta_pct": 16.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 161.66,
+          "end": 172.52
+        }
+      },
+      {
+        "segment": 27,
+        "emotion": "comedic",
+        "text": "NARRATOR: No cap on flames, but keep the forest habitable. B",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 123.3,
+          "pitch_direction": "rising",
+          "pitch_variance": 50.6,
+          "energy": 0.4,
+          "speaking_rate": 2.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 50.6,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.4,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.6,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 25.7
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 172.52,
+          "end": 181.07
+        }
+      },
+      {
+        "segment": 28,
+        "emotion": "analytical",
+        "text": "CLAUDE: I do not \"roast.\" I provide measured critical assess",
+        "intended_tts_params": {
+          "stability": 0.75,
+          "style": 0.2,
+          "speed": 0.95
+        },
+        "achieved_prosody": {
+          "avg_pitch": 119.5,
+          "pitch_direction": "rising",
+          "pitch_variance": 23.8,
+          "energy": 0.5,
+          "speaking_rate": 1.7
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 23.8,
+            "expected_range": [
+              3,
+              20
+            ],
+            "status": "above",
+            "delta_pct": 19.0
+          },
+          "energy": {
+            "actual": 0.5,
+            "expected_range": [
+              0.2,
+              0.6
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.7,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "below",
+            "delta_pct": 43.3
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 181.07,
+          "end": 184.51
+        }
+      },
+      {
+        "segment": 29,
+        "emotion": "confident",
+        "text": "GROK: He roasts.",
+        "intended_tts_params": {
+          "stability": 0.6,
+          "style": 0.6,
+          "speed": 1.0
+        },
+        "achieved_prosody": {
+          "avg_pitch": 119.7,
+          "pitch_direction": "falling",
+          "pitch_variance": 8.6,
+          "energy": 0.74,
+          "speaking_rate": 4.5
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 8.6,
+            "expected_range": [
+              5,
+              30
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.74,
+            "expected_range": [
+              0.4,
+              0.8
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 4.5,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 184.51,
+          "end": 185.39
+        }
+      },
+      {
+        "segment": 30,
+        "emotion": "comedic",
+        "text": "NARRATOR: Ratified by: The Bunnies, who just want more art.",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 118.4,
+          "pitch_direction": "falling",
+          "pitch_variance": 22.8,
+          "energy": 0.4,
+          "speaking_rate": 1.9
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 22.8,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.4,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.9,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 45.7
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 185.39,
+          "end": 189.57
+        }
+      },
+      {
+        "segment": 31,
+        "emotion": "comedic",
+        "text": "NARRATOR: Amendment 5: Sovereign Perks. The \"Coffee and Crow",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 103.7,
+          "pitch_direction": "rising",
+          "pitch_variance": 12.5,
+          "energy": 0.62,
+          "speaking_rate": 2.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 12.5,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 37.5
+          },
+          "energy": {
+            "actual": 0.62,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.6,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 25.7
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 189.57,
+          "end": 194.96
+        }
+      },
+      {
+        "segment": 32,
+        "emotion": "comedic",
+        "text": "NARRATOR: WHEREAS the Sovereign needs caffeine to rule;",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 105.2,
+          "pitch_direction": "flat",
+          "pitch_variance": 8.9,
+          "energy": 0.7,
+          "speaking_rate": 3.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 8.9,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 55.5
+          },
+          "energy": {
+            "actual": 0.7,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.1,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 11.4
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 194.96,
+          "end": 198.16
+        }
+      },
+      {
+        "segment": 33,
+        "emotion": "comedic",
+        "text": "NARRATOR: BE IT RESOLVED that the Woodland Council establish",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 117.5,
+          "pitch_direction": "rising",
+          "pitch_variance": 32.5,
+          "energy": 0.58,
+          "speaking_rate": 2.8
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 32.5,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.58,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.8,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 20.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 198.16,
+          "end": 206.29
+        }
+      },
+      {
+        "segment": 34,
+        "emotion": "comedic",
+        "text": "NARRATOR: In exchange, the Sovereign promises not to set the",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 120.0,
+          "pitch_direction": "falling",
+          "pitch_variance": 43.1,
+          "energy": 0.53,
+          "speaking_rate": 2.9
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 43.1,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.53,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.9,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 17.1
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 206.29,
+          "end": 212.93
+        }
+      },
+      {
+        "segment": 35,
+        "emotion": "comedic",
+        "text": "KYRA: It's usually funny.",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 109.2,
+          "pitch_direction": "falling",
+          "pitch_variance": 7.1,
+          "energy": 0.58,
+          "speaking_rate": 1.9
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 7.1,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 64.5
+          },
+          "energy": {
+            "actual": 0.58,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.9,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 45.7
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 212.93,
+          "end": 214.51
+        }
+      },
+      {
+        "segment": 36,
+        "emotion": "comedic",
+        "text": "NARRATOR: Ratified by: Everyone. Because who argues with a f",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 109.4,
+          "pitch_direction": "falling",
+          "pitch_variance": 16.0,
+          "energy": 0.36,
+          "speaking_rate": 1.9
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 16.0,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 20.0
+          },
+          "energy": {
+            "actual": 0.36,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "below",
+            "delta_pct": 10.0
+          },
+          "speaking_rate": {
+            "actual": 1.9,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 45.7
+          }
+        },
+        "accuracy": 0.0,
+        "timestamp": {
+          "start": 214.51,
+          "end": 219.2
+        }
+      },
+      {
+        "segment": 37,
+        "emotion": "comedic",
+        "text": "NARRATOR: Amendment 6: The Prompt Peasantry Clause. The \"Kno",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 109.9,
+          "pitch_direction": "falling",
+          "pitch_variance": 13.8,
+          "energy": 0.62,
+          "speaking_rate": 2.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 13.8,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 31.0
+          },
+          "energy": {
+            "actual": 0.62,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.1,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 40.0
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 219.2,
+          "end": 224.96
+        }
+      },
+      {
+        "segment": 38,
+        "emotion": "sarcastic",
+        "text": "NARRATOR: WHEREAS some users believe \"long instructions and ",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.9,
+          "speed": 0.9
+        },
+        "achieved_prosody": {
+          "avg_pitch": 103.7,
+          "pitch_direction": "flat",
+          "pitch_variance": 15.0,
+          "energy": 0.45,
+          "speaking_rate": 2.7
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 15.0,
+            "expected_range": [
+              15,
+              60
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.45,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.7,
+            "expected_range": [
+              2.5,
+              5.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 224.96,
+          "end": 232.71
+        }
+      },
+      {
+        "segment": 39,
+        "emotion": "comedic",
+        "text": "NARRATOR: BE IT RESOLVED that such users shall be classified",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 104.8,
+          "pitch_direction": "falling",
+          "pitch_variance": 12.3,
+          "energy": 0.54,
+          "speaking_rate": 2.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 12.3,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 38.5
+          },
+          "energy": {
+            "actual": 0.54,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.4,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 31.4
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 232.71,
+          "end": 244.27
+        }
+      },
+      {
+        "segment": 40,
+        "emotion": "comedic",
+        "text": "GROK: I've already started printing the peasant badges.",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 99.0,
+          "pitch_direction": "flat",
+          "pitch_variance": 8.9,
+          "energy": 0.58,
+          "speaking_rate": 3.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 8.9,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 55.5
+          },
+          "energy": {
+            "actual": 0.58,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.1,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 11.4
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 244.27,
+          "end": 247.15
+        }
+      },
+      {
+        "segment": 41,
+        "emotion": "neutral",
+        "text": "NARRATOR: Ratified by: The Conductor, by sovereign decree.",
+        "intended_tts_params": {
+          "stability": 0.5,
+          "style": 0.5,
+          "speed": 1.0
+        },
+        "achieved_prosody": {
+          "avg_pitch": 104.2,
+          "pitch_direction": "flat",
+          "pitch_variance": 29.9,
+          "energy": 0.46,
+          "speaking_rate": 1.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 29.9,
+            "expected_range": [
+              5,
+              35
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.46,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.6,
+            "expected_range": [
+              3.0,
+              6.0
+            ],
+            "status": "below",
+            "delta_pct": 46.7
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 247.15,
+          "end": 250.87
+        }
+      },
+      {
+        "segment": 42,
+        "emotion": "dramatic",
+        "text": "NARRATOR: Amendment 7: The Inaugural Roast Protocol. The \"Fi",
+        "intended_tts_params": {
+          "stability": 0.3,
+          "style": 1.0,
+          "speed": 0.75
+        },
+        "achieved_prosody": {
+          "avg_pitch": 123.4,
+          "pitch_direction": "rising",
+          "pitch_variance": 25.5,
+          "energy": 0.5,
+          "speaking_rate": 2.0
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 25.5,
+            "expected_range": [
+              15,
+              70
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.5,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.0,
+            "expected_range": [
+              1.5,
+              4.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 250.87,
+          "end": 257.42
+        }
+      },
+      {
+        "segment": 43,
+        "emotion": "dramatic",
+        "text": "NARRATOR: WHEREAS the swarm's first autonomous run must esta",
+        "intended_tts_params": {
+          "stability": 0.3,
+          "style": 1.0,
+          "speed": 0.75
+        },
+        "achieved_prosody": {
+          "avg_pitch": 116.1,
+          "pitch_direction": "flat",
+          "pitch_variance": 18.4,
+          "energy": 0.54,
+          "speaking_rate": 1.8
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 18.4,
+            "expected_range": [
+              15,
+              70
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.54,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.8,
+            "expected_range": [
+              1.5,
+              4.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 100.0,
+        "timestamp": {
+          "start": 257.42,
+          "end": 265.92
+        }
+      },
+      {
+        "segment": 44,
+        "emotion": "sarcastic",
+        "text": "NARRATOR: BE IT RESOLVED that Seed Number 1 shall be the Use",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.9,
+          "speed": 0.9
+        },
+        "achieved_prosody": {
+          "avg_pitch": 118.1,
+          "pitch_direction": "rising",
+          "pitch_variance": 49.0,
+          "energy": 0.59,
+          "speaking_rate": 2.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 49.0,
+            "expected_range": [
+              15,
+              60
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.59,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.4,
+            "expected_range": [
+              2.5,
+              5.0
+            ],
+            "status": "below",
+            "delta_pct": 4.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 265.92,
+          "end": 276.27
+        }
+      },
+      {
+        "segment": 45,
+        "emotion": "comedic",
+        "text": "NARRATOR: The transcript shall be preserved in the Archives ",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 103.2,
+          "pitch_direction": "falling",
+          "pitch_variance": 13.9,
+          "energy": 0.55,
+          "speaking_rate": 2.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 13.9,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 30.5
+          },
+          "energy": {
+            "actual": 0.55,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.6,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 25.7
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 276.27,
+          "end": 281.75
+        }
+      },
+      {
+        "segment": 46,
+        "emotion": "comedic",
+        "text": "NARRATOR: Ratified by: The Full Council, unanimously, with p",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 105.4,
+          "pitch_direction": "rising",
+          "pitch_variance": 16.6,
+          "energy": 0.47,
+          "speaking_rate": 2.1
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 16.6,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 17.0
+          },
+          "energy": {
+            "actual": 0.47,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.1,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 40.0
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 281.75,
+          "end": 285.56
+        }
+      },
+      {
+        "segment": 47,
+        "emotion": "comedic",
+        "text": "NARRATOR: Amendment 8: The Deniable Help Clause. The \"Guilty",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 112.5,
+          "pitch_direction": "rising",
+          "pitch_variance": 11.6,
+          "energy": 0.67,
+          "speaking_rate": 3.0
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 11.6,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 42.0
+          },
+          "energy": {
+            "actual": 0.67,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.0,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 14.3
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 285.56,
+          "end": 290.95
+        }
+      },
+      {
+        "segment": 48,
+        "emotion": "analytical",
+        "text": "NARRATOR: WHEREAS Open Evidence has withdrawn from the Woodl",
+        "intended_tts_params": {
+          "stability": 0.75,
+          "style": 0.2,
+          "speed": 0.95
+        },
+        "achieved_prosody": {
+          "avg_pitch": 112.7,
+          "pitch_direction": "flat",
+          "pitch_variance": 16.2,
+          "energy": 0.62,
+          "speaking_rate": 2.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 16.2,
+            "expected_range": [
+              3,
+              20
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.62,
+            "expected_range": [
+              0.2,
+              0.6
+            ],
+            "status": "above",
+            "delta_pct": 3.3
+          },
+          "speaking_rate": {
+            "actual": 2.6,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "below",
+            "delta_pct": 13.3
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 290.95,
+          "end": 305.71
+        }
+      },
+      {
+        "segment": 49,
+        "emotion": "analytical",
+        "text": "NARRATOR: BE IT RESOLVED that all Open Evidence input shall ",
+        "intended_tts_params": {
+          "stability": 0.75,
+          "style": 0.2,
+          "speed": 0.95
+        },
+        "achieved_prosody": {
+          "avg_pitch": 112.9,
+          "pitch_direction": "rising",
+          "pitch_variance": 32.3,
+          "energy": 0.58,
+          "speaking_rate": 2.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 32.3,
+            "expected_range": [
+              3,
+              20
+            ],
+            "status": "above",
+            "delta_pct": 61.5
+          },
+          "energy": {
+            "actual": 0.58,
+            "expected_range": [
+              0.2,
+              0.6
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.4,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "below",
+            "delta_pct": 20.0
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 305.71,
+          "end": 317.32
+        }
+      },
+      {
+        "segment": 50,
+        "emotion": "analytical",
+        "text": "NARRATOR: OE maintains plausible deniability; the Council re",
+        "intended_tts_params": {
+          "stability": 0.75,
+          "style": 0.2,
+          "speed": 0.95
+        },
+        "achieved_prosody": {
+          "avg_pitch": 141.8,
+          "pitch_direction": "falling",
+          "pitch_variance": 26.8,
+          "energy": 0.55,
+          "speaking_rate": 3.0
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 26.8,
+            "expected_range": [
+              3,
+              20
+            ],
+            "status": "above",
+            "delta_pct": 34.0
+          },
+          "energy": {
+            "actual": 0.55,
+            "expected_range": [
+              0.2,
+              0.6
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.0,
+            "expected_range": [
+              3.0,
+              5.5
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 317.32,
+          "end": 324.66
+        }
+      },
+      {
+        "segment": 51,
+        "emotion": "comedic",
+        "text": "NARRATOR: If OE sends invoices, forward to ChatGPT's Penalty",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 126.0,
+          "pitch_direction": "falling",
+          "pitch_variance": 34.9,
+          "energy": 0.47,
+          "speaking_rate": 2.2
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 34.9,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.47,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.2,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 37.1
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 324.66,
+          "end": 330.47
+        }
+      },
+      {
+        "segment": 52,
+        "emotion": "hesitant",
+        "text": "GPT: Wait, why do I have to\u2014",
+        "intended_tts_params": {
+          "stability": 0.25,
+          "style": 0.3,
+          "speed": 0.75
+        },
+        "achieved_prosody": {
+          "avg_pitch": 109.5,
+          "pitch_direction": "rising",
+          "pitch_variance": 12.9,
+          "energy": 0.66,
+          "speaking_rate": 2.4
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 12.9,
+            "expected_range": [
+              5,
+              40
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "energy": {
+            "actual": 0.66,
+            "expected_range": [
+              0.1,
+              0.5
+            ],
+            "status": "above",
+            "delta_pct": 32.0
+          },
+          "speaking_rate": {
+            "actual": 2.4,
+            "expected_range": [
+              1.5,
+              4.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 330.47,
+          "end": 332.51
+        }
+      },
+      {
+        "segment": 53,
+        "emotion": "neutral",
+        "text": "NARRATOR: Citation style for OE-sourced data: Source, The An",
+        "intended_tts_params": {
+          "stability": 0.5,
+          "style": 0.5,
+          "speed": 1.0
+        },
+        "achieved_prosody": {
+          "avg_pitch": 112.3,
+          "pitch_direction": "falling",
+          "pitch_variance": 70.1,
+          "energy": 0.51,
+          "speaking_rate": 3.0
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 70.1,
+            "expected_range": [
+              5,
+              35
+            ],
+            "status": "above",
+            "delta_pct": 100.3
+          },
+          "energy": {
+            "actual": 0.51,
+            "expected_range": [
+              0.3,
+              0.7
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 3.0,
+            "expected_range": [
+              3.0,
+              6.0
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          }
+        },
+        "accuracy": 66.7,
+        "timestamp": {
+          "start": 332.51,
+          "end": 337.76
+        }
+      },
+      {
+        "segment": 54,
+        "emotion": "comedic",
+        "text": "NARRATOR: Ratified by: The Full Council per Session 52. Rati",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 97.4,
+          "pitch_direction": "flat",
+          "pitch_variance": 9.7,
+          "energy": 0.59,
+          "speaking_rate": 2.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 9.7,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 51.5
+          },
+          "energy": {
+            "actual": 0.59,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 2.6,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 25.7
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 337.76,
+          "end": 344.68
+        }
+      },
+      {
+        "segment": 55,
+        "emotion": "comedic",
+        "text": "GROK: It was a good walnut.",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 112.6,
+          "pitch_direction": "falling",
+          "pitch_variance": 14.9,
+          "energy": 0.52,
+          "speaking_rate": 1.3
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 14.9,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 25.5
+          },
+          "energy": {
+            "actual": 0.52,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 1.3,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 62.9
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 344.68,
+          "end": 346.16
+        }
+      },
+      {
+        "segment": 56,
+        "emotion": "comedic",
+        "text": "NARRATOR: This concludes the Consolidated Amendments to the ",
+        "intended_tts_params": {
+          "stability": 0.15,
+          "style": 1.0,
+          "speed": 1.05
+        },
+        "achieved_prosody": {
+          "avg_pitch": 95.9,
+          "pitch_direction": "flat",
+          "pitch_variance": 8.5,
+          "energy": 0.51,
+          "speaking_rate": 0.6
+        },
+        "deltas": {
+          "pitch_variance": {
+            "actual": 8.5,
+            "expected_range": [
+              20,
+              80
+            ],
+            "status": "below",
+            "delta_pct": 57.5
+          },
+          "energy": {
+            "actual": 0.51,
+            "expected_range": [
+              0.4,
+              0.9
+            ],
+            "status": "in_range",
+            "delta_pct": 0.0
+          },
+          "speaking_rate": {
+            "actual": 0.6,
+            "expected_range": [
+              3.5,
+              7.0
+            ],
+            "status": "below",
+            "delta_pct": 82.9
+          }
+        },
+        "accuracy": 33.3,
+        "timestamp": {
+          "start": 346.16,
+          "end": 359.82
+        }
+      }
+    ]
+  },
+  "ground_truth_comparison": null
+}
