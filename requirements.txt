@@ -1,0 +1,10 @@
+flask
+flask-cors
+python-dotenv
+openai
+numpy
+parselmouth
+matplotlib
+python-docx
+pydub
+Pillow
