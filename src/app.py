@@ -5,7 +5,7 @@ Rabid Raccoon Intelligence, LLC
 Flask app providing a browser interface for the forward and reverse pipelines.
 
 Usage:
-    python app.py
+    python3 app.py
     # Opens at http://localhost:5050
 """
 

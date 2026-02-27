@@ -6,10 +6,10 @@ Audio → Whisper Transcription → Parselmouth Prosody Extraction →
 Alignment → Annotated Transcript → LLM Analysis → Deep Insight
 
 Usage:
-    python prosody_pipeline.py /path/to/audio.m4a
-    python prosody_pipeline.py /path/to/audio.m4a --no-llm       # skip LLM analysis
-    python prosody_pipeline.py /path/to/audio.m4a --text-only     # run LLM without prosody (for A/B comparison)
-    python prosody_pipeline.py /path/to/audio.m4a --visualize     # generate prosody visualization PNG
+    python3 prosody_pipeline.py /path/to/audio.m4a
+    python3 prosody_pipeline.py /path/to/audio.m4a --no-llm       # skip LLM analysis
+    python3 prosody_pipeline.py /path/to/audio.m4a --text-only     # run LLM without prosody (for A/B comparison)
+    python3 prosody_pipeline.py /path/to/audio.m4a --visualize     # generate prosody visualization PNG
 """
 
 import argparse

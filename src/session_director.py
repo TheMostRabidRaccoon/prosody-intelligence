@@ -11,9 +11,9 @@ a dedicated Narrator), generates multi-voice TTS audio, and composites
 the final animated short.
 
 Usage:
-    python session_director.py ../input/Council_Session_47.docx ../input/stills/
-    python session_director.py ../input/Council_Session_47.docx ../input/stills/ --script-only
-    python session_director.py ../input/Council_Session_47.docx ../input/stills/ --skip-video
+    python3 session_director.py ../input/Council_Session_47.docx ../input/stills/
+    python3 session_director.py ../input/Council_Session_47.docx ../input/stills/ --script-only
+    python3 session_director.py ../input/Council_Session_47.docx ../input/stills/ --skip-video
 
 Voice routing:
     CLAUDE   → George (Warm Storyteller)

@@ -14,18 +14,18 @@ them into an animated short with:
   - Audio track composited on final render
 
 Usage:
-    python compositor.py --stills input/stills/ \\
-                         --audio output/gemini_wifi_petition_full.mp3 \\
-                         --emotion-map output/gemini_wifi_petition_emotion_map.json \\
-                         --output output/gemini_wifi_petition_animated.mp4
+    python3 compositor.py --stills input/stills/ \\
+                          --audio output/gemini_wifi_petition_full.mp3 \\
+                          --emotion-map output/gemini_wifi_petition_emotion_map.json \\
+                          --output output/gemini_wifi_petition_animated.mp4
 
-    python compositor.py --stills input/stills/ \\
-                         --audio output/gemini_wifi_petition_full.mp3 \\
-                         --emotion-map output/gemini_wifi_petition_emotion_map.json \\
-                         --output output/animated.mp4 \\
-                         --resolution 1920x1080 \\
-                         --transition-ms 500 \\
-                         --subtitle-style full
+    python3 compositor.py --stills input/stills/ \\
+                          --audio output/gemini_wifi_petition_full.mp3 \\
+                          --emotion-map output/gemini_wifi_petition_emotion_map.json \\
+                          --output output/animated.mp4 \\
+                          --resolution 1920x1080 \\
+                          --transition-ms 500 \\
+                          --subtitle-style full
 """
 
 import argparse

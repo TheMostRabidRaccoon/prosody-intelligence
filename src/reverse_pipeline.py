@@ -9,9 +9,9 @@ Feed it text, it detects emotional register per line, maps to
 ElevenLabs voice parameters, and generates emotionally accurate audio.
 
 Usage:
-    python reverse_pipeline.py input.txt --voice claude
-    python reverse_pipeline.py input.txt --voice grok --emotion-map   # show emotion map without TTS
-    python reverse_pipeline.py input.txt --voice all                  # multi-voice performance
+    python3 reverse_pipeline.py input.txt --voice claude
+    python3 reverse_pipeline.py input.txt --voice grok --emotion-map   # show emotion map without TTS
+    python3 reverse_pipeline.py input.txt --voice all                  # multi-voice performance
 
 Voice assignments (from spec):
     claude  → Onyx-style (George - Warm Storyteller)

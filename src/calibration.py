@@ -11,19 +11,19 @@ This is the piece that turns a rules engine into a calibrated controller.
 
 Usage:
     # Calibrate a single generated audio file against its emotion map
-    python calibration.py output/woodland_amendments_full.mp3 \\
-                          output/woodland_amendments_emotion_map.json
+    python3 calibration.py output/woodland_amendments_full.mp3 \\
+                           output/woodland_amendments_emotion_map.json
 
     # Calibrate with ground truth comparison (human audio baseline)
-    python calibration.py output/generated.mp3 \\
-                          output/generated_emotion_map.json \\
-                          --ground-truth output/human_annotated.json
+    python3 calibration.py output/generated.mp3 \\
+                           output/generated_emotion_map.json \\
+                           --ground-truth output/human_annotated.json
 
     # View calibration history
-    python calibration.py --report
+    python3 calibration.py --report
 
     # View per-emotion summary
-    python calibration.py --report --emotion sarcastic
+    python3 calibration.py --report --emotion sarcastic
 """
 
 import argparse
