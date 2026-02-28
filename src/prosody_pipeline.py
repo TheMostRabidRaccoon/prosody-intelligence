@@ -137,40 +137,28 @@ def _transcribe_large(client, audio_path: Path, file_size: int) -> dict:
 
 def _transcribe_chunked(client, audio_path: Path) -> dict:
     """
-    Split audio at silence boundaries, transcribe each chunk via Whisper,
+    Split audio into ~45-minute chunks via ffmpeg, transcribe each via Whisper,
     and stitch results back with correct time offsets.
 
+    Uses ffmpeg + ffprobe directly (no pydub dependency).
     Timestamps are offset by each chunk's position in the original audio
     so downstream prosody alignment stays accurate.
     """
-    from pydub import AudioSegment
-    from pydub.silence import detect_silence
+    # Get total duration via ffprobe
+    probe = subprocess.run(
+        ["ffprobe", "-v", "quiet", "-show_entries", "format=duration",
+         "-of", "csv=p=0", str(audio_path)],
+        capture_output=True, text=True, check=True,
+    )
+    total_seconds = float(probe.stdout.strip())
+    chunk_seconds = 45 * 60  # 45 min — at 48kbps mono ≈ 16 MB, safely under 25 MB
 
-    audio = AudioSegment.from_file(str(audio_path))
-    total_ms = len(audio)
-
-    # At 48kbps mono mp3, 50 min ≈ 18 MB — safely under 25 MB
-    max_chunk_ms = 50 * 60 * 1000
-
-    # Find silence positions as candidate split points
-    print(f"[Layer 1A] Scanning {total_ms / 1000:.0f}s of audio for silence boundaries...")
-    silences = detect_silence(audio, min_silence_len=500, silence_thresh=-40)
-    split_candidates = [(s + e) // 2 for s, e in silences] if silences else []
-
-    # Build chunk boundaries: split at silence points nearest to target duration
-    boundaries = [0]
-    for candidate in split_candidates:
-        if candidate - boundaries[-1] >= max_chunk_ms:
-            boundaries.append(candidate)
-
-    # Fallback: if no usable silence points, force-split at fixed intervals
-    if len(boundaries) == 1 and total_ms > max_chunk_ms:
-        boundaries = list(range(0, total_ms, max_chunk_ms))
-
-    boundaries.append(total_ms)
+    # Build chunk boundaries
+    boundaries = list(range(0, int(total_seconds), chunk_seconds))
+    boundaries.append(int(total_seconds) + 1)
 
     num_chunks = len(boundaries) - 1
-    print(f"[Layer 1A] Splitting into {num_chunks} chunks")
+    print(f"[Layer 1A] Audio is {total_seconds:.0f}s — splitting into {num_chunks} chunks")
 
     all_text = []
     all_segments = []
@@ -178,18 +166,25 @@ def _transcribe_chunked(client, audio_path: Path) -> dict:
     seg_id_offset = 0
 
     for i in range(num_chunks):
-        start_ms = boundaries[i]
-        end_ms = boundaries[i + 1]
-        offset_s = start_ms / 1000.0
-        chunk = audio[start_ms:end_ms]
+        start_s = boundaries[i]
+        duration_s = boundaries[i + 1] - start_s
+        offset_s = float(start_s)
 
         print(f"[Layer 1A]   Chunk {i+1}/{num_chunks}: "
-              f"{start_ms/1000:.0f}s – {end_ms/1000:.0f}s ({len(chunk)/1000:.0f}s)")
+              f"{start_s}s – {start_s + duration_s}s ({duration_s}s)")
 
-        # Export chunk as compressed mp3 for Whisper
+        # Extract and compress chunk via ffmpeg
         tmp = Path(tempfile.mktemp(suffix=".mp3"))
-        chunk.export(str(tmp), format="mp3",
-                     parameters=["-ac", "1", "-ar", "16000", "-b:a", "48k"])
+        subprocess.run(
+            ["ffmpeg", "-i", str(audio_path),
+             "-ss", str(start_s), "-t", str(duration_s),
+             "-ac", "1", "-ar", "16000", "-b:a", "48k",
+             "-y", str(tmp)],
+            capture_output=True, check=True,
+        )
+
+        chunk_size = tmp.stat().st_size
+        print(f"[Layer 1A]   Chunk {i+1} size: {chunk_size / (1024*1024):.1f} MB")
 
         try:
             with open(tmp, "rb") as f:
