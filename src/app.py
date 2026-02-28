@@ -28,6 +28,8 @@ from prosody_pipeline import (
     align_transcript_with_prosody,
     analyze_with_llm,
     visualize_prosody,
+    diarize_audio,
+    PYANNOTE_AVAILABLE,
     OUTPUT_DIR,
 )
 from reverse_pipeline import (
@@ -93,6 +95,7 @@ def api_analyze():
 
     try:
         steps = {}
+        enable_diarize = request.form.get("diarize") == "true"
 
         # Layer 1A: Transcribe
         t0 = time.time()
@@ -104,9 +107,17 @@ def api_analyze():
         prosody_data = extract_prosody(str(upload_path))
         steps["prosody"] = round(time.time() - t0, 1)
 
+        # Layer 1C: Speaker diarization (optional)
+        diarization_turns = None
+        if enable_diarize and PYANNOTE_AVAILABLE:
+            t0 = time.time()
+            diarization_turns = diarize_audio(str(upload_path))
+            steps["diarize"] = round(time.time() - t0, 1)
+
         # Layer 2: Alignment
         t0 = time.time()
-        annotated = align_transcript_with_prosody(transcript, prosody_data)
+        annotated = align_transcript_with_prosody(transcript, prosody_data,
+                                                   diarization_turns=diarization_turns)
         steps["align"] = round(time.time() - t0, 1)
 
         # Save annotated JSON
@@ -131,6 +142,11 @@ def api_analyze():
 
         speaker_threshold = _compute_speaker_threshold(annotated)
 
+        # Count unique speakers if diarization was used
+        speakers = list(set(
+            seg["speaker_id"] for seg in annotated if "speaker_id" in seg
+        ))
+
         return jsonify({
             "success": True,
             "transcript": transcript["text"],
@@ -140,6 +156,9 @@ def api_analyze():
             "duration": prosody_data["duration"],
             "segment_count": len(annotated),
             "speaker_threshold": speaker_threshold,
+            "speaker_count": len(speakers) if speakers else None,
+            "speakers": speakers if speakers else None,
+            "diarization_available": PYANNOTE_AVAILABLE,
             "timing": steps,
         })
 
@@ -161,10 +180,20 @@ def api_proof_test():
     audio_file.save(str(upload_path))
 
     try:
-        # Layers 1+2
+        enable_diarize = request.form.get("diarize") == "true"
+
+        # Layers 1A + 1B
         transcript = transcribe_audio(str(upload_path))
         prosody_data = extract_prosody(str(upload_path))
-        annotated = align_transcript_with_prosody(transcript, prosody_data)
+
+        # Layer 1C: Speaker diarization (optional)
+        diarization_turns = None
+        if enable_diarize and PYANNOTE_AVAILABLE:
+            diarization_turns = diarize_audio(str(upload_path))
+
+        # Layer 2
+        annotated = align_transcript_with_prosody(transcript, prosody_data,
+                                                   diarization_turns=diarization_turns)
 
         audio_name = Path(audio_file.filename).stem
         viz_path = visualize_prosody(annotated, prosody_data, audio_name)
@@ -178,6 +207,10 @@ def api_proof_test():
 
         speaker_threshold = _compute_speaker_threshold(annotated)
 
+        speakers = list(set(
+            seg["speaker_id"] for seg in annotated if "speaker_id" in seg
+        ))
+
         return jsonify({
             "success": True,
             "transcript": transcript["text"],
@@ -188,6 +221,9 @@ def api_proof_test():
             "duration": prosody_data["duration"],
             "segment_count": len(annotated),
             "speaker_threshold": speaker_threshold,
+            "speaker_count": len(speakers) if speakers else None,
+            "speakers": speakers if speakers else None,
+            "diarization_available": PYANNOTE_AVAILABLE,
         })
 
     except Exception as e:

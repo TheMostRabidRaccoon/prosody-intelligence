@@ -3,6 +3,7 @@ Prosody Intelligence — Forward Pipeline
 Rabid Raccoon Intelligence, LLC
 
 Audio → Whisper Transcription → Parselmouth Prosody Extraction →
+(Optional) pyannote.audio Speaker Diarization →
 Alignment → Annotated Transcript → LLM Analysis → Deep Insight
 
 Usage:
@@ -10,6 +11,7 @@ Usage:
     python prosody_pipeline.py /path/to/audio.m4a --no-llm       # skip LLM analysis
     python prosody_pipeline.py /path/to/audio.m4a --text-only     # run LLM without prosody (for A/B comparison)
     python prosody_pipeline.py /path/to/audio.m4a --visualize     # generate prosody visualization PNG
+    python prosody_pipeline.py /path/to/audio.m4a --diarize       # enable speaker diarization (requires HF_TOKEN)
 """
 
 import argparse
@@ -29,6 +31,13 @@ import parselmouth
 from parselmouth.praat import call
 from dotenv import load_dotenv
 from openai import OpenAI
+
+# Optional: pyannote.audio for speaker diarization
+try:
+    from pyannote.audio import Pipeline as PyannotePipeline
+    PYANNOTE_AVAILABLE = True
+except ImportError:
+    PYANNOTE_AVAILABLE = False
 
 # ──────────────────────────────────────────────────────────────
 # Config
@@ -362,13 +371,116 @@ def get_segment_prosody(prosody_data: dict, start: float, end: float) -> dict:
 
 
 # ──────────────────────────────────────────────────────────────
+# LAYER 1C: Speaker Diarization (pyannote.audio)
+# ──────────────────────────────────────────────────────────────
+
+def diarize_audio(audio_path: str) -> list:
+    """
+    Run speaker diarization using pyannote.audio.
+    Returns a list of speaker turns: [{start, end, speaker}]
+
+    Requires:
+      - pip install pyannote.audio
+      - HuggingFace token with access to pyannote/speaker-diarization-3.1
+      - Token set as HF_TOKEN or HUGGINGFACE_TOKEN in .env
+    """
+    if not PYANNOTE_AVAILABLE:
+        raise ImportError(
+            "pyannote.audio is not installed. "
+            "Install it with: pip install pyannote.audio"
+        )
+
+    hf_token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGINGFACE_TOKEN")
+    if not hf_token:
+        raise ValueError(
+            "No HuggingFace token found. Set HF_TOKEN or HUGGINGFACE_TOKEN "
+            "in your .env file. You also need to accept the model terms at "
+            "https://huggingface.co/pyannote/speaker-diarization-3.1"
+        )
+
+    print(f"[Layer 1C] Running speaker diarization on: {Path(audio_path).name}")
+    start = time.time()
+
+    wav_path = ensure_wav(audio_path)
+
+    pipeline = PyannotePipeline.from_pretrained(
+        "pyannote/speaker-diarization-3.1",
+        use_auth_token=hf_token,
+    )
+
+    diarization = pipeline(wav_path)
+
+    # Convert pyannote annotation to simple list of turns
+    turns = []
+    for turn, _, speaker in diarization.itertracks(yield_label=True):
+        turns.append({
+            "start": round(turn.start, 3),
+            "end": round(turn.end, 3),
+            "speaker": speaker,
+        })
+
+    # Normalize speaker labels to sequential IDs (SPEAKER_00, SPEAKER_01, ...)
+    unique_speakers = list(dict.fromkeys(t["speaker"] for t in turns))
+    speaker_map = {s: f"SPEAKER_{i:02d}" for i, s in enumerate(unique_speakers)}
+    for t in turns:
+        t["speaker"] = speaker_map[t["speaker"]]
+
+    elapsed = time.time() - start
+    print(f"[Layer 1C] Diarization complete in {elapsed:.1f}s")
+    print(f"[Layer 1C] Found {len(unique_speakers)} speakers, {len(turns)} turns")
+
+    return turns
+
+
+def assign_speakers_to_segments(segments: list, diarization_turns: list) -> list:
+    """
+    Match each transcript segment to a speaker from the diarization output.
+    Uses maximum overlap: whichever speaker's turns overlap most with a
+    given segment's time range wins.
+
+    Adds 'speaker_id' field to each segment dict (in-place).
+    """
+    print("[Layer 1C] Assigning speakers to transcript segments...")
+
+    for seg in segments:
+        seg_start = seg["start"]
+        seg_end = seg["end"]
+
+        # Calculate overlap with each speaker's turns
+        speaker_overlaps = {}
+        for turn in diarization_turns:
+            overlap_start = max(seg_start, turn["start"])
+            overlap_end = min(seg_end, turn["end"])
+            overlap = max(0, overlap_end - overlap_start)
+
+            if overlap > 0:
+                speaker = turn["speaker"]
+                speaker_overlaps[speaker] = speaker_overlaps.get(speaker, 0) + overlap
+
+        if speaker_overlaps:
+            # Assign the speaker with the most overlap
+            seg["speaker_id"] = max(speaker_overlaps, key=speaker_overlaps.get)
+        else:
+            seg["speaker_id"] = "UNKNOWN"
+
+    # Summary
+    speakers_found = set(seg.get("speaker_id", "UNKNOWN") for seg in segments)
+    print(f"[Layer 1C] Speaker assignment complete — "
+          f"{len(speakers_found)} speakers across {len(segments)} segments")
+
+    return segments
+
+
+# ──────────────────────────────────────────────────────────────
 # LAYER 2: Alignment & Annotation
 # ──────────────────────────────────────────────────────────────
 
-def align_transcript_with_prosody(transcript: dict, prosody_data: dict) -> list:
+def align_transcript_with_prosody(transcript: dict, prosody_data: dict,
+                                   diarization_turns: list = None) -> list:
     """
     Merge Whisper timestamps with Parselmouth prosody data.
     Calculates pause_before and pause_after for each segment.
+    If diarization_turns is provided, assigns speaker_id to each segment.
     This is the glue layer — every segment gets both its text
     and its acoustic signature.
     """
@@ -402,12 +514,18 @@ def align_transcript_with_prosody(transcript: dict, prosody_data: dict) -> list:
         prosody["pause_before"] = round(pause_before, 2)
         prosody["pause_after"] = round(pause_after, 2)
 
-        annotated.append({
+        entry = {
             "start": seg_start,
             "end": seg_end,
             "text": seg["text"],
             "prosody": prosody,
-        })
+        }
+
+        annotated.append(entry)
+
+    # Assign speakers if diarization data is available
+    if diarization_turns:
+        assign_speakers_to_segments(annotated, diarization_turns)
 
     elapsed = time.time() - start_time
     print(f"[Layer 2] Alignment complete in {elapsed:.1f}s — {len(annotated)} segments annotated")
@@ -425,6 +543,7 @@ PROSODY_SYSTEM_PROMPT = """You are a prosody-aware communication analyst. You re
 
 Each segment includes these acoustic measurements:
 
+- **speaker_id**: Identifies which speaker produced this segment (e.g., SPEAKER_00, SPEAKER_01). When present, use this to track each speaker's individual patterns and compare between speakers. If absent, the recording was analyzed as single-speaker.
 - **avg_pitch** (Hz): Fundamental frequency. Higher = excitement, stress, questions. Lower = certainty, calm, authority. Typical ranges: male 85-180 Hz, female 165-255 Hz.
 - **pitch_direction**: Rising, falling, or flat contour over the segment.
   - Rising on statements → uncertainty, seeking validation, turning statement into question
@@ -451,20 +570,31 @@ Each segment includes these acoustic measurements:
 1. Read both the text AND the prosody data for each segment.
 2. Flag moments where prosody contradicts or adds nuance to the text (e.g., "I'm fine" said with falling energy and long preceding pause).
 3. Identify emotional shifts, hesitation patterns, and moments of emphasis.
-4. Note power dynamics reflected in speaking patterns (who speaks louder, faster, who pauses more).
-5. Provide a prosodic summary that captures the emotional arc of the conversation.
-6. Be specific — cite the actual numbers when they tell a story.
+4. When speaker_id labels are present, analyze EACH speaker independently:
+   - Build a prosodic profile per speaker (their baseline pitch, energy, rate patterns).
+   - Compare how speakers differ in delivery, dominance, and emotional engagement.
+   - Track conversational dynamics: who interrupts, who yields, who escalates.
+   - Note when a speaker's prosody shifts in response to the other speaker.
+5. Note power dynamics reflected in speaking patterns (who speaks louder, faster, who pauses more).
+6. Provide a prosodic summary that captures the emotional arc of the conversation.
+7. Be specific — cite the actual numbers when they tell a story.
 
 Your analysis should reveal what a text-only reading would miss."""
 
 
 def build_annotated_prompt(annotated_segments: list) -> str:
     """Format annotated segments for LLM consumption."""
-    lines = ["# Annotated Transcript (Text + Prosody)\n"]
+    has_speakers = any("speaker_id" in seg for seg in annotated_segments)
+
+    if has_speakers:
+        lines = ["# Annotated Transcript (Text + Prosody + Speaker Diarization)\n"]
+    else:
+        lines = ["# Annotated Transcript (Text + Prosody)\n"]
 
     for seg in annotated_segments:
         p = seg["prosody"]
-        lines.append(f'[{seg["start"]:.1f}s - {seg["end"]:.1f}s]')
+        speaker_tag = f' [{seg["speaker_id"]}]' if "speaker_id" in seg else ""
+        lines.append(f'[{seg["start"]:.1f}s - {seg["end"]:.1f}s]{speaker_tag}')
         lines.append(f'Text: "{seg["text"]}"')
         lines.append(
             f'Prosody: pitch={p["avg_pitch"]}Hz ({p["pitch_direction"]}), '
@@ -560,34 +690,64 @@ def visualize_prosody(annotated_segments: list, prosody_data: dict, audio_name: 
         int_vals.append(e if e and not np.isnan(e) else np.nan)
     int_vals = np.array(int_vals)
 
-    # --- Adaptive Speaker Separation ---
-    # Instead of hard-coding 170Hz, cluster by median pitch of all
-    # voiced segments. This handles two male speakers, two female
-    # speakers, or any combo where pitches overlap.
-    voiced_pitches = [
-        (i, seg["prosody"]["avg_pitch"])
-        for i, seg in enumerate(annotated_segments)
-        if seg["prosody"]["avg_pitch"] > 0
-        and seg["prosody"]["pitch_direction"] != "unknown"
-        and seg["prosody"]["speaking_rate"] < 50  # filter phantom segments
+    # --- Speaker Color Assignment ---
+    # Use real speaker IDs from diarization if available,
+    # otherwise fall back to adaptive pitch-based heuristic.
+    has_diarization = any("speaker_id" in seg for seg in annotated_segments)
+
+    # Color palette for up to 6 speakers
+    SPEAKER_COLORS = [
+        "#E8594F",  # RRI red
+        "#4A90D9",  # cool blue
+        "#50C878",  # emerald green
+        "#FFB347",  # pastel orange
+        "#9B59B6",  # amethyst purple
+        "#1ABC9C",  # turquoise
     ]
 
-    if voiced_pitches:
-        all_pitches = [p for _, p in voiced_pitches]
-        median_pitch = float(np.median(all_pitches))
-        # Use median as adaptive threshold
-        pitch_threshold = median_pitch
-        print(f"[Viz] Adaptive speaker split: median pitch = {median_pitch:.1f}Hz")
+    if has_diarization:
+        # Map speaker_id → color
+        unique_speakers = list(dict.fromkeys(
+            seg.get("speaker_id", "UNKNOWN") for seg in annotated_segments
+        ))
+        speaker_color_map = {
+            spk: SPEAKER_COLORS[i % len(SPEAKER_COLORS)]
+            for i, spk in enumerate(unique_speakers)
+        }
+        seg_colors = [
+            speaker_color_map.get(seg.get("speaker_id", "UNKNOWN"), "#666666")
+            for seg in annotated_segments
+        ]
+        print(f"[Viz] Speaker colors from diarization: "
+              f"{len(unique_speakers)} speakers detected")
     else:
-        pitch_threshold = 170.0  # fallback
+        # Fallback: adaptive pitch-based heuristic
+        voiced_pitches = [
+            (i, seg["prosody"]["avg_pitch"])
+            for i, seg in enumerate(annotated_segments)
+            if seg["prosody"]["avg_pitch"] > 0
+            and seg["prosody"]["pitch_direction"] != "unknown"
+            and seg["prosody"]["speaking_rate"] < 50
+        ]
 
-    seg_colors = []
-    for i, seg in enumerate(annotated_segments):
-        p = seg["prosody"]["avg_pitch"]
-        if p > pitch_threshold:
-            seg_colors.append("#E8594F")  # RRI red — higher-pitched speaker
+        if voiced_pitches:
+            all_pitches = [p for _, p in voiced_pitches]
+            median_pitch = float(np.median(all_pitches))
+            pitch_threshold = median_pitch
+            print(f"[Viz] Adaptive speaker split (pitch heuristic): "
+                  f"median = {median_pitch:.1f}Hz")
         else:
-            seg_colors.append("#4A90D9")  # cool blue — lower-pitched speaker
+            pitch_threshold = 170.0
+
+        unique_speakers = None
+        seg_colors = []
+        for i, seg in enumerate(annotated_segments):
+            p = seg["prosody"]["avg_pitch"]
+            if p > pitch_threshold:
+                seg_colors.append("#E8594F")
+            else:
+                seg_colors.append("#4A90D9")
+
     silence_color = "#2D2D2D"
 
     # --- Figure setup ---
@@ -705,14 +865,23 @@ def visualize_prosody(annotated_segments: list, prosody_data: dict, audio_name: 
     ax3.set_yticks([0.15, 0.6])
     ax3.set_yticklabels(["Rate\n(syl/s)", "Energy\n(0-1)"], fontsize=7, color="#AAAAAA")
 
-    # Legend — show the adaptive threshold so the user knows the split point
-    legend_elements = [
-        mpatches.Patch(facecolor="#E8594F", alpha=0.6,
-                       label=f"Speaker A (>{pitch_threshold:.0f}Hz)"),
-        mpatches.Patch(facecolor="#4A90D9", alpha=0.6,
-                       label=f"Speaker B (<{pitch_threshold:.0f}Hz)"),
-        mpatches.Patch(facecolor=silence_color, alpha=0.7, label="Silence (>1s)"),
-    ]
+    # Legend — show speaker labels
+    if has_diarization and unique_speakers:
+        legend_elements = [
+            mpatches.Patch(facecolor=speaker_color_map[spk], alpha=0.6,
+                           label=spk.replace("_", " ").title())
+            for spk in unique_speakers
+        ]
+    else:
+        legend_elements = [
+            mpatches.Patch(facecolor="#E8594F", alpha=0.6,
+                           label=f"Speaker A (>{pitch_threshold:.0f}Hz)"),
+            mpatches.Patch(facecolor="#4A90D9", alpha=0.6,
+                           label=f"Speaker B (<{pitch_threshold:.0f}Hz)"),
+        ]
+    legend_elements.append(
+        mpatches.Patch(facecolor=silence_color, alpha=0.7, label="Silence (>1s)")
+    )
     ax1.legend(handles=legend_elements, loc="upper right",
                fontsize=7, facecolor="#2A2A2A", edgecolor="#444444",
                labelcolor="#CCCCCC")
@@ -734,9 +903,14 @@ def visualize_prosody(annotated_segments: list, prosody_data: dict, audio_name: 
 # Full Pipeline Orchestrator
 # ──────────────────────────────────────────────────────────────
 
-def run_pipeline(audio_path: str, skip_llm: bool = False, text_only: bool = False, visualize: bool = False) -> dict:
+def run_pipeline(audio_path: str, skip_llm: bool = False, text_only: bool = False,
+                  visualize: bool = False, diarize: bool = False) -> dict:
     """
     Run the full forward pipeline on an audio file.
+
+    Args:
+        diarize: If True, run pyannote.audio speaker diarization (Layer 1C)
+                 to tag each segment with a speaker_id.
 
     Returns dict with all intermediate outputs for inspection.
     """
@@ -746,6 +920,8 @@ def run_pipeline(audio_path: str, skip_llm: bool = False, text_only: bool = Fals
     print("=" * 60)
     print(f"PROSODY INTELLIGENCE — Forward Pipeline")
     print(f"Input: {Path(audio_path).name}")
+    if diarize:
+        print(f"Speaker diarization: ENABLED")
     print("=" * 60)
 
     # Layer 1A: Transcribe
@@ -754,8 +930,14 @@ def run_pipeline(audio_path: str, skip_llm: bool = False, text_only: bool = Fals
     # Layer 1B: Extract prosody
     prosody_data = extract_prosody(audio_path)
 
-    # Layer 2: Align
-    annotated = align_transcript_with_prosody(transcript, prosody_data)
+    # Layer 1C: Speaker diarization (optional)
+    diarization_turns = None
+    if diarize:
+        diarization_turns = diarize_audio(audio_path)
+
+    # Layer 2: Align (with optional diarization)
+    annotated = align_transcript_with_prosody(transcript, prosody_data,
+                                               diarization_turns=diarization_turns)
 
     # Save annotated transcript
     output_path = OUTPUT_DIR / f"{audio_name}_annotated.json"
@@ -769,6 +951,14 @@ def run_pipeline(audio_path: str, skip_llm: bool = False, text_only: bool = Fals
         "annotated_segments": annotated,
         "output_path": str(output_path),
     }
+
+    if diarization_turns:
+        # Save raw diarization turns for reference
+        diar_path = OUTPUT_DIR / f"{audio_name}_diarization.json"
+        with open(diar_path, "w") as f:
+            json.dump(diarization_turns, f, indent=2)
+        result["diarization_turns"] = diarization_turns
+        result["diarization_path"] = str(diar_path)
 
     # Visualization
     if visualize:
@@ -795,7 +985,7 @@ def run_pipeline(audio_path: str, skip_llm: bool = False, text_only: bool = Fals
     return result
 
 
-def run_proof_test(audio_path: str) -> dict:
+def run_proof_test(audio_path: str, diarize: bool = False) -> dict:
     """
     The Proof Test (Section 5.1 of the spec):
     Run the same transcript through LLM twice —
@@ -807,12 +997,20 @@ def run_proof_test(audio_path: str) -> dict:
     print("=" * 60)
     print("PROSODY INTELLIGENCE — PROOF TEST (A/B Comparison)")
     print(f"Input: {Path(audio_path).name}")
+    if diarize:
+        print(f"Speaker diarization: ENABLED")
     print("=" * 60)
 
     # Layer 1 + 2: Get annotated transcript
     transcript = transcribe_audio(audio_path)
     prosody_data = extract_prosody(audio_path)
-    annotated = align_transcript_with_prosody(transcript, prosody_data)
+
+    diarization_turns = None
+    if diarize:
+        diarization_turns = diarize_audio(audio_path)
+
+    annotated = align_transcript_with_prosody(transcript, prosody_data,
+                                               diarization_turns=diarization_turns)
 
     # A: Text-only analysis
     print("\n" + "—" * 40)
@@ -859,10 +1057,13 @@ if __name__ == "__main__":
     parser.add_argument("--text-only", action="store_true", help="Run LLM without prosody data")
     parser.add_argument("--proof-test", action="store_true", help="Run A/B proof test (text vs prosody)")
     parser.add_argument("--visualize", action="store_true", help="Generate prosody visualization PNG")
+    parser.add_argument("--diarize", action="store_true",
+                        help="Enable speaker diarization via pyannote.audio (requires HF_TOKEN)")
 
     args = parser.parse_args()
 
     if args.proof_test:
-        run_proof_test(args.audio)
+        run_proof_test(args.audio, diarize=args.diarize)
     else:
-        run_pipeline(args.audio, skip_llm=args.no_llm, text_only=args.text_only, visualize=args.visualize)
+        run_pipeline(args.audio, skip_llm=args.no_llm, text_only=args.text_only,
+                     visualize=args.visualize, diarize=args.diarize)
