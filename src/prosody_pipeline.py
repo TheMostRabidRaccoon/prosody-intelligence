@@ -40,6 +40,8 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 
 load_dotenv(Path.home() / ".env")
 
+WHISPER_MAX_BYTES = 25 * 1024 * 1024  # OpenAI Whisper API hard limit (25 MiB)
+
 
 # ──────────────────────────────────────────────────────────────
 # LAYER 1A: Whisper Transcription
@@ -48,15 +50,32 @@ load_dotenv(Path.home() / ".env")
 def transcribe_audio(audio_path: str) -> dict:
     """
     Transcribe audio using OpenAI Whisper API.
+    Auto-compresses and chunks files over 25 MB so long recordings
+    (e.g. drive-in dictations) work without manual splitting.
     Returns word-level timestamps and segment data.
     """
     client = OpenAI()
     audio_path = Path(audio_path)
+    file_size = audio_path.stat().st_size
 
-    print(f"[Layer 1A] Transcribing: {audio_path.name}")
+    print(f"[Layer 1A] Transcribing: {audio_path.name} ({file_size / (1024*1024):.1f} MB)")
     start = time.time()
 
-    with open(audio_path, "rb") as f:
+    if file_size <= WHISPER_MAX_BYTES:
+        result = _transcribe_single(client, audio_path)
+    else:
+        result = _transcribe_large(client, audio_path, file_size)
+
+    elapsed = time.time() - start
+    print(f"[Layer 1A] Transcription complete in {elapsed:.1f}s")
+    print(f"[Layer 1A] Text: {result['text'][:120]}...")
+
+    return result
+
+
+def _transcribe_single(client, file_path: Path) -> dict:
+    """Send a single file to Whisper and return structured result."""
+    with open(file_path, "rb") as f:
         response = client.audio.transcriptions.create(
             model="whisper-1",
             file=f,
@@ -64,15 +83,7 @@ def transcribe_audio(audio_path: str) -> dict:
             timestamp_granularities=["word", "segment"],
         )
 
-    elapsed = time.time() - start
-    print(f"[Layer 1A] Transcription complete in {elapsed:.1f}s")
-    print(f"[Layer 1A] Text: {response.text[:120]}...")
-
-    result = {
-        "text": response.text,
-        "segments": [],
-        "words": [],
-    }
+    result = {"text": response.text, "segments": [], "words": []}
 
     if response.segments:
         for seg in response.segments:
@@ -92,6 +103,130 @@ def transcribe_audio(audio_path: str) -> dict:
             })
 
     return result
+
+
+def _transcribe_large(client, audio_path: Path, file_size: int) -> dict:
+    """
+    Handle files over 25 MB: compress first, chunk if still too big.
+    Keeps the same return format as _transcribe_single.
+    """
+    # Step 1: Compress to mono 16kHz 48kbps mp3
+    # Speech quality stays high for Whisper; 270 MB m4a → ~40 MB typically
+    print(f"[Layer 1A] File is {file_size / (1024*1024):.1f} MB — compressing for Whisper...")
+    compressed = Path(tempfile.mktemp(suffix=".mp3"))
+
+    try:
+        subprocess.run(
+            ["ffmpeg", "-i", str(audio_path), "-ac", "1", "-ar", "16000",
+             "-b:a", "48k", "-y", str(compressed)],
+            capture_output=True, check=True,
+        )
+        compressed_size = compressed.stat().st_size
+        print(f"[Layer 1A] Compressed to {compressed_size / (1024*1024):.1f} MB")
+
+        if compressed_size <= WHISPER_MAX_BYTES:
+            # Compression alone got us under the limit
+            return _transcribe_single(client, compressed)
+
+        # Step 2: Still too big — chunk on silence boundaries
+        print(f"[Layer 1A] Still over 25 MB — splitting on silence boundaries...")
+        return _transcribe_chunked(client, audio_path)
+    finally:
+        compressed.unlink(missing_ok=True)
+
+
+def _transcribe_chunked(client, audio_path: Path) -> dict:
+    """
+    Split audio at silence boundaries, transcribe each chunk via Whisper,
+    and stitch results back with correct time offsets.
+
+    Timestamps are offset by each chunk's position in the original audio
+    so downstream prosody alignment stays accurate.
+    """
+    from pydub import AudioSegment
+    from pydub.silence import detect_silence
+
+    audio = AudioSegment.from_file(str(audio_path))
+    total_ms = len(audio)
+
+    # At 48kbps mono mp3, 50 min ≈ 18 MB — safely under 25 MB
+    max_chunk_ms = 50 * 60 * 1000
+
+    # Find silence positions as candidate split points
+    print(f"[Layer 1A] Scanning {total_ms / 1000:.0f}s of audio for silence boundaries...")
+    silences = detect_silence(audio, min_silence_len=500, silence_thresh=-40)
+    split_candidates = [(s + e) // 2 for s, e in silences] if silences else []
+
+    # Build chunk boundaries: split at silence points nearest to target duration
+    boundaries = [0]
+    for candidate in split_candidates:
+        if candidate - boundaries[-1] >= max_chunk_ms:
+            boundaries.append(candidate)
+
+    # Fallback: if no usable silence points, force-split at fixed intervals
+    if len(boundaries) == 1 and total_ms > max_chunk_ms:
+        boundaries = list(range(0, total_ms, max_chunk_ms))
+
+    boundaries.append(total_ms)
+
+    num_chunks = len(boundaries) - 1
+    print(f"[Layer 1A] Splitting into {num_chunks} chunks")
+
+    all_text = []
+    all_segments = []
+    all_words = []
+    seg_id_offset = 0
+
+    for i in range(num_chunks):
+        start_ms = boundaries[i]
+        end_ms = boundaries[i + 1]
+        offset_s = start_ms / 1000.0
+        chunk = audio[start_ms:end_ms]
+
+        print(f"[Layer 1A]   Chunk {i+1}/{num_chunks}: "
+              f"{start_ms/1000:.0f}s – {end_ms/1000:.0f}s ({len(chunk)/1000:.0f}s)")
+
+        # Export chunk as compressed mp3 for Whisper
+        tmp = Path(tempfile.mktemp(suffix=".mp3"))
+        chunk.export(str(tmp), format="mp3",
+                     parameters=["-ac", "1", "-ar", "16000", "-b:a", "48k"])
+
+        try:
+            with open(tmp, "rb") as f:
+                response = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=f,
+                    response_format="verbose_json",
+                    timestamp_granularities=["word", "segment"],
+                )
+
+            all_text.append(response.text)
+
+            if response.segments:
+                for seg in response.segments:
+                    all_segments.append({
+                        "id": getattr(seg, "id", 0) + seg_id_offset,
+                        "start": getattr(seg, "start", 0) + offset_s,
+                        "end": getattr(seg, "end", 0) + offset_s,
+                        "text": getattr(seg, "text", "").strip(),
+                    })
+                seg_id_offset = all_segments[-1]["id"] + 1
+
+            if response.words:
+                for w in response.words:
+                    all_words.append({
+                        "word": getattr(w, "word", "").strip(),
+                        "start": getattr(w, "start", 0) + offset_s,
+                        "end": getattr(w, "end", 0) + offset_s,
+                    })
+        finally:
+            tmp.unlink(missing_ok=True)
+
+    return {
+        "text": " ".join(all_text),
+        "segments": all_segments,
+        "words": all_words,
+    }
 
 
 # ──────────────────────────────────────────────────────────────
