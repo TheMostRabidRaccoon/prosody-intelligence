@@ -40,7 +40,7 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 
 load_dotenv(Path.home() / ".env")
 
-WHISPER_MAX_BYTES = 25 * 1024 * 1024  # OpenAI Whisper API hard limit (25 MiB)
+WHISPER_MAX_BYTES = 24 * 1024 * 1024  # 24 MiB — 1 MB safety margin under Whisper's 25 MiB limit
 
 
 # ──────────────────────────────────────────────────────────────

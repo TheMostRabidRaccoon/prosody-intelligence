@@ -41,6 +41,7 @@ from reverse_pipeline import (
 load_dotenv(Path.home() / ".env")
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
+app.config["MAX_CONTENT_LENGTH"] = 500 * 1024 * 1024  # 500 MB — allow long drive-in recordings
 CORS(app)
 
 UPLOAD_DIR = OUTPUT_DIR.parent / "uploads"
