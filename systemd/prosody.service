@@ -1,0 +1,23 @@
+[Unit]
+Description=Prosody Intelligence engine (Flask, port 5050)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=theconductor
+WorkingDirectory=/home/theconductor/prosody-intelligence/src
+EnvironmentFile=-/home/theconductor/prosody-intelligence/.env
+# Debug/reloader OFF under systemd (PROSODY_DEBUG unset). Port default 5050 —
+# the swarm's prosody_analyze default (PROSODY_ENGINE_URL=http://localhost:5050)
+# then works with zero swarm-side config.
+ExecStart=/home/theconductor/prosody-intelligence/venv/bin/python3 app.py
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

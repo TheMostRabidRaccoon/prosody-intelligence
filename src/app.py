@@ -38,7 +38,9 @@ from reverse_pipeline import (
     EMOTION_PARAMS,
 )
 
+# Repo-local .env wins over the home-dir one (the Mac convention); either works.
 load_dotenv(Path.home() / ".env")
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 CORS(app)
@@ -246,8 +248,13 @@ def api_reverse():
 # ──────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
+    # Defaults match the swarm's prosody_analyze contract (localhost:5050).
+    # Debug/reloader stay OFF unless PROSODY_DEBUG is set — under systemd the
+    # reloader would double-spawn the process.
+    port = int(os.getenv("PROSODY_PORT", "5050"))
+    debug = os.getenv("PROSODY_DEBUG", "").strip().lower() in ("1", "true", "yes")
     print("=" * 50)
     print("PROSODY INTELLIGENCE — Web UI")
-    print("http://localhost:5050")
+    print(f"http://localhost:{port}")
     print("=" * 50)
-    app.run(host="0.0.0.0", port=5050, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=debug)
