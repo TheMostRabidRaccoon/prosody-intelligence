@@ -257,10 +257,10 @@ python src/session_director.py input/script.docx --images input/frames/
 ### Web API
 ```bash
 # Forward analysis
-curl -X POST http://localhost:5000/api/forward -F "audio=@recording.m4a"
+curl -X POST http://localhost:5050/api/forward -F "audio=@recording.m4a"
 
 # Reverse synthesis
-curl -X POST http://localhost:5000/api/reverse -F "script=@script.txt"
+curl -X POST http://localhost:5050/api/reverse -F "script=@script.txt"
 ```
 
 ---
