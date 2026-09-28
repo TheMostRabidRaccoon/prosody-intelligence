@@ -281,7 +281,7 @@ def run_director(
         print("[Director] ERROR: No audio generated.")
         return None
 
-    combined_audio = audio_paths[0]  # The stitched _full.mp3
+    combined_audio = audio_paths[0]  # Manifest-backed complete production
     print(f"[Director] Combined audio: {Path(combined_audio).name}")
 
     result = {
@@ -296,7 +296,7 @@ def run_director(
 
     # ── Step 6: Composite Video ──
     print("\n[Director] Sending to Editing Bay (Compositor)...")
-    video_path = OUTPUT_DIR / f"{session_name}_final.mp4"
+    video_path = Path(combined_audio).parent / "final.mp4"
 
     composite_animated_short(
         stills_dir=stills_dir,

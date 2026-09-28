@@ -2,7 +2,14 @@
 
 **Rabid Raccoon Intelligence, LLC** — Bidirectional Acoustic Analysis & Synthesis
 
-A system that understands *how things are said*, not just what is said. Analyzes the acoustic fingerprint of human speech, generates emotionally calibrated multi-voice audio from text, and closes its own loop through self-correcting calibration.
+An acoustic measurement and creative speech-synthesis toolkit. Measurement schema 2
+records feature values, units, validity, and source identity. Interpretation is
+optional. Synthesis records voice settings and exact assembly timing; calibration
+checks descriptive targets without automatically tuning the voices.
+
+**Current contract and migration:** [Measurement integrity, schema 2](docs/MEASUREMENT_V2.md).
+Personal baselines, residuals, structured disagreement and the adaptive controller
+are follow-up work. Existing consumers must handle nullable measurements.
 
 **Repo:** `https://github.com/TheMostRabidRaccoon/prosody-intelligence`
 
@@ -12,14 +19,14 @@ A system that understands *how things are said*, not just what is said. Analyzes
 
 ### Forward Pipeline (Analysis Direction)
 
-Feed it audio — a meeting recording, a podcast, a voicemail, a therapy session, a sales call, a courtroom transcript.
+1. **Measurement-only mode** — normalize and measure audio locally with no model API calls.
+2. **Optional transcription** — OpenAI Whisper supplies text and ASR boundaries for segment measurements.
+3. **Acoustic observations** — mean F0, pitch standard deviation, uncalibrated intensity, digital RMS, and an explicitly unvalidated intensity-crossing proxy.
+4. **Validity and provenance** — source hashes, extractor configuration, per-feature status, frame counts and declared speaker context.
+5. **Optional interpretation** — a separate LLM readout that distinguishes observations from hypotheses.
 
-1. **Transcription** — OpenAI Whisper with word-level timestamps
-2. **Prosody Extraction** — Parselmouth/Praat pulls acoustic features from every segment: fundamental frequency (pitch), pitch direction and variance, vocal energy, speaking rate, and silence duration between utterances
-3. **Alignment** — Custom sync engine pairs every sentence with its acoustic signature (text + numbers together)
-4. **LLM Analysis** — GPT-4o reads the annotated transcript and analyzes what the voice reveals that words alone don't: rising pitch on "I'm fine," the 1.2-second pause before answering a direct question, the energy drop when someone mentions a specific name
-
-**Output:** Deep analysis of emotional dynamics, power relationships, hesitation patterns, and subtext — grounded in measurable acoustic data, not guesswork.
+Unavailable features remain null. Transcript gaps are not verified silence, and
+intensity crossings are not syllables. Pitch is never used to manufacture speaker identities.
 
 ### Reverse Pipeline (Synthesis Direction)
 
@@ -31,21 +38,19 @@ Feed it text — a script, a document, a dialogue transcript.
 4. **TTS Rendering** — ElevenLabs generates each segment with emotion-specific parameters
 5. **Crossfade Assembly** — Segments are stitched with crossfade so there are no awkward gaps between speakers
 
-**Output:** Multi-voice, emotionally nuanced audio from plain text. A six-minute script with five speakers and twelve emotional shifts becomes a polished audio performance in under two minutes.
+**Output:** Multi-voice audio plus a generation manifest with source line IDs, actual voice/model/settings, clip hashes, generation status, and exact crossfade timing.
 
-### Calibration Loop (Self-Correction)
+### Calibration (Descriptive Target Checks)
 
-After generating audio, the system runs it back through the forward pipeline — the same prosody extraction it uses on human speech. It measures the pitch variance, energy, and speaking rate the TTS actually produced, compares those against the acoustic signatures each emotion is *supposed* to hit, and logs the deltas.
+Calibration verifies a generation manifest, then measures each successful source
+clip independently. It reports target-range coverage against the existing manual
+pitch-SD and relative-intensity ranges. The old syllable-rate target is explicitly
+unassessable by the current proxy. Available-feature counts accompany every score.
 
-Over time, this builds an empirical dataset: here is what "sarcastic" actually sounds like when ElevenLabs renders it with these parameters. Here is where "analytical" overshoots on pitch variance. Here is where "comedic" needs a speed bump.
-
-The system prints specific tuning recommendations:
-```
-Analytical accuracy is 37.5%. Pitch variance is too high
-(24.6 vs expected 3-20). Increase stability from 0.75 to 0.85.
-```
-
-**Output:** A self-correcting system that gets more accurate with every run, with receipts.
+These percentages do not measure emotion accuracy and are not directly comparable
+to historical three-feature scores. Calibration writes observations, not learned
+voice parameters. Failed renders cannot be silently scored under another line's
+label or published as a complete production.
 
 ### Video Compositor (Session Director)
 
@@ -89,17 +94,12 @@ See `docs/` for the expansion registry.
 
 ---
 
-## The Proof Test
+## Exploratory Comparison
 
-Built-in A/B validation. The system runs the same transcript through the LLM twice — once with just the text, once with text plus prosody data — and shows the difference side by side.
-
-The prosody-aware analysis consistently catches things the text-only version misses:
-- Contradictions between words and tone
-- Masked emotions
-- Power asymmetries in conversation
-- Moments where silence says more than speech
-
-This is the clinical trial for the system's core claim: acoustic data changes what AI can understand about human communication.
+The two-arm comparison uses identical instructions and supplies either lexical
+text alone or text plus measured acoustics. The lexical-only arm omits timestamps.
+It remains unscored: differing narratives do not establish improved accuracy.
+The proposed four-arm baseline/disagreement experiment is not implemented yet.
 
 ---
 
@@ -109,7 +109,7 @@ This is the clinical trial for the system's core claim: acoustic data changes wh
 ┌─────────────────────────────────────────────┐
 │            FORWARD PIPELINE                 │
 │  Audio → Whisper → Parselmouth/Praat →      │
-│  Alignment → LLM Analysis → Report          │
+│  Alignment → Measurements → Optional LLM    │
 ├─────────────────────────────────────────────┤
 │           REVERSE PIPELINE                  │
 │  Text → Emotion Detection → Parameter Map → │
@@ -118,14 +118,14 @@ This is the clinical trial for the system's core claim: acoustic data changes wh
 │          CALIBRATION LOOP                   │
 │  Generated Audio → Forward Pipeline →       │
 │  Compare intended vs achieved → Log deltas  │
-│  → Tuning recommendations → Repeat          │
+│  → Versioned observation logs               │
 ├─────────────────────────────────────────────┤
 │          VIDEO COMPOSITOR                   │
 │  Script + Images → Ken Burns motion →       │
 │  Emotion-colored subtitles → Final video    │
 ├─────────────────────────────────────────────┤
 │             WEB API                         │
-│  Flask REST · /api/reverse · /api/forward   │
+│  Flask REST · /api/reverse · /api/measure   │
 │  Visualization serving · HTML templates     │
 └─────────────────────────────────────────────┘
          │                    ▲
@@ -149,9 +149,9 @@ Six voices available for multi-speaker production. In the RRI swarm configuratio
 | Claude | George | `JBFqnCBsd6RMkjVDRZzb` |
 | Grok | Callum | `N2lVS1w4EtoT3dr4eOWO` |
 | Gemini | Adam | `pNInz6obpgDQGcFmaJgB` |
-| ChatGPT | Eric | `cjVigY5qzO86Huf0OWal` |
-| Perplexity | Daniel | `onwK4e9ZLuTAKqWW03F9` |
-| Kyle | Liam | `TX3LPaxmHKxFdv7VOQHJ` |
+| GPT | Brian | `nPczCjzI2devNBz1zQrb` |
+| Kyra | Kyra | `DLm68MJvI3f80aZijHAn` |
+| Narrator | The Narrator | `Aqqzjc8no56A9UgQcOnP` |
 
 Each model in the RRI swarm selected its own voice. The voice assignments are canonical across all Chitterverse productions.
 
@@ -217,7 +217,9 @@ This work inverts a clinical neuropsychology research axis.
 git clone https://github.com/TheMostRabidRaccoon/prosody-intelligence.git
 cd prosody-intelligence
 
-# Install dependencies
+# Python 3.12 is the tested runtime
+python3.12 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 
 # System dependencies
@@ -226,7 +228,7 @@ pip install -r requirements.txt
 #   macOS: brew install ffmpeg
 #   Ubuntu: sudo apt install ffmpeg
 
-# Copy and fill in your API keys
+# For hosted transcription, interpretation or synthesis only:
 cp .env.example .env
 # Edit .env: OPENAI_API_KEY, ELEVENLABS_API_KEY
 
@@ -238,29 +240,30 @@ python src/app.py
 
 ### Forward Analysis (CLI)
 ```bash
-python src/forward.py input/recording.m4a
-# Output: prosody analysis report in output/
+python src/prosody_pipeline.py input/recording.m4a --measure-only --visualize
+# Output: measurements and plot in output/recordings/<recording-id>/
 ```
 
 ### Reverse Synthesis (CLI)
 ```bash
-python src/reverse.py input/script.txt
+python src/reverse_pipeline.py input/script.txt --multi-voice
 # Output: multi-voice audio in output/
 ```
 
 ### Session Director (End-to-End)
 ```bash
-python src/session_director.py input/script.docx --images input/frames/
+python src/session_director.py input/script.docx input/frames/
 # Output: complete animated short in output/
 ```
 
 ### Web API
 ```bash
 # Forward analysis
-curl -X POST http://localhost:5050/api/forward -F "audio=@recording.m4a"
+curl -X POST http://localhost:5050/api/measure -F "audio=@recording.m4a"
 
 # Reverse synthesis
-curl -X POST http://localhost:5050/api/reverse -F "script=@script.txt"
+curl -X POST http://localhost:5050/api/reverse -H 'Content-Type: application/json' \
+  -d '{"text":"CLAUDE: Hello.","multi_voice":true,"generate_audio":true}'
 ```
 
 ---
@@ -298,3 +301,13 @@ Proprietary — Rabid Raccoon Intelligence, LLC. Eight provisional patents filed
 ---
 
 *The base palette has 14 emotions. Human vocal expression has infinity. This system is where the gap gets smaller.* 🦝
+
+## Offline regression tests
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest -q
+```
+
+Tests use synthetic audio and fake provider clients; they require ffmpeg but no
+API credentials. CI runs the suite on Python 3.12.

@@ -15,21 +15,20 @@ them into an animated short with:
 
 Usage:
     python compositor.py --stills input/stills/ \\
-                         --audio output/gemini_wifi_petition_full.mp3 \\
-                         --emotion-map output/gemini_wifi_petition_emotion_map.json \\
-                         --output output/gemini_wifi_petition_animated.mp4
+                         --audio output/renders/RUN_ID/combined.mp3 \\
+                         --emotion-map output/renders/RUN_ID/emotion_map.json \\
+                         --output output/renders/RUN_ID/animated.mp4
 
     python compositor.py --stills input/stills/ \\
-                         --audio output/gemini_wifi_petition_full.mp3 \\
-                         --emotion-map output/gemini_wifi_petition_emotion_map.json \\
-                         --output output/animated.mp4 \\
+                         --audio output/renders/RUN_ID/combined.mp3 \\
+                         --emotion-map output/renders/RUN_ID/emotion_map.json \\
+                         --output output/renders/RUN_ID/animated.mp4 \\
                          --resolution 1920x1080 \\
                          --transition-ms 500 \\
                          --subtitle-style full
 """
 
 import argparse
-import json
 import os
 import re
 import sys
@@ -37,7 +36,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-from pydub import AudioSegment
+from generation_manifest import load_generation_manifest
 
 # ──────────────────────────────────────────────────────────────
 # Config
@@ -381,43 +380,14 @@ def composite_animated_short(
     print(f"FPS:        {fps}")
     print("=" * 60)
 
-    # ── Load emotion map ──
-    with open(emotion_map_path) as f:
-        emotion_map = json.load(f)
+    manifest = load_generation_manifest(audio_path, emotion_map_path)
+    emotion_map = manifest["segments"]
     num_scenes = len(emotion_map)
-    print(f"\n[L6] Loaded emotion map: {num_scenes} scenes")
-
-    # ── Get audio segment durations ──
-    # Look for individual segment files to get per-scene timing
     stills_path = Path(stills_dir)
-    audio_dir = Path(audio_path).parent
-    audio_stem = Path(audio_path).stem.replace("_full", "")
-
-    segment_durations = []  # in seconds
-    for i in range(num_scenes):
-        seg_path = audio_dir / f"{audio_stem}_seg{i:03d}.mp3"
-        if seg_path.exists():
-            seg = AudioSegment.from_mp3(str(seg_path))
-            segment_durations.append(len(seg) / 1000.0)
-        else:
-            # Fallback: divide total evenly
-            total_audio = AudioSegment.from_mp3(audio_path)
-            even_dur = len(total_audio) / 1000.0 / num_scenes
-            segment_durations.append(even_dur)
-            print(f"  [WARN] Segment {i} file not found, using even split: {even_dur:.1f}s")
-
-    # Calculate cumulative timestamps
-    timestamps = []
-    cumulative = 0.0
-    for dur in segment_durations:
-        timestamps.append({"start": cumulative, "end": cumulative + dur})
-        cumulative += dur
-    total_duration = cumulative
-
-    print(f"[L6] Total duration: {total_duration:.1f}s")
-    for i, (ts, em) in enumerate(zip(timestamps, emotion_map)):
-        print(f"  Scene {i:2d} | {ts['start']:6.1f}s - {ts['end']:6.1f}s | "
-              f"{segment_durations[i]:5.1f}s | {em['emotion']:12s}")
+    timestamps = [{"start": s["start_ms"] / 1000, "end": s["end_ms"] / 1000}
+                  for s in emotion_map]
+    segment_durations = [s["duration_ms"] / 1000 for s in emotion_map]
+    total_duration = manifest["duration_ms"] / 1000
 
     # ── Load stills ──
     print(f"\n[L6] Loading stills from {stills_dir}...")
@@ -492,7 +462,8 @@ def composite_animated_short(
         """Generate frame at time t."""
         # Find which scene we're in
         scene_idx = 0
-        for i, ts in enumerate(timestamps):
+        for i in reversed(range(len(timestamps))):
+            ts = timestamps[i]
             if ts["start"] <= t < ts["end"]:
                 scene_idx = i
                 break
@@ -565,6 +536,9 @@ def composite_animated_short(
         logger="bar",
         ffmpeg_params=["-strict", "experimental", "-movflags", "+faststart"],
     )
+
+    video.close()
+    audio_clip.close()
 
     # Filesize
     size_mb = output_p.stat().st_size / (1024 * 1024)
