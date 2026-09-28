@@ -1,69 +1,78 @@
-"""
-Prosody Intelligence — Web UI
-Rabid Raccoon Intelligence, LLC
+"""Browser/API access to versioned acoustic records and optional interpretation."""
 
-Flask app providing a browser interface for the forward and reverse pipelines.
-
-Usage:
-    python app.py
-    # Opens at http://localhost:5050
-"""
-
-import json
 import os
-import time
-import traceback
 from pathlib import Path
+import subprocess
 
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
+import parselmouth
 
-# Import our pipelines
-import numpy as np
+from prosody_pipeline import OUTPUT_DIR, run_pipeline, run_proof_test
+from reverse_pipeline import detect_emotions, map_emotions_to_params, generate_audio, VOICE_MAP, EMOTION_PARAMS
+from recordings import save_recording
+from generation_manifest import IncompleteGenerationError
 
-from prosody_pipeline import (
-    transcribe_audio,
-    extract_prosody,
-    align_transcript_with_prosody,
-    analyze_with_llm,
-    visualize_prosody,
-    OUTPUT_DIR,
-)
-from reverse_pipeline import (
-    detect_emotions,
-    map_emotions_to_params,
-    generate_audio,
-    VOICE_MAP,
-    EMOTION_PARAMS,
-)
-
-# Repo-local .env wins over the home-dir one (the Mac convention); either works.
 load_dotenv(Path.home() / ".env")
 load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
-
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
+app.config["MAX_CONTENT_LENGTH"] = int(os.getenv("PROSODY_MAX_UPLOAD_MB", "500")) * 1024 * 1024
 CORS(app)
-
 UPLOAD_DIR = OUTPUT_DIR.parent / "uploads"
-UPLOAD_DIR.mkdir(exist_ok=True)
 
 
-def _compute_speaker_threshold(annotated: list) -> float:
-    """Compute adaptive speaker split threshold from annotated segments."""
-    voiced = [
-        seg["prosody"]["avg_pitch"]
-        for seg in annotated
-        if seg["prosody"]["avg_pitch"] > 0
-        and seg["prosody"]["pitch_direction"] != "unknown"
-        and seg["prosody"]["speaking_rate"] < 50
-    ]
-    return float(np.median(voiced)) if voiced else 170.0
+def _url(path):
+    return "/output/" + Path(path).resolve().relative_to(OUTPUT_DIR.resolve()).as_posix()
 
 
-# ──────────────────────────────────────────────────────────────
-# Routes
-# ──────────────────────────────────────────────────────────────
+def _upload():
+    audio = request.files.get("audio")
+    if audio is None or not audio.filename:
+        raise ValueError("An audio file with a filename is required")
+    return save_recording(audio.stream, audio.filename, UPLOAD_DIR)
+
+
+def _context():
+    result = {}
+    for name in ("speaker_id", "channel", "register"):
+        value = request.form.get(name, "").strip()
+        if len(value) > 128:
+            raise ValueError(f"{name} must be at most 128 characters")
+        result[name] = value or None
+    return result
+
+
+def _response(result):
+    segments = result["annotated_segments"]
+    response = {"success": True, "schema_version": result["schema_version"],
+                "recording": result["recording"], "transcript": result["transcript"]["text"],
+                "segments": segments, "duration": result["duration"], "segment_count": len(segments),
+                "measurement_only": result["measurement_only"],
+                "measurements_url": _url(result["output_path"]),
+                "visualization": _url(result["viz_path"]) if "viz_path" in result else None,
+                "analysis": result.get("analysis"), "speaker_threshold": None}
+    for key in ("text_analysis", "prosody_analysis", "evaluation_status"):
+        if key in result:
+            response[key] = result[key]
+    return jsonify(response)
+
+
+@app.errorhandler(413)
+def too_large(error):
+    return jsonify(error="Audio exceeds the configured upload limit"), 413
+
+
+@app.errorhandler(ValueError)
+def invalid_request(error):
+    return jsonify(error=str(error)), 400
+
+
+@app.errorhandler(subprocess.CalledProcessError)
+@app.errorhandler(parselmouth.PraatError)
+def invalid_audio(error):
+    return jsonify(error="Audio could not be decoded or measured"), 400
+
 
 @app.route("/")
 def index():
@@ -72,189 +81,64 @@ def index():
 
 @app.route("/output/<path:filename>")
 def serve_output(filename):
-    """Serve generated output files (audio, images, JSON)."""
     return send_from_directory(str(OUTPUT_DIR), filename)
+
+
+@app.route("/api/measure", methods=["POST"])
+def api_measure():
+    context = _context()
+    recording = _upload()
+    return _response(run_pipeline(str(recording.path), recording=recording,
+                                  measure_only=True, visualize=True, **context))
 
 
 @app.route("/api/analyze", methods=["POST"])
 def api_analyze():
-    """
-    Forward pipeline: upload audio → get annotated transcript + analysis + visualization.
-    """
-    if "audio" not in request.files:
-        return jsonify({"error": "No audio file uploaded"}), 400
-
-    audio_file = request.files["audio"]
-    if not audio_file.filename:
-        return jsonify({"error": "Empty filename"}), 400
-
-    # Save upload
-    upload_path = UPLOAD_DIR / audio_file.filename
-    audio_file.save(str(upload_path))
-
-    try:
-        steps = {}
-
-        # Layer 1A: Transcribe
-        t0 = time.time()
-        transcript = transcribe_audio(str(upload_path))
-        steps["transcribe"] = round(time.time() - t0, 1)
-
-        # Layer 1B: Prosody extraction
-        t0 = time.time()
-        prosody_data = extract_prosody(str(upload_path))
-        steps["prosody"] = round(time.time() - t0, 1)
-
-        # Layer 2: Alignment
-        t0 = time.time()
-        annotated = align_transcript_with_prosody(transcript, prosody_data)
-        steps["align"] = round(time.time() - t0, 1)
-
-        # Save annotated JSON
-        audio_name = Path(audio_file.filename).stem
-        json_path = OUTPUT_DIR / f"{audio_name}_annotated.json"
-        with open(json_path, "w") as f:
-            json.dump(annotated, f, indent=2)
-
-        # Visualization
-        t0 = time.time()
-        viz_path = visualize_prosody(annotated, prosody_data, audio_name)
-        viz_filename = Path(viz_path).name
-        steps["visualize"] = round(time.time() - t0, 1)
-
-        # Layer 3: LLM Analysis (if requested)
-        analysis = None
-        skip_llm = request.form.get("skip_llm") == "true"
-        if not skip_llm:
-            t0 = time.time()
-            analysis = analyze_with_llm(annotated, text_only=False)
-            steps["llm_analysis"] = round(time.time() - t0, 1)
-
-        speaker_threshold = _compute_speaker_threshold(annotated)
-
-        return jsonify({
-            "success": True,
-            "transcript": transcript["text"],
-            "segments": annotated,
-            "visualization": f"/output/{viz_filename}",
-            "analysis": analysis,
-            "duration": prosody_data["duration"],
-            "segment_count": len(annotated),
-            "speaker_threshold": speaker_threshold,
-            "timing": steps,
-        })
-
-    except Exception as e:
-        traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
+    context = _context()
+    skip_llm = request.form.get("skip_llm", "true").lower()
+    if skip_llm not in ("true", "false"):
+        raise ValueError("skip_llm must be true or false")
+    recording = _upload()
+    return _response(run_pipeline(str(recording.path), recording=recording,
+                                  skip_llm=skip_llm == "true", visualize=True, **context))
 
 
 @app.route("/api/proof-test", methods=["POST"])
 def api_proof_test():
-    """
-    Run A/B proof test: same transcript, text-only vs text+prosody.
-    """
-    if "audio" not in request.files:
-        return jsonify({"error": "No audio file uploaded"}), 400
-
-    audio_file = request.files["audio"]
-    upload_path = UPLOAD_DIR / audio_file.filename
-    audio_file.save(str(upload_path))
-
-    try:
-        # Layers 1+2
-        transcript = transcribe_audio(str(upload_path))
-        prosody_data = extract_prosody(str(upload_path))
-        annotated = align_transcript_with_prosody(transcript, prosody_data)
-
-        audio_name = Path(audio_file.filename).stem
-        viz_path = visualize_prosody(annotated, prosody_data, audio_name)
-        viz_filename = Path(viz_path).name
-
-        # Pass A: Text only
-        text_analysis = analyze_with_llm(annotated, text_only=True)
-
-        # Pass B: Text + Prosody
-        prosody_analysis = analyze_with_llm(annotated, text_only=False)
-
-        speaker_threshold = _compute_speaker_threshold(annotated)
-
-        return jsonify({
-            "success": True,
-            "transcript": transcript["text"],
-            "segments": annotated,
-            "visualization": f"/output/{viz_filename}",
-            "text_analysis": text_analysis,
-            "prosody_analysis": prosody_analysis,
-            "duration": prosody_data["duration"],
-            "segment_count": len(annotated),
-            "speaker_threshold": speaker_threshold,
-        })
-
-    except Exception as e:
-        traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
+    recording = _upload()
+    return _response(run_proof_test(str(recording.path), recording=recording))
 
 
 @app.route("/api/reverse", methods=["POST"])
 def api_reverse():
-    """
-    Reverse pipeline: text → emotion detection → TTS audio.
-    """
-    data = request.get_json()
-    if not data or "text" not in data:
-        return jsonify({"error": "No text provided"}), 400
-
-    text = data["text"]
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict) or not isinstance(data.get("text"), str) or not data["text"].strip():
+        raise ValueError("Nonempty text is required")
     voice = data.get("voice", "claude")
-    generate_tts = data.get("generate_audio", False)
-    multi_voice = data.get("multi_voice", False)
-    crossfade_ms = data.get("crossfade_ms", 100)
+    if not isinstance(voice, str) or voice not in VOICE_MAP:
+        raise ValueError("Unknown voice")
+    crossfade = data.get("crossfade_ms", 100)
+    if type(crossfade) is not int or crossfade < 0:
+        raise ValueError("crossfade_ms must be a nonnegative integer")
+    for flag in ("generate_audio", "multi_voice"):
+        if flag in data and not isinstance(data[flag], bool):
+            raise ValueError(f"{flag} must be a boolean")
+    tagged = detect_emotions(data["text"])
+    mapped = map_emotions_to_params(tagged)
+    result = {"success": True, "emotion_map": mapped}
+    if data.get("generate_audio", False):
+        try:
+            paths = generate_audio(mapped, voice_key=voice, multi_voice=data.get("multi_voice", False),
+                                   crossfade_ms=crossfade)
+        except IncompleteGenerationError as error:
+            return jsonify(success=False, error=str(error), complete=False,
+                           manifest_url=_url(error.manifest_path)), 422
+        result.update(audio_url=_url(paths[0]), complete=True,
+                      manifest_url=_url(Path(paths[0]).parent / "generation_manifest.json"))
+    return jsonify(result)
 
-    try:
-        # Step 1: Emotion detection
-        tagged = detect_emotions(text)
-
-        # Step 2: Parameter mapping
-        mapped = map_emotions_to_params(tagged)
-
-        result = {
-            "success": True,
-            "emotion_map": mapped,
-        }
-
-        # Step 3: TTS (if requested)
-        if generate_tts:
-            output_name = f"reverse_{voice}_{int(time.time())}"
-            paths = generate_audio(
-                mapped,
-                voice_key=voice,
-                output_name=output_name,
-                multi_voice=multi_voice,
-                crossfade_ms=crossfade_ms,
-            )
-            if paths:
-                result["audio_url"] = f"/output/{Path(paths[0]).name}"
-
-        return jsonify(result)
-
-    except Exception as e:
-        traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
-
-
-# ──────────────────────────────────────────────────────────────
-# Main
-# ──────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    # Defaults match the swarm's prosody_analyze contract (localhost:5050).
-    # Debug/reloader stay OFF unless PROSODY_DEBUG is set — under systemd the
-    # reloader would double-spawn the process.
     port = int(os.getenv("PROSODY_PORT", "5050"))
     debug = os.getenv("PROSODY_DEBUG", "").strip().lower() in ("1", "true", "yes")
-    print("=" * 50)
-    print("PROSODY INTELLIGENCE — Web UI")
-    print(f"http://localhost:{port}")
-    print("=" * 50)
     app.run(host="0.0.0.0", port=port, debug=debug)

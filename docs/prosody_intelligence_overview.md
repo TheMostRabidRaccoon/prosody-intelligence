@@ -1,3 +1,5 @@
+> Historical v1 overview. For current behavior and limitations, see [measurement schema 2](MEASUREMENT_V2.md).
+
 # Prosody Intelligence
 
 **Built by Rabid Raccoon Intelligence, LLC**

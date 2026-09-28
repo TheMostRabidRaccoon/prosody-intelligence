@@ -4,9 +4,9 @@ Rabid Raccoon Intelligence, LLC
 
 Text → Emotion Detection → Prosody Parameter Mapping → ElevenLabs TTS → Audio
 
-This is both the demo layer and the proof that the system works.
-Feed it text, it detects emotional register per line, maps to
-ElevenLabs voice parameters, and generates emotionally accurate audio.
+Text annotations choose intended delivery from a manual parameter table.
+Each render records the actual voice, settings, clip identity and timing.
+Neither these annotations nor target-range checks establish emotion accuracy.
 
 Usage:
     python reverse_pipeline.py input.txt --voice claude
@@ -27,6 +27,10 @@ import os
 import re
 import time
 from pathlib import Path
+from uuid import uuid4
+
+from recordings import file_sha256, write_json
+from generation_manifest import IncompleteGenerationError
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -36,10 +40,11 @@ from openai import OpenAI
 # ──────────────────────────────────────────────────────────────
 
 PROJECT_ROOT = Path(__file__).parent.parent
-OUTPUT_DIR = PROJECT_ROOT / "output"
-OUTPUT_DIR.mkdir(exist_ok=True)
+OUTPUT_DIR = Path(os.getenv("PROSODY_OUTPUT_DIR", str(PROJECT_ROOT / "output")))
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 load_dotenv(Path.home() / ".env")
+load_dotenv(PROJECT_ROOT / ".env", override=True)
 
 # Voice assignments — mapping character to ElevenLabs voice ID
 VOICE_MAP = {
@@ -230,12 +235,28 @@ def detect_emotions(text: str) -> list:
     try:
         tagged = json.loads(raw)
     except json.JSONDecodeError:
-        print(f"[Reverse L1] Warning: Failed to parse LLM JSON. Raw:\n{raw[:200]}")
-        # Fallback: tag everything as neutral
-        tagged = [{"line": i+1, "text": l, "emotion": "neutral", "note": "parse failure fallback"}
-                  for i, l in enumerate(lines)]
-
-    return tagged
+        tagged = []
+    # Models supply annotations, never replacement source text or ordering.
+    by_line = {}
+    if isinstance(tagged, list):
+        for item in tagged:
+            if isinstance(item, dict) and type(item.get("line")) is int:
+                line = item["line"]
+                if line in by_line:
+                    raise ValueError("Emotion response contains duplicate line IDs")
+                if not 1 <= line <= len(lines):
+                    raise ValueError("Emotion response contains an unknown line ID")
+                by_line[line] = item
+    result = []
+    for number, original in enumerate(lines, 1):
+        item = by_line.get(number, {})
+        emotion = item.get("emotion")
+        valid = isinstance(emotion, str) and emotion.lower() in EMOTION_PARAMS
+        result.append({"line": number, "text": original,
+                       "emotion": emotion.lower() if valid else "neutral",
+                       "note": str(item.get("note", "")) if valid else "annotation unavailable; neutral fallback",
+                       "annotation_status": "ok" if valid else "fallback"})
+    return result
 
 
 # ──────────────────────────────────────────────────────────────
@@ -250,13 +271,15 @@ def map_emotions_to_params(tagged_lines: list) -> list:
     print("[Reverse L2] Mapping emotions to TTS parameters...")
     mapped = []
 
-    for item in tagged_lines:
+    for index, item in enumerate(tagged_lines):
         emotion = item.get("emotion", "neutral").lower()
         if emotion not in EMOTION_PARAMS:
             emotion = "neutral"
 
         params = EMOTION_PARAMS[emotion]
         mapped.append({
+            "line": item.get("line", index + 1),
+            "annotation_status": item.get("annotation_status", "provided"),
             "text": item["text"],
             "emotion": emotion,
             "note": item.get("note", ""),
@@ -292,125 +315,81 @@ def _strip_speaker_tag(text: str) -> str:
 
 
 def generate_audio(mapped_lines: list, voice_key: str = "claude",
-                   output_name: str = "reverse_output",
-                   multi_voice: bool = False,
+                   output_name: str = "reverse_output", multi_voice: bool = False,
                    crossfade_ms: int = 100) -> list:
-    """
-    Generate audio for each line using ElevenLabs with emotion-mapped parameters.
+    """Render into an isolated run and persist identity, failures and exact timing.
 
-    Improvements over v1:
-      - multi_voice=True: detect speaker tags and route to correct voice
-      - pydub crossfade stitching (default 100ms) eliminates choppy concatenation
-      - Individual segments still saved for debugging
-
-    Returns list of output file paths (combined first, then segments).
+    Returns combined audio first, then clips. An incomplete run raises with its
+    manifest path, and never publishes a partial production as a complete file.
     """
+    import io
     from elevenlabs import ElevenLabs
     from pydub import AudioSegment
-    import io
-
+    if not mapped_lines:
+        raise ValueError("No source lines to generate")
+    if type(crossfade_ms) is not int or crossfade_ms < 0:
+        raise ValueError("crossfade_ms must be a nonnegative integer")
+    if voice_key not in VOICE_MAP:
+        raise ValueError("Unknown voice")
+    run_id = uuid4().hex
+    directory = OUTPUT_DIR / "renders" / run_id
+    directory.mkdir(parents=True)
+    manifest_path = directory / "generation_manifest.json"
+    model_id = "eleven_multilingual_v2"
+    segments = []
+    for index, item in enumerate(mapped_lines):
+        speaker = _detect_speaker(item["text"]) if multi_voice else None
+        config = VOICE_MAP.get(speaker, VOICE_MAP[voice_key])
+        tts_text = _strip_speaker_tag(item["text"]) if speaker else item["text"]
+        segments.append({"segment_id": f"{run_id}:{index:06d}", "source_index": index,
+                         "source_line": item.get("line", index + 1), "text": item["text"],
+                         "tts_text": tts_text, "emotion": item["emotion"],
+                         "annotation_status": item.get("annotation_status", "provided"),
+                         "tts_params": dict(item["tts_params"]),
+                         "voice_settings": {**item["tts_params"], "similarity_boost": 0.75,
+                                            "use_speaker_boost": True},
+                         "voice_id": config["voice_id"], "model_id": model_id,
+                         "status": "pending"})
+    manifest = {"schema_version": 1, "run_id": run_id, "source_name": output_name,
+                "complete": False, "segments": segments, "requested_crossfade_ms": crossfade_ms}
+    write_json(directory / "emotion_map.json", mapped_lines)
+    write_json(manifest_path, manifest)
     client = ElevenLabs()
-
-    # Default voice for non-tagged lines
-    default_config = VOICE_MAP.get(voice_key, VOICE_MAP["claude"])
-    default_voice_id = default_config["voice_id"]
-
-    if multi_voice:
-        print(f"[Reverse L3] Multi-voice mode — routing by speaker tags")
-        print(f"  Default voice: {default_config['name']}")
-        for k, v in VOICE_MAP.items():
-            print(f"  {k:8s} → {v['name']}")
-    else:
-        print(f"[Reverse L3] Single voice: {default_config['name']}")
-
-    audio_segments = []  # pydub AudioSegment objects
-    output_paths = []
-
-    for i, item in enumerate(mapped_lines):
-        text = item["text"]
-        params = item["tts_params"]
-
-        if not text.strip():
-            continue
-
-        # Determine voice for this line
-        if multi_voice:
-            speaker = _detect_speaker(text)
-            if speaker and speaker in VOICE_MAP:
-                voice_id = VOICE_MAP[speaker]["voice_id"]
-                voice_label = VOICE_MAP[speaker]["name"]
-                # Strip the tag so TTS doesn't say "CLAUDE:"
-                tts_text = _strip_speaker_tag(text)
-            else:
-                voice_id = default_voice_id
-                voice_label = default_config["name"]
-                tts_text = text
-        else:
-            voice_id = default_voice_id
-            voice_label = default_config["name"]
-            tts_text = text
-
-        if not tts_text.strip():
-            continue
-
-        emotion_tag = item["emotion"]
-        print(f"  [{i+1}/{len(mapped_lines)}] {emotion_tag:12s} | {voice_label:20s} | {tts_text[:45]}...")
-
+    clips = []
+    for index, segment in enumerate(segments):
         try:
-            audio = client.text_to_speech.convert(
-                voice_id=voice_id,
-                text=tts_text,
-                model_id="eleven_multilingual_v2",
-                voice_settings={
-                    "stability": params["stability"],
-                    "similarity_boost": 0.75,
-                    "style": params["style"],
-                    "use_speaker_boost": True,
-                    "speed": params["speed"],
-                },
-            )
-
-            # Collect audio bytes
-            audio_bytes = b""
-            for chunk in audio:
-                audio_bytes += chunk
-
-            # Save individual segment
-            seg_path = OUTPUT_DIR / f"{output_name}_seg{i:03d}.mp3"
-            with open(seg_path, "wb") as f:
-                f.write(audio_bytes)
-            output_paths.append(str(seg_path))
-
-            # Convert to pydub AudioSegment for crossfade stitching
-            seg_audio = AudioSegment.from_mp3(io.BytesIO(audio_bytes))
-            audio_segments.append(seg_audio)
-
-        except Exception as e:
-            print(f"  [ERROR] Segment {i}: {e}")
-            continue
-
-    # ── Crossfade stitch all segments ──
-    if audio_segments:
-        print(f"\n[Reverse L3] Stitching {len(audio_segments)} segments with {crossfade_ms}ms crossfade...")
-
-        combined = audio_segments[0]
-        for seg in audio_segments[1:]:
-            # Crossfade overlap — eliminates the choppy inter-segment gaps
-            # Use min of crossfade_ms and half the shorter segment to avoid artifacts
-            safe_fade = min(crossfade_ms, len(combined) // 2, len(seg) // 2)
-            if safe_fade > 10:  # only crossfade if segments are long enough
-                combined = combined.append(seg, crossfade=safe_fade)
-            else:
-                combined = combined + seg  # fallback to simple concat for tiny segments
-
-        combined_path = OUTPUT_DIR / f"{output_name}_full.mp3"
-        combined.export(str(combined_path), format="mp3", bitrate="192k")
-        output_paths.insert(0, str(combined_path))
-
-        duration_s = len(combined) / 1000.0
-        print(f"[Reverse L3] Combined audio: {combined_path} ({duration_s:.1f}s)")
-
-    return output_paths
+            if not segment["tts_text"].strip():
+                raise ValueError("Empty spoken line")
+            chunks = client.text_to_speech.convert(voice_id=segment["voice_id"],
+                text=segment["tts_text"], model_id=model_id, voice_settings=segment["voice_settings"])
+            audio_bytes = b"".join(chunks)
+            clip = AudioSegment.from_mp3(io.BytesIO(audio_bytes))
+            if len(clip) == 0:
+                raise ValueError("Empty generated audio")
+            path = directory / f"segment_{index:06d}.mp3"
+            path.write_bytes(audio_bytes)
+            segment.update(status="ok", file=path.name, sha256=file_sha256(path), duration_ms=len(clip))
+            clips.append(clip)
+        except Exception as error:
+            # Provider exception bodies may contain sensitive request details.
+            segment.update(status="failed", error_type=type(error).__name__)
+        write_json(manifest_path, manifest)
+    if any(s["status"] != "ok" for s in segments):
+        raise IncompleteGenerationError(manifest_path)
+    combined = clips[0]
+    segments[0].update(start_ms=0, end_ms=len(combined), crossfade_ms=0)
+    for segment, clip in zip(segments[1:], clips[1:]):
+        overlap = min(crossfade_ms, len(combined) // 2, len(clip) // 2)
+        overlap = overlap if overlap > 10 else 0
+        start_ms = len(combined) - overlap
+        combined = combined.append(clip, crossfade=overlap)
+        segment.update(start_ms=start_ms, end_ms=len(combined), crossfade_ms=overlap)
+    audio_path = directory / "combined.mp3"
+    combined.export(str(audio_path), format="mp3", bitrate="192k").close()
+    manifest.update(complete=True, audio_file=audio_path.name,
+                    audio_sha256=file_sha256(audio_path), duration_ms=len(combined))
+    write_json(manifest_path, manifest)
+    return [str(audio_path), *[str(directory / s["file"]) for s in segments]]
 
 
 # ──────────────────────────────────────────────────────────────
@@ -418,75 +397,24 @@ def generate_audio(mapped_lines: list, voice_key: str = "claude",
 # ──────────────────────────────────────────────────────────────
 
 def run_reverse_pipeline(text_path: str, voice: str = "claude",
-                         emotion_map_only: bool = False,
-                         multi_voice: bool = False,
+                         emotion_map_only: bool = False, multi_voice: bool = False,
                          crossfade_ms: int = 100) -> dict:
-    """
-    Full reverse pipeline: text → emotion → params → audio.
-
-    Args:
-        multi_voice: If True, detect speaker tags (CLAUDE:, GPT:, etc.) and
-                     route each line to the assigned ElevenLabs voice.
-        crossfade_ms: Overlap in ms between segments for smooth stitching.
-    """
     text_path = Path(text_path)
     text = text_path.read_text()
-    output_name = text_path.stem
-
-    # Auto-save input transcript for future editing
-    saved_input = OUTPUT_DIR / f"{output_name}_input.txt"
-    if not saved_input.exists():
-        saved_input.write_text(text)
-        print(f"[Reverse] Input transcript saved: {saved_input}")
-
-    mode = "MULTI-VOICE" if multi_voice else f"SINGLE ({VOICE_MAP.get(voice, {}).get('name', voice)})"
-    print("=" * 60)
-    print("PROSODY INTELLIGENCE — Reverse Pipeline")
-    print(f"Input: {text_path.name}")
-    print(f"Mode:  {mode}")
-    print(f"Crossfade: {crossfade_ms}ms")
-    print("=" * 60)
-
-    # Step 1: Detect emotions
     tagged = detect_emotions(text)
-
-    # Step 2: Map to TTS params
     mapped = map_emotions_to_params(tagged)
-
-    # Save emotion map
-    map_path = OUTPUT_DIR / f"{output_name}_emotion_map.json"
-    with open(map_path, "w") as f:
-        json.dump(mapped, f, indent=2)
-    print(f"\n[Output] Emotion map saved: {map_path}")
-
-    # Print emotion map
-    print("\n" + "─" * 50)
-    print("EMOTION MAP")
-    print("─" * 50)
-    for item in mapped:
-        emotion = item["emotion"]
-        delivery = item["delivery"]
-        text_preview = item["text"][:60] + ("..." if len(item["text"]) > 60 else "")
-        print(f"  {emotion:12s} [{delivery:30s}] {text_preview}")
-    print("─" * 50)
-
-    result = {
-        "tagged_lines": tagged,
-        "mapped_lines": mapped,
-        "emotion_map_path": str(map_path),
-    }
-
-    # Step 3: Generate audio (unless map-only)
-    if not emotion_map_only:
-        paths = generate_audio(
-            mapped,
-            voice_key=voice,
-            output_name=output_name,
-            multi_voice=multi_voice,
-            crossfade_ms=crossfade_ms,
-        )
-        result["audio_paths"] = paths
-
+    result = {"tagged_lines": tagged, "mapped_lines": mapped}
+    if emotion_map_only:
+        directory = OUTPUT_DIR / "annotations" / uuid4().hex
+        directory.mkdir(parents=True)
+        write_json(directory / "emotion_map.json", mapped)
+    else:
+        paths = generate_audio(mapped, voice_key=voice, output_name=text_path.name,
+                               multi_voice=multi_voice, crossfade_ms=crossfade_ms)
+        directory = Path(paths[0]).parent
+        result.update(audio_paths=paths, manifest_path=str(directory / "generation_manifest.json"))
+    (directory / "input.txt").write_text(text)
+    result["emotion_map_path"] = str(directory / "emotion_map.json")
     return result
 
 
@@ -508,10 +436,11 @@ if __name__ == "__main__":
                         help="Crossfade overlap in ms between segments (default: 100)")
 
     args = parser.parse_args()
-    run_reverse_pipeline(
+    result = run_reverse_pipeline(
         args.text_file,
         voice=args.voice,
         emotion_map_only=args.emotion_map,
         multi_voice=args.multi_voice,
         crossfade_ms=args.crossfade,
     )
+    print(json.dumps(result, ensure_ascii=False, allow_nan=False))

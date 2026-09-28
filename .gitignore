@@ -7,6 +7,14 @@ dist/
 build/
 venv/
 .env
+.pytest_cache/
+uploads/
+output/cache/
+output/recordings/
+output/renders/
+output/annotations/
+output/calibration/runs/
+output/calibration/reports/
 
 # Output artifacts (regeneratable)
 output/*.mp3

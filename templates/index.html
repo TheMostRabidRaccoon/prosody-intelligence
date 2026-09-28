@@ -361,7 +361,7 @@
 
 <div class="tabs">
     <div class="tab active" data-panel="forward">ANALYZE AUDIO</div>
-    <div class="tab" data-panel="proof">PROOF TEST</div>
+    <div class="tab" data-panel="proof">EXPLORATORY COMPARISON</div>
     <div class="tab" data-panel="reverse">REVERSE PIPELINE</div>
 </div>
 
@@ -376,10 +376,11 @@
         </div>
         <div class="controls">
             <button class="btn btn-primary" id="btn-analyze" disabled>ANALYZE</button>
-            <label class="checkbox-wrap">
-                <input type="checkbox" id="chk-skip-llm">
-                Skip LLM (extraction only)
-            </label>
+            <select id="analysis-mode" aria-label="Analysis mode">
+                <option value="measure">Acoustic measurements (no API calls)</option>
+                <option value="transcript">Measurements + transcript</option>
+                <option value="interpret">Measurements + transcript + optional interpretation</option>
+            </select>
             <span id="forward-filename" style="color:#555; font-size:11px;"></span>
         </div>
         <div class="loader" id="forward-loader">
@@ -390,15 +391,15 @@
         <div class="results" id="forward-results"></div>
     </div>
 
-    <!-- ═══════ PROOF TEST ═══════ -->
+    <!-- ═══════ EXPLORATORY COMPARISON ═══════ -->
     <div class="panel" id="panel-proof">
         <div class="upload-zone" id="proof-upload">
-            <h3>Drop audio for A/B proof test</h3>
-            <p>Runs LLM analysis twice: text-only vs text+prosody</p>
+            <h3>Drop audio for exploratory comparison</h3>
+            <p>Same instructions, text-only vs text + acoustics. Unscored; does not establish accuracy.</p>
             <input type="file" id="proof-file" accept="audio/*">
         </div>
         <div class="controls">
-            <button class="btn btn-primary" id="btn-proof" disabled>RUN PROOF TEST</button>
+            <button class="btn btn-primary" id="btn-proof" disabled>RUN EXPLORATORY COMPARISON</button>
             <span id="proof-filename" style="color:#555; font-size:11px;"></span>
         </div>
         <div class="loader" id="proof-loader">
@@ -446,11 +447,20 @@ KYRA: Ship something or I'm revoking snack privileges."></textarea>
 </main>
 
 <div class="status-bar">
-    <span>Prosody Intelligence v1.0</span>
+    <span>Prosody Intelligence — measurement schema 2</span>
     <span>Forward: Whisper + Parselmouth + LLM &nbsp;|&nbsp; Reverse: LLM + ElevenLabs</span>
 </div>
 
 <script>
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[c]);
+}
+function displayNumber(value, digits = 2) {
+    return typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'unavailable';
+}
+
 // ── Tab Switching ──
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -494,7 +504,8 @@ document.getElementById('btn-analyze').addEventListener('click', async () => {
     const loader = document.getElementById('forward-loader');
     const results = document.getElementById('forward-results');
     const btn = document.getElementById('btn-analyze');
-    const skipLlm = document.getElementById('chk-skip-llm').checked;
+    const mode = document.getElementById('analysis-mode').value;
+    const skipLlm = mode !== 'interpret';
 
     btn.disabled = true;
     loader.classList.add('active');
@@ -502,14 +513,15 @@ document.getElementById('btn-analyze').addEventListener('click', async () => {
 
     const formData = new FormData();
     formData.append('audio', file);
-    if (skipLlm) formData.append('skip_llm', 'true');
+    formData.append('skip_llm', String(skipLlm));
+    document.getElementById('forward-step').textContent = mode === 'measure' ? 'Measuring acoustic features...' : 'Transcribing and measuring...';
 
     try {
-        const resp = await fetch('/api/analyze', { method: 'POST', body: formData });
+        const resp = await fetch(mode === 'measure' ? '/api/measure' : '/api/analyze', { method: 'POST', body: formData });
         const data = await resp.json();
 
         if (data.error) {
-            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(data.error)}</p></div>`;
             return;
         }
 
@@ -519,27 +531,26 @@ document.getElementById('btn-analyze').addEventListener('click', async () => {
         if (data.visualization) {
             html += `<div class="result-card">
                 <h3>Prosody Visualization</h3>
-                <img src="${data.visualization}" alt="Prosody visualization">
+                <img src="${escapeHtml(data.visualization)}" alt="Prosody visualization">
                 <p style="color:#666; font-size:11px;">${data.segment_count} segments &bull; ${data.duration.toFixed(1)}s duration</p>
             </div>`;
         }
 
-        // Annotated Segments — use adaptive speaker threshold from backend
-        const threshold = data.speaker_threshold || 170;
-        html += `<div class="result-card"><h3>Annotated Transcript</h3>
-            <p style="color:#666; font-size:10px; margin-bottom:12px;">Speaker split threshold: ${threshold.toFixed(1)}Hz (adaptive median)</p>`;
+        // Source-linked observations; speaker identity is never inferred from pitch.
+        html += `<div class="result-card"><h3>Measurements</h3>`;
         data.segments.forEach(seg => {
-            const p = seg.prosody;
-            const isLow = p.avg_pitch < threshold;
-            const pauseHighlight = p.pause_before > 1.0 ? 'highlight' : '';
-            html += `<div class="segment ${isLow ? 'speaker-low' : ''}">
-                <div class="text">${seg.text}</div>
+            const m = seg.measurement;
+            const status = seg.validity;
+            html += `<div class="segment">
+                <div class="text">${escapeHtml(seg.text || 'Whole recording')}</div>
                 <div class="meta">
-                    <span>pitch: ${p.avg_pitch}Hz ${p.pitch_direction}</span>
-                    <span>variance: ${p.pitch_variance}</span>
-                    <span>energy: ${p.energy}</span>
-                    <span>rate: ${p.speaking_rate} syl/s</span>
-                    <span class="${pauseHighlight}">pause: ${p.pause_before}s</span>
+                    <span>F0: ${displayNumber(m.f0_mean_hz, 1)} Hz (${escapeHtml(status.f0_mean_hz)})</span>
+                    <span>Pitch SD: ${displayNumber(m.f0_std_hz, 1)} Hz</span>
+                    <span>Intensity: ${displayNumber(m.intensity_mean_db, 1)} dB (uncalibrated)</span>
+                    <span>RMS: ${displayNumber(m.rms_dbfs, 1)} dBFS</span>
+                    <span>Intensity crossings: ${displayNumber(m.intensity_crossings_per_second)} /s (unvalidated proxy)</span>
+                    <span>Transcript gap before: ${displayNumber(m.transcript_gap_before_s)} s</span>
+                    <span>Speaker: ${escapeHtml(seg.speaker_id || 'unassigned')}</span>
                 </div>
             </div>`;
         });
@@ -548,8 +559,8 @@ document.getElementById('btn-analyze').addEventListener('click', async () => {
         // LLM Analysis
         if (data.analysis) {
             html += `<div class="result-card">
-                <h3>Prosody Analysis</h3>
-                <div class="analysis-text">${data.analysis}</div>
+                <h3>Optional interpretation</h3>
+                <div class="analysis-text">${escapeHtml(data.analysis)}</div>
             </div>`;
         }
 
@@ -561,7 +572,7 @@ document.getElementById('btn-analyze').addEventListener('click', async () => {
 
         results.innerHTML = html;
     } catch (err) {
-        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(err.message)}</p></div>`;
     } finally {
         loader.classList.remove('active');
         btn.disabled = false;
@@ -589,7 +600,7 @@ document.getElementById('btn-proof').addEventListener('click', async () => {
         const data = await resp.json();
 
         if (data.error) {
-            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(data.error)}</p></div>`;
             return;
         }
 
@@ -599,7 +610,7 @@ document.getElementById('btn-proof').addEventListener('click', async () => {
         if (data.visualization) {
             html += `<div class="result-card">
                 <h3>Prosody Visualization</h3>
-                <img src="${data.visualization}" alt="Prosody visualization">
+                <img src="${escapeHtml(data.visualization)}" alt="Prosody visualization">
             </div>`;
         }
 
@@ -608,18 +619,18 @@ document.getElementById('btn-proof').addEventListener('click', async () => {
             <div class="proof-grid">
                 <div class="proof-col pass-a">
                     <h4>Pass A: Text Only</h4>
-                    <div class="analysis-text">${data.text_analysis}</div>
+                    <div class="analysis-text">${escapeHtml(data.text_analysis)}</div>
                 </div>
                 <div class="proof-col pass-b">
                     <h4>Pass B: Text + Prosody</h4>
-                    <div class="analysis-text">${data.prosody_analysis}</div>
+                    <div class="analysis-text">${escapeHtml(data.prosody_analysis)}</div>
                 </div>
             </div>
         </div>`;
 
         results.innerHTML = html;
     } catch (err) {
-        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(err.message)}</p></div>`;
     } finally {
         loader.classList.remove('active');
         btn.disabled = false;
@@ -657,7 +668,7 @@ document.getElementById('btn-emotion-map').addEventListener('click', async () =>
         const data = await resp.json();
 
         if (data.error) {
-            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(data.error)}</p></div>`;
             return;
         }
 
@@ -668,8 +679,8 @@ document.getElementById('btn-emotion-map').addEventListener('click', async () =>
         data.emotion_map.forEach(item => {
             const p = item.tts_params;
             html += `<div class="emotion-row">
-                <span class="emotion-tag ${item.emotion}">${item.emotion}</span>
-                <span class="emotion-text">${item.text}</span>
+                <span class="emotion-tag ${escapeHtml(item.emotion)}">${escapeHtml(item.emotion)}${item.annotation_status === 'fallback' ? ' (fallback)' : ''}</span>
+                <span class="emotion-text">${escapeHtml(item.text)}</span>
                 <span class="emotion-params">S:${p.stability} St:${p.style} Sp:${p.speed}</span>
             </div>`;
         });
@@ -677,7 +688,7 @@ document.getElementById('btn-emotion-map').addEventListener('click', async () =>
 
         results.innerHTML = html;
     } catch (err) {
-        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+        results.innerHTML = `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(err.message)}</p></div>`;
     } finally {
         loader.classList.remove('active');
         btnMap.disabled = false;
@@ -713,19 +724,19 @@ document.getElementById('btn-generate-tts').addEventListener('click', async () =
         const data = await resp.json();
 
         if (data.error) {
-            results.innerHTML += `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${data.error}</p></div>`;
+            results.innerHTML += `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(data.error)}</p></div>`;
             return;
         }
 
         if (data.audio_url) {
             results.innerHTML += `<div class="result-card">
                 <h3>Generated Audio</h3>
-                <audio controls src="${data.audio_url}"></audio>
-                <p style="color:#666; font-size:11px; margin-top:8px;">Voice: ${voice} &bull; ${data.emotion_map.length} segments</p>
+                <audio controls src="${escapeHtml(data.audio_url)}"></audio>
+                <p style="color:#666; font-size:11px; margin-top:8px;">Voice: ${escapeHtml(voice)} &bull; ${data.emotion_map.length} segments</p>
             </div>`;
         }
     } catch (err) {
-        results.innerHTML += `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${err.message}</p></div>`;
+        results.innerHTML += `<div class="result-card"><h3>Error</h3><p style="color:#F87171">${escapeHtml(err.message)}</p></div>`;
     } finally {
         loader.classList.remove('active');
         btn.disabled = false;
